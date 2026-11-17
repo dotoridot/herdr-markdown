@@ -1665,7 +1665,7 @@ index 060d1eb..94a9a1b 100644
 +[target.'cfg(target_os = "macos")'.dependencies]
 +wry = { package = "lb-wry", version = "=0.53.3", default-features = false, features = ["protocol"] }
 diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
-index f88bf69..98db28b 100644
+index f88bf69..433c8ad 100644
 --- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
 +++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
 @@ -455,10 +455,30 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
@@ -1700,7 +1700,7 @@ index f88bf69..98db28b 100644
                  let store = alive(&ctx, &create_editor)?;
                  scope::with_current(|window, cx| {
                      store
-@@ -538,6 +558,55 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
+@@ -538,6 +558,62 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
          ),
      )?;
  
@@ -1743,8 +1743,15 @@ index f88bf69..98db28b 100644
 +        Ok(true)
 +    }))?;
 +    let discard_webview = runtime.clone();
-+    globals.set("__webview_release", Func::from(move |handle: EntityHandle| {
-+        discard_webview.upgrade().is_some_and(|runtime| runtime.entities().release(handle))
++    globals.set("__webview_release", Func::from(move |ctx: Ctx<'_>, handle: EntityHandle| -> JsResult<bool> {
++        refuse_mutation_in_render(&ctx, "WebViewState.release(...)")?;
++        let runtime = alive(&ctx, &discard_webview)?;
++        scope::with_current(|_, cx| {
++            let release = { runtime.entities().release_webview(handle) };
++            let Some(release) = release else { return false };
++            release.retire(cx);
++            true
++        }).ok_or_else(|| needs_call(&ctx, "WebViewState.release(...)"))
 +    }))?;
 +    let webview_element = runtime.clone();
 +    globals.set("__webview_element", Func::from(move |ctx: Ctx<'_>, handle: EntityHandle| -> JsResult<SpecId> {
@@ -1756,6 +1763,18 @@ index f88bf69..98db28b 100644
      // Sliders. A slider's value is retained for the same reason an input's
      // text is, and for one more: a drag writes it from a GPUI listener with no
      // script in the loop, so there is nowhere else it could live.
+diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
+index fdf12f3..43cf52a 100644
+--- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
++++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
+@@ -45,6 +45,7 @@ impl ShellRuntime {
+         self: &Rc<Self>, root: &Entity<ShellRoot>, deadline: Instant,
+         window: &mut Window, cx: &mut App,
+     ) -> Option<Closing> {
++        root.update(cx, |root, cx| root.set_native_views_visible(false, cx));
+         let view = root.read(cx).application()?.view.clone();
+         let object = view.read(cx).object().clone();
+         let policy = view.read(cx).policy();
 diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
 index 6061806..e4f8d53 100644
 --- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
@@ -1852,7 +1871,7 @@ index 6061806..e4f8d53 100644
          // a template rather than into a description, and the position it landed
          // in is a slot. Checked before the dispatch below because the ordinary
 diff --git a/vendor/gpui-kit/crates/shell/src/entities.rs b/vendor/gpui-kit/crates/shell/src/entities.rs
-index 790ab6c..be5fd2b 100644
+index 790ab6c..78fe1d0 100644
 --- a/vendor/gpui-kit/crates/shell/src/entities.rs
 +++ b/vendor/gpui-kit/crates/shell/src/entities.rs
 @@ -95,6 +95,12 @@ enum Record {
@@ -1884,7 +1903,33 @@ index 790ab6c..be5fd2b 100644
              font_family: None,
              font_size: None,
          }
-@@ -303,6 +311,7 @@ impl EntityStore {
+@@ -248,6 +256,7 @@ pub(crate) struct EntityRelease {
+     handles: HashSet<EntityHandle>,
+     _records: Vec<StoredRecord>,
+     views: Vec<(Entity<ScriptView>, Weak<ShellRuntime>)>,
++    webviews: Vec<Entity<crate::webview::WebViewState>>,
+ }
+ 
+ impl EntityRelease {
+@@ -256,6 +265,7 @@ impl EntityRelease {
+             handles: HashSet::new(),
+             _records: Vec::new(),
+             views: Vec::new(),
++            webviews: Vec::new(),
+         }
+     }
+ 
+@@ -278,6 +288,9 @@ impl EntityRelease {
+         for (view, _) in &self.views {
+             view.update(cx, |view, _| view.retire());
+         }
++        for state in &self.webviews {
++            state.update(cx, |state, _| state.retire());
++        }
+         // `records` and the extra entity clones drop only after every snapshot
+         // has been cleared. Script values therefore remain inside VM lifetime.
+     }
+@@ -303,6 +316,7 @@ impl EntityStore {
              Record::Textarea { .. } => Some("TextareaState"),
              // HERDR: expose the distinct code-editor handle type.
              Record::Editor { .. } => Some("EditorState"),
@@ -1892,7 +1937,7 @@ index 790ab6c..be5fd2b 100644
              Record::Calendar { .. } => Some("CalendarState"),
              Record::Slider { .. } => Some("SliderState"),
              Record::Otp { .. } => Some("OtpState"),
-@@ -483,6 +492,42 @@ impl EntityStore {
+@@ -483,6 +497,42 @@ impl EntityStore {
          })
      }
  
@@ -1935,7 +1980,30 @@ index 790ab6c..be5fd2b 100644
      // HERDR: never resolve an editor as an input or textarea.
      pub fn editor(&self, handle: EntityHandle) -> Option<Entity<EditorState>> {
          match self.record(handle) {
-@@ -1018,6 +1063,7 @@ impl EntityStore {
+@@ -937,12 +987,21 @@ impl EntityStore {
+         let Some(record) = self.records.get(&id) else {
+             return false;
+         };
+-        if matches!(record.record, Record::View { .. }) {
++        if matches!(record.record, Record::View { .. } | Record::WebView { .. }) {
+             return false;
+         }
+         self.records.remove(&id).is_some()
+     }
+ 
++    /// Retires a native page even when a rendered frame still retains it.
++    pub(crate) fn release_webview(&mut self, handle: EntityHandle) -> Option<EntityRelease> {
++        let id = self.entity_id(handle)?;
++        if !matches!(self.records.get(&id)?.record, Record::WebView { .. }) {
++            return None;
++        }
++        Some(self.take_records(HashSet::from([id])))
++    }
++
+     /// Releases a retained view and everything created under its ownership.
+     ///
+     /// This is deliberately typed: retiring a view must synchronously clear
+@@ -1018,6 +1077,7 @@ impl EntityStore {
                  }
                  // HERDR: unload editors and their subscriptions with the owning mod.
                  | Record::Editor { application: owner, .. }
@@ -1943,6 +2011,30 @@ index 790ab6c..be5fd2b 100644
                  | Record::Slider {
                      application: owner, ..
                  }
+@@ -1067,11 +1127,15 @@ impl EntityStore {
+             .collect();
+         let mut records = Vec::with_capacity(ids.len());
+         let mut views = Vec::new();
++        let mut webviews = Vec::new();
+         for id in ids {
+             if let Some(stored) = self.records.remove(&id) {
+                 if let Record::View { view, runtime, .. } = &stored.record {
+                     views.push((view.clone(), runtime.clone()));
+                 }
++                if let Record::WebView { state, .. } = &stored.record {
++                    webviews.push(state.clone());
++                }
+                 records.push(stored);
+             }
+         }
+@@ -1079,6 +1143,7 @@ impl EntityStore {
+             handles,
+             _records: records,
+             views,
++            webviews,
+         }
+     }
+ 
 diff --git a/vendor/gpui-kit/crates/shell/src/lib.rs b/vendor/gpui-kit/crates/shell/src/lib.rs
 index 1951249..ffee536 100644
 --- a/vendor/gpui-kit/crates/shell/src/lib.rs
@@ -2021,10 +2113,10 @@ index 5b6693b..f572162 100644
          "checked" => behavior.checked = flag.unwrap_or(true),
          "value" => behavior.value = args.first().and_then(|value| value.as_f32().ok()),
 diff --git a/vendor/gpui-kit/crates/shell/src/root.rs b/vendor/gpui-kit/crates/shell/src/root.rs
-index f247daa..a52e805 100644
+index f247daa..69ddf9a 100644
 --- a/vendor/gpui-kit/crates/shell/src/root.rs
 +++ b/vendor/gpui-kit/crates/shell/src/root.rs
-@@ -290,6 +290,22 @@ impl ShellRoot {
+@@ -290,6 +290,24 @@ impl ShellRoot {
          Some(root.read(cx).tooltip_overlay.clone())
      }
  
@@ -2033,14 +2125,16 @@ index f247daa..a52e805 100644
 +    pub fn set_native_views_visible(&self, visible: bool, cx: &mut App) {
 +        if let Some(application) = &self.application {
 +            let runtime = application.view.read(cx).runtime();
-+            runtime.entities().set_webviews_visible(self.application_generation.as_ref(), visible, cx);
++            let generation = application.view.read(cx).application_generation();
++            runtime.entities().set_webviews_visible(generation.as_ref(), visible, cx);
 +        }
 +    }
 +
 +    /// HERDR: native page clicks participate in the same pane selection as terminals.
 +    pub fn native_view_is_focused(&self, window: &Window, cx: &App) -> bool {
 +        self.application.as_ref().is_some_and(|application| {
-+            application.view.read(cx).runtime().entities().webview_is_focused(self.application_generation.as_ref(), window, cx)
++            let view = application.view.read(cx);
++            view.runtime().entities().webview_is_focused(view.application_generation().as_ref(), window, cx)
 +        })
 +    }
 +
@@ -2312,10 +2406,10 @@ index 813b410..862175e 100644
      }
 diff --git a/vendor/gpui-kit/crates/shell/src/webview.rs b/vendor/gpui-kit/crates/shell/src/webview.rs
 new file mode 100644
-index 0000000..5b13983
+index 0000000..be24cfb
 --- /dev/null
 +++ b/vendor/gpui-kit/crates/shell/src/webview.rs
-@@ -0,0 +1,560 @@
+@@ -0,0 +1,714 @@
 +//! HERDR: a retained, local-only WebView for document editor mods.
 +//!
 +//! This host does not grant the page file or network access. The owning mod
@@ -2362,6 +2456,7 @@ index 0000000..5b13983
 +    assets: Arc<cap_std::fs::Dir>,
 +    entry: String,
 +    allowed_visible: bool,
++    retired: bool,
 +    focus_handle: Option<gpui::FocusHandle>,
 +    #[cfg(target_os = "macos")]
 +    native: Option<Rc<wry::WebView>>,
@@ -2371,10 +2466,7 @@ index 0000000..5b13983
 +impl EventEmitter<WebViewMessage> for WebViewState {}
 +impl Drop for WebViewState {
 +    fn drop(&mut self) {
-+        #[cfg(target_os = "macos")]
-+        if let Some(native) = &self.native {
-+            let _ = native.set_visible(false);
-+        }
++        self.retire();
 +    }
 +}
 +impl WebViewState {
@@ -2394,6 +2486,7 @@ index 0000000..5b13983
 +            assets,
 +            entry: options.entry,
 +            allowed_visible: true,
++            retired: false,
 +            focus_handle: None,
 +            #[cfg(target_os = "macos")]
 +            native: None,
@@ -2402,6 +2495,9 @@ index 0000000..5b13983
 +        })
 +    }
 +    fn receive_message(&mut self, message: String, window: &mut Window, cx: &mut Context<Self>) {
++        if self.retired {
++            return;
++        }
 +        if message == NATIVE_FOCUS_MESSAGE {
 +            if self.allowed_visible {
 +                if let Some(focus) = &self.focus_handle {
@@ -2413,13 +2509,16 @@ index 0000000..5b13983
 +        cx.emit(WebViewMessage(message));
 +    }
 +    pub(crate) fn is_focused(&self, window: &Window) -> bool {
-+        self.allowed_visible
++        !self.retired && self.allowed_visible
 +            && self
 +                .focus_handle
 +                .as_ref()
 +                .is_some_and(|focus| focus.is_focused(window))
 +    }
 +    pub(crate) fn post_message(&self, message: &str) -> Result<()> {
++        if self.retired {
++            bail!("WebView state has been released");
++        }
 +        if message.len() > MAX_MESSAGE {
 +            bail!("WebView message exceeds 8 MiB");
 +        }
@@ -2438,21 +2537,47 @@ index 0000000..5b13983
 +        #[cfg(not(target_os = "macos"))]
 +        bail!("Local document WebViews are currently supported on macOS only")
 +    }
++    pub(crate) fn retire(&mut self) {
++        self.set_visible(false);
++        self.retired = true;
++        self.focus_handle = None;
++        #[cfg(target_os = "macos")]
++        {
++            self.messages.take();
++            self.native.take();
++        }
++    }
 +    pub(crate) fn set_visible(&mut self, visible: bool) {
-+        if self.allowed_visible == visible {
++        if self.retired || (visible && self.allowed_visible) {
 +            return;
 +        }
 +        self.allowed_visible = visible;
 +        #[cfg(target_os = "macos")]
 +        if let Some(native) = &self.native {
-+            let _ = native.set_visible(visible);
 +            if !visible {
-+                let _ = native.focus_parent();
++                use wry::WebViewExtMacOS as _;
++                let view = native.webview();
++                let mut responder = view.window().and_then(|window| window.firstResponder());
++                while let Some(current) = responder {
++                    if std::ptr::from_ref(&*current).cast::<()>()
++                        == std::ptr::from_ref(&*view).cast::<()>()
++                    {
++                        let _ = native.focus_parent();
++                        break;
++                    }
++                    // SAFETY: state changes and Drop run on AppKit's UI thread;
++                    // the attached view and its owning window remain alive here.
++                    responder = unsafe { current.nextResponder() };
++                }
 +            }
++            let _ = native.set_visible(visible);
 +        }
 +    }
 +    #[cfg(target_os = "macos")]
 +    fn attach(&mut self, window: &mut Window, cx: &mut Context<Self>) -> Result<()> {
++        if self.retired {
++            bail!("WebView state has been released");
++        }
 +        if self.native.is_some() {
 +            return Ok(());
 +        }
@@ -2656,7 +2781,7 @@ index 0000000..5b13983
 +        let clip = bounds.intersect(&window.content_mask().bounds);
 +        let state = self.state.read(cx);
 +        if let Some(native) = &state.native {
-+            let visible = state.allowed_visible
++            let visible = !state.retired && state.allowed_visible
 +                && clip.size.width > gpui::px(0.)
 +                && clip.size.height > gpui::px(0.);
 +            if visible {
@@ -2709,8 +2834,9 @@ index 0000000..5b13983
 +    use super::*;
 +    fn test_directory() -> PathBuf {
 +        let path = std::env::temp_dir().join(format!(
-+            "herdr-webview-{}-{}",
++            "herdr-webview-{}-{}-{}",
 +            std::process::id(),
++            std::thread::current().name().unwrap_or("test"),
 +            std::time::SystemTime::now()
 +                .duration_since(std::time::UNIX_EPOCH)
 +                .unwrap()
@@ -2774,6 +2900,128 @@ index 0000000..5b13983
 +        });
 +        std::fs::remove_dir_all(root).unwrap();
 +    }
++    #[gpui::test]
++    fn local_webview_reload_routes_visibility_and_focus_to_current_generation(
++        cx: &mut gpui::TestAppContext,
++    ) {
++        use gpui::VisualTestContext;
++        cx.update(crate::init);
++        let directory = test_directory();
++        std::fs::write(directory.join("index.html"), "local").unwrap();
++        crate::set_capabilities(crate::Capabilities::new().read_roots([directory.clone()]));
++        let source = format!(r#"
++            import {{ View }} from 'gpui-kit';
++            import {{ WebViewState }} from 'gpui-base';
++            export default class Probe extends View {{
++                init() {{ this.page = WebViewState.new({{asset_root: {}}}); }}
++                render() {{ return 'native-handle=' + this.page.__handle; }}
++            }}
++        "#, serde_json::to_string(&directory).unwrap());
++        std::fs::write(directory.join("main.js"), &source).unwrap();
++        let runtime = crate::ShellRuntime::new_isolated().unwrap();
++        cx.update(|cx| runtime.set_global(cx));
++        let window = cx.add_window(|_, _| gpui::Empty);
++        let mut context = VisualTestContext::from_window(*window, cx);
++        let root = context.update(|window, cx| runtime.try_load(&directory, window, cx)).unwrap();
++        std::fs::write(directory.join("main.js"), format!("{source}\n// changed build")).unwrap();
++        context.update(|window, cx| runtime.reload_now(&root, window, cx)).unwrap();
++        let view = context.update(|_, cx| root.read(cx).application().unwrap().view.clone());
++        let drawn = view.clone();
++        context.draw(gpui::Point::default(), gpui::size(gpui::px(400.), gpui::px(300.)),
++            move |_, _| drawn.into_any_element());
++        context.update(|window, cx| {
++            let tree = view.read(cx).snapshot().unwrap().debug_tree();
++            let handle = tree.split("native-handle=").nth(1).unwrap()
++                .split(|c: char| !c.is_ascii_digit()).next().unwrap().parse().unwrap();
++            let document = runtime.entities().webview(handle).unwrap();
++            document.update(cx, |state, cx| {
++                state.focus_handle = Some(cx.focus_handle());
++                state.receive_message(NATIVE_FOCUS_MESSAGE.into(), window, cx);
++            });
++            let focused = root.read(cx).native_view_is_focused(window, cx);
++            root.update(cx, |root, cx| root.set_native_views_visible(false, cx));
++            assert!(!document.read(cx).allowed_visible,
++                "inactive root must hide the current generation after reload");
++            assert!(focused, "current generation native focus must select its pane");
++        });
++        std::fs::remove_dir_all(directory).unwrap();
++    }
++
++    #[gpui::test]
++    fn local_webview_close_retires_page_before_retained_frame_drops(
++        cx: &mut gpui::TestAppContext,
++    ) {
++        use gpui::VisualTestContext;
++        cx.update(crate::init);
++        let directory = test_directory();
++        std::fs::write(directory.join("index.html"), "local").unwrap();
++        crate::set_capabilities(crate::Capabilities::new().read_roots([directory.clone()]));
++        let source = format!(r#"
++            import {{ View }} from 'gpui-kit';
++            import {{ WebViewState }} from 'gpui-base';
++            export default class Probe extends View {{
++                init() {{ this.page = WebViewState.new({{asset_root: {}}}); }}
++                close() {{ this.page.release(); }}
++                render() {{ return 'native-handle=' + this.page.__handle; }}
++            }}
++        "#, serde_json::to_string(&directory).unwrap());
++        std::fs::write(directory.join("main.js"), &source).unwrap();
++        let runtime = crate::ShellRuntime::new_isolated().unwrap();
++        cx.update(|cx| runtime.set_global(cx));
++        let window = cx.add_window(|_, _| gpui::Empty);
++        let mut context = VisualTestContext::from_window(*window, cx);
++        let root = context.update(|window, cx| runtime.try_load(&directory, window, cx)).unwrap();
++        let view = context.update(|_, cx| root.read(cx).application().unwrap().view.clone());
++        let drawn = view.clone();
++        context.draw(gpui::Point::default(), gpui::size(gpui::px(400.), gpui::px(300.)),
++            move |_, _| drawn.into_any_element());
++        context.update(|window, cx| {
++            let tree = view.read(cx).snapshot().unwrap().debug_tree();
++            let handle = tree.split("native-handle=").nth(1).unwrap()
++                .split(|c: char| !c.is_ascii_digit()).next().unwrap().parse().unwrap();
++            let document = runtime.entities().webview(handle).unwrap();
++            runtime.close_now(&root, std::time::Instant::now() + std::time::Duration::from_millis(100), window, cx);
++            assert!(!document.read(cx).allowed_visible,
++                "closing a root must hide even a frame-retained native page");
++            assert!(document.read(cx).post_message("late").unwrap_err().to_string().contains("released"),
++                "explicit release from close must immediately retire native state");
++            document.update(cx, |state, _| state.set_visible(true));
++            assert!(!document.read(cx).allowed_visible,
++                "a closed frame must not reactivate the native page");
++        });
++        std::fs::remove_dir_all(directory).unwrap();
++    }
++
++    #[gpui::test]
++    fn local_webview_application_release_retires_frame_retained_state(
++        cx: &mut gpui::TestAppContext,
++    ) {
++        use gpui::{AppContext as _, VisualTestContext};
++        cx.update(crate::init);
++        let directory = test_directory();
++        std::fs::write(directory.join("index.html"), "local").unwrap();
++        let policy = crate::policy::Policy::new()
++            .with_capabilities(crate::Capabilities::new().read_roots([directory.clone()]));
++        let runtime = crate::ShellRuntime::new_isolated().unwrap();
++        let window = cx.add_window(|_, _| gpui::Empty);
++        let mut context = VisualTestContext::from_window(*window, cx);
++        context.update(|_, cx| {
++            let application = crate::runtime::ApplicationGeneration::new(1);
++            let document = cx.new(|_| WebViewState::new(WebViewOptions {
++                asset_root: directory.clone(), entry: "index.html".into(),
++            }, &policy).unwrap());
++            let handle = runtime.entities().create_webview(document.clone(), Some(application.clone())).unwrap();
++            runtime.release_application_generation(&application, cx);
++            assert!(runtime.entities().webview(handle).is_none());
++            assert!(!document.read(cx).allowed_visible,
++                "a retained frame must not keep a released native page visible");
++            document.update(cx, |state, _| state.set_visible(true));
++            assert!(!document.read(cx).allowed_visible,
++                "a stale frame must not reactivate released native state");
++        });
++        std::fs::remove_dir_all(directory).unwrap();
++    }
++
 +    #[test]
 +    fn local_webview_bridge_keeps_image_burst_and_save_in_order() {
 +        let (send, receive) = message_channel();

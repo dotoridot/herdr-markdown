@@ -50,3 +50,5 @@ The patch also includes a vendored lb-wry editing-shortcut correction for focuse
 - A partially clipped surface uses its visible intersection as its native frame.
 - GPUI screenshots can omit native WebViews. Validate with an OS window capture.
 - Browser unit tests are separate from native keyboard, IME, focus, and visibility validation. Check `VALIDATION.md` before treating a build as an installed release.
+
+Native page visibility and focus ownership follow the current script generation after a mod reload. Closing or releasing a page retires its native surface immediately even when a rendered frame retains it. Focus returns to the parent only when that page owns the AppKit first responder. These lifecycle paths have host regression tests; actual OS keyboard recovery remains a separate manual check.
