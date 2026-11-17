@@ -41,6 +41,8 @@ The asset root itself must be inside the script's read grants. The host retains 
 
 The page has only bundled local assets. Network requests, frames, external navigation, popups, and arbitrary HTML execution from document content are excluded. The owning mod supplies file operations using its existing host capabilities.
 
+The patch also includes a vendored lb-wry editing-shortcut correction for focused child WebViews. Native document activation follows Herdr's existing pane-focus route, and GPUI cursor rectangles exclude visible native child views. These host corrections require an OS-level retest; compilation and geometry tests alone do not establish keyboard or cursor behavior.
+
 ## Native limitations
 
 - The host extension is currently implemented for macOS. Other platforms show an explicit unsupported notice.

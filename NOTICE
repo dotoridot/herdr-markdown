@@ -5,6 +5,9 @@ Includes adaptations of the Herdr app and GPUI shell integration, licensed under
 https://github.com/herdrdev/herdr-app
 https://github.com/longbridge/gpui-kit
 
+The native patch vendors lb-wry 0.53.3, licensed under Apache-2.0 OR MIT, with its license files preserved:
+https://github.com/tauri-apps/wry
+
 The Rich editor uses Tiptap / ProseMirror and Mermaid. Their notices are distributed with the bundled JavaScript.
 https://github.com/ueberdosis/tiptap
 https://prosemirror.net

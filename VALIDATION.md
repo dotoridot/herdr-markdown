@@ -14,3 +14,5 @@ The x86_64 macOS UI run used editor `c02254d` and native host `97a3722f`:
 - Still unverified: exact restored caret/selection range, the actual native font family, and control/raw-fragment clipboard round trips.
 
 Corrections and a native retest are required. This status does not claim that the candidate is installed or that Herdr Mods has indexed it.
+
+Editor `ab45a03` adds a clean-document link/Back selection regression that fails on the earlier editor and passes after saving the outgoing snapshot. Native host `fda6de4c` corrects child WebView shortcut routing, pane-focus activation, and cursor ownership. Its app compile check, seven shell tests, one cursor geometry test, and arm64/x86_64 release builds pass. Independent static reviews approve these changes. The corrected pair still needs its native UI retest.
