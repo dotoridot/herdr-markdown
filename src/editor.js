@@ -124,7 +124,11 @@ const editor=new Editor({
     },
     handleDOMEvents:{click:(_view,event)=>{
       const link=event.target.closest?.('a');
-      if(link&&(event.metaKey||event.ctrlKey)){event.preventDefault();send({type:'follow',href:link.getAttribute('href')});return true;}
+      if(link&&(event.metaKey||event.ctrlKey)){
+        event.preventDefault();positions[mode]=viewport.scrollTop;
+        if(file){documents.set(file,snapshot());send({type:'draft',snapshot:snapshot()});}
+        send({type:'follow',href:link.getAttribute('href')});return true;
+      }
       return false;
     }}},
   onUpdate(){if(settingContent)return;draft=editor.getMarkdown();richSource=draft;version++;sourceChanged=true;changed();},
@@ -278,7 +282,15 @@ $('light-button').onclick=()=>applyPreferences({appearance:'light'});$('dark-but
 $('width-button').onclick=()=>applyPreferences({wide:!preferences.wide});
 $('smaller').onclick=()=>applyPreferences({fontSize:preferences.fontSize-1});$('larger').onclick=()=>applyPreferences({fontSize:preferences.fontSize+1});
 $('save').onclick=save;$('open-form').onsubmit=event=>{event.preventDefault();openFile($('path').value);};
-$('back').onclick=()=>{if(saving)return;if(draft!==baseline)confirmAction('Your draft will be kept. Open the previous document?',()=>send({type:'back'}));else send({type:'back'});};
+$('back').onclick=()=>{
+  if(saving)return;
+  const back=()=>{
+    positions[mode]=viewport.scrollTop;
+    if(file){documents.set(file,snapshot());send({type:'draft',snapshot:snapshot()});}
+    send({type:'back'});
+  };
+  if(draft!==baseline)confirmAction('Your draft will be kept. Open the previous document?',back);else back();
+};
 $('reload').onclick=()=>{
   const reload=()=>send({type:'reload'});
   if(draft!==baseline)confirmAction('Reload the disk version? Your current unsaved changes will be discarded.',reload);else reload();

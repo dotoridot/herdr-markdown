@@ -125,6 +125,23 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.ok(await page.$eval('#viewport',node=>node.scrollTop)>=900);
       assert.match(await page.evaluate(()=>window.herdrMarkdown.snapshot().draft),/Edited/);
     });
+    await t.test('link Back restores a clean document selection without an edit or scroll',async()=>{
+      await page.setViewport({width:1000,height:700});
+      const source='# Back position\n\n[Other](other.md)\n\nA final paragraph.\n';
+      await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/back.md',source}),source);
+      await new Promise(resolve=>setTimeout(resolve,220));
+      await page.click('.tiptap a');
+      await page.keyboard.down('Meta');await page.click('.tiptap a');await page.keyboard.up('Meta');
+      const selection=await page.evaluate(()=>window.herdrMarkdown.snapshot().richSelection);
+      await page.evaluate(()=>window.herdrMarkdown.receive({type:'loading'}));
+      await page.evaluate(()=>window.herdrMarkdown.receive({type:'document',file:'/example/other.md',source:'# Other'}));
+      await new Promise(resolve=>setTimeout(resolve,220));
+      await page.click('#back');
+      await page.evaluate(source=>window.herdrMarkdown.receive({type:'document',file:'/example/back.md',source}),source);
+      await new Promise(resolve=>setTimeout(resolve,220));
+      assert.deepEqual(await page.evaluate(()=>window.herdrMarkdown.snapshot().richSelection),selection);
+      assert.equal(await page.$eval('#viewport',node=>node.scrollTop),0);
+    });
     await t.test('Rich copy and paste preserve frontmatter and raw HTML as source fragments',async()=>{
       const special='---\ntitle: Clipboard\n---\n\n# Copy\n\nKeep <span data-test="yes">inline</span> here.\n\nControl: \u001c.\n\n<!-- comment -->\n';
       await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/clipboard.md',source}),special);
