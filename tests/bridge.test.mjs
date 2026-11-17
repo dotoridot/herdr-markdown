@@ -51,3 +51,10 @@ test('stale saves return an error instead of leaving the page waiting',async()=>
   assert.equal(h.messages.at(-1).type,'error');
   assert.equal(h.writes.length,0);
 });
+test('null bytes cannot turn an editable text file into an unreadable binary file',async()=>{
+  const h=await host();
+  await h.send({type:'save',id:1,file:'/docs/one.md',source:'# Draft\0',expected:'# One'});
+  assert.equal(h.disk.get('/docs/one.md'),'# One');
+  assert.equal(h.messages.at(-1).type,'error');
+  assert.equal(h.writes.length,0);
+});

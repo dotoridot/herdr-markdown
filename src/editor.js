@@ -17,6 +17,7 @@ const positions={rich:0,source:0},documents=new Map();
 const imageViews=new Map();let imageId=0;
 let saveId=0,diagramId=0,preferencesTimer,saveTimer;
 const send=message=>window.ipc?.postMessage(JSON.stringify(message));
+const controlCharacter=/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/;
 
 // HTML stays inert and round-trips as Markdown instead of being executed or dropped.
 const RawBlock=Node.create({
@@ -39,13 +40,25 @@ const Frontmatter=RawBlock.extend({
 const RawInline=Node.create({
   name:'rawInline',group:'inline',inline:true,atom:true,
   addAttributes(){return {source:{default:''}};},
-  parseHTML(){return [{tag:'code[data-raw-inline]',priority:1000,getAttrs:element=>({source:element.textContent||''})}];},
-  renderHTML({node}){return ['code',{'data-raw-inline':'true',contenteditable:'false'},node.attrs.source];},
+  parseHTML(){return [{tag:'code[data-raw-inline]',priority:1000,getAttrs:element=>{
+    try{const source=JSON.parse(element.getAttribute('data-raw-source'));if(typeof source==='string')return {source};}catch{}
+    return {source:element.textContent||''};
+  }}];},
+  renderHTML({node}){
+    const source=node.attrs.source,isControl=source.length===1&&controlCharacter.test(source);
+    return ['code',{'data-raw-inline':'true','data-raw-source':JSON.stringify(source),'data-control-character':isControl?'true':null,contenteditable:'false'},
+      isControl?'[U+'+source.codePointAt(0).toString(16).toUpperCase().padStart(4,'0')+']':source];
+  },
   renderText({node}){return node.attrs.source;},
   markdownTokenName:'rawInline',parseMarkdown(token){return {type:'rawInline',attrs:{source:token.raw}};},
   renderMarkdown(node){return node.attrs.source;},
-  markdownTokenizer:{name:'rawInline',level:'inline',start:src=>src.indexOf('<'),
-    tokenize(src){const match=src.match(/^(?:<!--[\s\S]*?-->|<([A-Za-z][\w:-]*)(?:\s[^>]*?)?>[\s\S]*?<\/\1\s*>|<\/?[A-Za-z][\w:-]*(?:\s[^>]*?)?\/?>)/);return match?{type:'rawInline',raw:match[0]}:undefined;}},
+  markdownTokenizer:{name:'rawInline',level:'inline',start:src=>{
+    const angle=src.indexOf('<'),control=src.search(controlCharacter);
+    return angle<0?control:control<0?angle:Math.min(angle,control);
+  },tokenize(src){
+    if(src.length&&controlCharacter.test(src[0]))return {type:'rawInline',raw:src[0]};
+    const match=src.match(/^(?:<!--[\s\S]*?-->|<([A-Za-z][\w:-]*)(?:\s[^>]*?)?>[\s\S]*?<\/\1\s*>|<\/?[A-Za-z][\w:-]*(?:\s[^>]*?)?\/?>)/);return match?{type:'rawInline',raw:match[0]}:undefined;
+  }},
 });
 
 const DiagramCode=CodeBlock.extend({
@@ -102,9 +115,13 @@ const editor=new Editor({
   element:$('rich-editor'),extensions:[
     StarterKit.configure({codeBlock:false,link:{openOnClick:false,autolink:false,protocols:['http','https','mailto']}}),
     DiagramCode,Markdown,TableKit.configure({table:{resizable:false}}),
-    LocalImage.configure({allowBase64:true}),TaskList,TaskItem.configure({nested:true}),RawBlock,Frontmatter,RawInline,
+    LocalImage.configure({allowBase64:true}),TaskList,TaskItem.configure({nested:true,HTMLAttributes:{'data-type':'taskItem'}}),RawBlock,Frontmatter,RawInline,
   ],content:'',contentType:'markdown',editable:false,
   editorProps:{attributes:{'aria-label':'Rich Markdown editor',spellcheck:'false'},
+    handleTextInput:(_view,_from,_to,text)=>{
+      if(!controlCharacter.test(text))return false;
+      notice('A control key was ignored. Existing control characters can be inspected in Source.');return true;
+    },
     handleDOMEvents:{click:(_view,event)=>{
       const link=event.target.closest?.('a');
       if(link&&(event.metaKey||event.ctrlKey)){event.preventDefault();send({type:'follow',href:link.getAttribute('href')});return true;}
@@ -241,6 +258,11 @@ window.addEventListener('keydown',event=>{
   if(event.key==='Escape')closeMenu();
 });
 sourceInput.addEventListener('input',()=>{draft=sourceInput.value;version++;sourceChanged=true;resizeSource();changed();});
+sourceInput.addEventListener('beforeinput',event=>{
+  if(event.inputType==='insertText'&&event.data&&controlCharacter.test(event.data)){
+    event.preventDefault();notice('A control key was ignored. Paste preserves the original source text.');
+  }
+});
 sourceInput.addEventListener('keydown',event=>{
   if(event.key!=='Tab')return;event.preventDefault();
   const start=sourceInput.selectionStart,end=sourceInput.selectionEnd;

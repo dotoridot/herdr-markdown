@@ -15,6 +15,8 @@ A local Markdown editor for Herdr, with **Source** and editable **Rich** views, 
 
 YAML frontmatter and raw HTML are preserved as inert source fragments. Use Source to edit those fragments. Opening a document or switching views leaves the original Markdown untouched. Rich edits can normalize Markdown spacing, delimiters, and line endings when serialized.
 
+Existing non-text control characters are preserved and shown as codes such as `[U+001C]` in Rich. Ordinary key input cannot insert these characters accidentally. Source and paste retain the original text; null bytes must be removed before saving a text document.
+
 ## Install
 
 The native host patch and its matching base revision are in `native/`. Build and test the patched application separately before replacing your usual Herdr app. Keep your existing app and config available for rollback.

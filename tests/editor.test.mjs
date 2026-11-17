@@ -33,6 +33,14 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       await load(sample+'\nLiteral `&lt;keep&gt;` and `decisions/<topic>.md`.\n');
       assert.ok(await page.$eval('.tiptap',node=>node.textContent.includes('&lt;keep&gt;')));
     });
+    await t.test('a task checkbox stays alongside its text',async()=>{
+      const sideBySide=await page.$eval('.tiptap ul[data-type="taskList"] li',node=>{
+        const checkbox=node.querySelector('input').getBoundingClientRect();
+        const text=node.querySelector('div').getBoundingClientRect();
+        return checkbox.right<=text.left&&Math.abs(checkbox.top-text.top)<20;
+      });
+      assert.equal(sideBySide,true);
+    });
     await t.test('opening and switching views does not rewrite the document',async()=>{
       await page.click('#source-button');
       assert.equal(await page.$eval('#source-editor',node=>node.value),sample+'\nLiteral `&lt;keep&gt;` and `decisions/<topic>.md`.\n');
@@ -118,7 +126,7 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.match(await page.evaluate(()=>window.herdrMarkdown.snapshot().draft),/Edited/);
     });
     await t.test('Rich copy and paste preserve frontmatter and raw HTML as source fragments',async()=>{
-      const special='---\ntitle: Clipboard\n---\n\n# Copy\n\nKeep <span data-test="yes">inline</span> here.\n\n<!-- comment -->\n';
+      const special='---\ntitle: Clipboard\n---\n\n# Copy\n\nKeep <span data-test="yes">inline</span> here.\n\nControl: \u001c.\n\n<!-- comment -->\n';
       await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/clipboard.md',source}),special);
       const result=await page.evaluate(()=>{
         const e=window.herdrMarkdown.editor;e.commands.selectAll();
@@ -132,6 +140,21 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.equal((result.source.match(/<span data-test="yes">inline<\/span>/g)||[]).length,2,result.source);
       assert.ok(result.text.includes('title: Clipboard'),result.text);
       assert.ok(result.text.includes('<span data-test="yes">inline</span>'),result.text);
+      assert.equal((result.source.match(/\u001c/g)||[]).length,2);
+      assert.ok(result.text.includes('\u001c'));
+    });
+    await t.test('existing control characters are visible and preserved, while control key text is rejected',async()=>{
+      await page.evaluate(()=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/control.md',source:'Normal \u001c text.\n'}));
+      assert.equal(await page.$eval('[data-control-character]',node=>node.textContent),'[U+001C]');
+      const result=await page.evaluate(()=>{
+        const e=window.herdrMarkdown.editor,selection=e.state.selection;
+        const handled=e.view.someProp('handleTextInput',fn=>fn(e.view,selection.from,selection.to,'\u001c',()=>e.state.tr));
+        e.commands.focus('end');e.commands.insertContent(' Valid.');
+        return {handled,draft:window.herdrMarkdown.snapshot().draft};
+      });
+      assert.equal(result.handled,true);
+      assert.equal((result.draft.match(/\u001c/g)||[]).length,1,'existing source byte is preserved, invalid key did not add another');
+      assert.ok(result.draft.includes('Valid.'));
     });
     assert.deepEqual(errors,[]);
   }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}

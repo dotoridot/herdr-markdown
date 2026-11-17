@@ -122,6 +122,7 @@ export default class Markdown extends View {
       this.post({type:'error',message:'The document is busy or has changed. Wait for it to finish and save again.'});return;
     }
     if(byteLength(message.source)>MAX_LENGTH){this.post({type:'error',message:'This document exceeds the 1 MiB editing limit. Shorten it before saving.'});return;}
+    if(message.source.includes('\0')){this.post({type:'error',message:'This document contains a null byte. Remove it in Source before saving.'});return;}
     this.saving=true;
     const {file,source,expected,id}=message;
     cx.spawn(async cx=>{
