@@ -69,6 +69,8 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.equal(await page.$eval('body',node=>getComputedStyle(node).backgroundColor),'rgb(24, 24, 24)');
       assert.match(await page.$eval('.tiptap',node=>getComputedStyle(node).fontFamily),/DM Sans Variable/);
       assert.match(await page.$eval('.tiptap code',node=>getComputedStyle(node).fontFamily),/JetBrains Mono/);
+      assert.equal(await page.$eval('.tiptap',node=>getComputedStyle(node).cursor),'text');
+      assert.equal(await page.$eval('#source-editor',node=>getComputedStyle(node).cursor),'text');
       const loaded=await page.evaluate(()=>Array.from(document.fonts).filter(font=>font.status==='loaded').map(font=>font.family));
       assert.ok(loaded.includes('DM Sans Variable'));assert.ok(loaded.includes('Noto Sans KR Variable'));assert.ok(loaded.includes('JetBrains Mono'));
       await page.click('#light-button');
