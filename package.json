@@ -1,0 +1,25 @@
+{
+  "name": "herdr-markdown",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --experimental-vm-modules --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@tiptap/core": "3.34.0",
+    "@tiptap/extension-code-block": "3.34.0",
+    "@tiptap/extension-image": "3.34.0",
+    "@tiptap/extension-table": "3.34.0",
+    "@tiptap/extension-task-item": "3.34.0",
+    "@tiptap/extension-task-list": "3.34.0",
+    "@tiptap/markdown": "3.34.0",
+    "@tiptap/starter-kit": "3.34.0",
+    "mermaid": "12.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.0",
+    "puppeteer-core": "25.17.0"
+  }
+}

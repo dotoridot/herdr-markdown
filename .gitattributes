@@ -1,0 +1,2 @@
+mods/rich-document/editor/editor.js -diff -whitespace linguist-generated=true
+mods/rich-document/renderer/vendor/mermaid.min.js -diff -whitespace linguist-generated=true

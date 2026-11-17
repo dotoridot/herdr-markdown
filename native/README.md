@@ -1,0 +1,50 @@
+# Native host extension
+
+The complete Rich editor currently requires a macOS build of Herdr with the local WebView host extension. This directory contains the patch, including the local terminal Markdown link route and per-document text palettes used by the fallback preview.
+
+The upstream base is pinned in `base.json`. Apply the patch to that revision, rather than assuming it applies to a newer release:
+
+```sh
+git clone https://github.com/herdrdev/herdr-app.git
+cd herdr-app
+git checkout f6fe216e3078225619621174e62b8b4d8cc56513
+git apply /absolute/path/to/herdr-markdown/native/herdr-markdown-host.patch
+cargo build --release --locked --bin herdr-app
+```
+
+Use the upstream build prerequisites, including the pinned Rust dependencies, macOS SDK, and Zig 0.16 for the terminal library. This patch does not update or restart herdr-core.
+
+Test the resulting app in a separate `HERDR_APP_HOME` and a dedicated `HC_SESSION`. Clear inherited terminal-specific HC environment variables before launching the candidate. Copy the mod into that separate home, then run its check with the same explicit home. Keep the usual app and existing sessions intact until native UI validation succeeds.
+
+## Mod API
+
+```js
+import {WebViewState, WebView} from 'gpui-base';
+
+// Create retained state in init(), then register message handling.
+this.page = WebViewState.new({
+  asset_root: '/absolute/path/to/the/mod/editor',
+  entry: 'index.html',
+});
+this.page.on('message', (message, cx) => {
+  // The page sends JSON through window.ipc.postMessage(string).
+});
+
+// After the page's ready message, send JSON strings to its message event.
+this.page.post_message(JSON.stringify({type: 'example'}));
+
+// Return this from render(). Release the retained state in close().
+WebView.new(this.page).size_full();
+```
+
+The asset root itself must be inside the script's read grants. The host retains a capability directory and opens assets relative to it. Absolute paths, parent traversal, and links outside the root are rejected. Messages are limited to 8 MiB, assets to 16 MiB. An unbounded event queue preserves a Save request after large image-message bursts without blocking the UI thread.
+
+The page has only bundled local assets. Network requests, frames, external navigation, popups, and arbitrary HTML execution from document content are excluded. The owning mod supplies file operations using its existing host capabilities.
+
+## Native limitations
+
+- The host extension is currently implemented for macOS. Other platforms show an explicit unsupported notice.
+- The GPUI pre backend places the native WebView above GPUI elements. The app hides document surfaces while a non-toast GPUI overlay is open, then reveals the same retained page when it closes.
+- A partially clipped surface uses its visible intersection as its native frame.
+- GPUI screenshots can omit native WebViews. Validate with an OS window capture.
+- Browser unit tests are separate from native keyboard, IME, focus, and visibility validation. Check `VALIDATION.md` before treating a build as an installed release.

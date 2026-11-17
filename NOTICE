@@ -1,0 +1,13 @@
+Herdr Markdown
+Copyright 2026 Youngsang Kwon
+
+Includes adaptations of the Herdr app and GPUI shell integration, licensed under Apache-2.0:
+https://github.com/herdrdev/herdr-app
+https://github.com/longbridge/gpui-kit
+
+The Rich editor uses Tiptap / ProseMirror and Mermaid. Their notices are distributed with the bundled JavaScript.
+https://github.com/ueberdosis/tiptap
+https://prosemirror.net
+https://github.com/mermaid-js/mermaid
+
+DM Sans, Space Grotesk, Noto Sans KR, and JetBrains Mono are distributed under their SIL Open Font Licenses. The license texts accompany the local font files.

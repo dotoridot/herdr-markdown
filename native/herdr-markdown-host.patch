@@ -1,0 +1,2752 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 74c3a99..09da301 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1050,6 +1050,12 @@ dependencies = [
+  "shlex 2.0.1",
+ ]
+ 
++[[package]]
++name = "cesu8"
++version = "1.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6d43a04d8753f35258c91f8ec639f792891f748a1edbd759cf1dcea3382ad83c"
++
+ [[package]]
+ name = "cexpr"
+ version = "0.6.0"
+@@ -1275,6 +1281,16 @@ version = "1.0.5"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1d07550c9036bf2ae0c684c4297d503f838287c83c53686d05370d0e139ae570"
+ 
++[[package]]
++name = "combine"
++version = "4.6.9"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "4356eba6976435498d05a311ee9fc486da3bc81c200d3f0d7dd9703b41913f92"
++dependencies = [
++ "bytes",
++ "memchr",
++]
++
+ [[package]]
+ name = "compression-codecs"
+ version = "0.4.39"
+@@ -1338,6 +1354,12 @@ dependencies = [
+  "tiny-keccak",
+ ]
+ 
++[[package]]
++name = "convert_case"
++version = "0.4.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
++
+ [[package]]
+ name = "convert_case"
+ version = "0.10.0"
+@@ -1356,6 +1378,16 @@ dependencies = [
+  "unicode-segmentation",
+ ]
+ 
++[[package]]
++name = "cookie"
++version = "0.18.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1a373e3602691c3cdea496d2f0ee5935151e6168fe87739483c463db1b2f2f87"
++dependencies = [
++ "time",
++ "version_check",
++]
++
+ [[package]]
+ name = "core-foundation"
+ version = "0.9.4"
+@@ -1697,6 +1729,15 @@ dependencies = [
+  "cfg-if",
+ ]
+ 
++[[package]]
++name = "crossbeam-channel"
++version = "0.5.17"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "98b0cc327b5bc766e7fda9c9260cc0fa81b43a8e240440422dff70788e3f9ef1"
++dependencies = [
++ "crossbeam-utils",
++]
++
+ [[package]]
+ name = "crossbeam-deque"
+ version = "0.8.7"
+@@ -1783,6 +1824,33 @@ dependencies = [
+  "rand_core 0.10.1",
+ ]
+ 
++[[package]]
++name = "cssparser"
++version = "0.29.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f93d03419cb5950ccfd3daf3ff1c7a36ace64609a1a8746d493df1ca0afde0fa"
++dependencies = [
++ "cssparser-macros",
++ "dtoa-short",
++ "itoa",
++ "matches",
++ "phf 0.10.1",
++ "proc-macro2",
++ "quote",
++ "smallvec",
++ "syn 1.0.109",
++]
++
++[[package]]
++name = "cssparser-macros"
++version = "0.6.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "13b588ba4ac1a99f7f2964d24b3d896ddc6bf847ee3855dbd4366f058cfcd331"
++dependencies = [
++ "quote",
++ "syn 2.0.119",
++]
++
+ [[package]]
+ name = "ctor"
+ version = "1.0.13"
+@@ -1892,6 +1960,19 @@ version = "0.5.8"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7cd812cc2bc1d69d4764bd80df88b4317eaef9e773c75226407d9bc0876b211c"
+ 
++[[package]]
++name = "derive_more"
++version = "0.99.20"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6edb4b64a43d977b8e99788fe3a04d483834fba1215a7e02caa415b626497f7f"
++dependencies = [
++ "convert_case 0.4.0",
++ "proc-macro2",
++ "quote",
++ "rustc_version",
++ "syn 2.0.119",
++]
++
+ [[package]]
+ name = "derive_more"
+ version = "2.1.1"
+@@ -1944,7 +2025,16 @@ version = "5.0.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "44c45a9d03d6676652bcb5e724c7e988de1acad23a711b5217ab9cbecbec2225"
+ dependencies = [
+- "dirs-sys",
++ "dirs-sys 0.4.1",
++]
++
++[[package]]
++name = "dirs"
++version = "6.0.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c3e8aa94d75141228480295a7d0e7feb620b1a5ad9f12bc40be62411e38cce4e"
++dependencies = [
++ "dirs-sys 0.5.0",
+ ]
+ 
+ [[package]]
+@@ -1955,10 +2045,22 @@ checksum = "520f05a5cbd335fae5a99ff7a6ab8627577660ee5cfd6a94a6a929b52ff0321c"
+ dependencies = [
+  "libc",
+  "option-ext",
+- "redox_users",
++ "redox_users 0.4.6",
+  "windows-sys 0.48.0",
+ ]
+ 
++[[package]]
++name = "dirs-sys"
++version = "0.5.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e01a3366d27ee9890022452ee61b2b63a67e6f13f58900b651ff5665f0bb1fab"
++dependencies = [
++ "libc",
++ "option-ext",
++ "redox_users 0.5.3",
++ "windows-sys 0.61.2",
++]
++
+ [[package]]
+ name = "dispatch"
+ version = "0.2.0"
+@@ -2012,6 +2114,27 @@ version = "1.2.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "75b325c5dbd37f80359721ad39aca5a29fb04c89279657cffdda8736d0c0b9d2"
+ 
++[[package]]
++name = "dpi"
++version = "0.1.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d8b14ccef22fc6f5a8f4d7d768562a182c04ce9a3b3157b91390b52ddfdf1a76"
++
++[[package]]
++name = "dtoa"
++version = "1.0.11"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "4c3cf4824e2d5f025c7b531afcb2325364084a16806f6d47fbc1f5fbd9960590"
++
++[[package]]
++name = "dtoa-short"
++version = "0.3.5"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "cd1511a7b6a56299bd043a9c167a6d2bfb37bf84a6dfceaba651168adfb43c87"
++dependencies = [
++ "dtoa",
++]
++
+ [[package]]
+ name = "dunce"
+ version = "1.0.5"
+@@ -2427,6 +2550,18 @@ dependencies = [
+  "bitflags 1.3.2",
+ ]
+ 
++[[package]]
++name = "flume"
++version = "0.11.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "da0e4dd2a88388a1f4ccc7c9ce104604dab68d9f408dc34cd45823d5a9069095"
++dependencies = [
++ "futures-core",
++ "futures-sink",
++ "nanorand",
++ "spin 0.9.9",
++]
++
+ [[package]]
+ name = "flume"
+ version = "0.12.0"
+@@ -2699,6 +2834,15 @@ dependencies = [
+  "slab",
+ ]
+ 
++[[package]]
++name = "fxhash"
++version = "0.2.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c31b6d751ae2c7f11320402d34e41349dd1016f8d5d45e48c4312bc8625af50c"
++dependencies = [
++ "byteorder",
++]
++
+ [[package]]
+ name = "generic-array"
+ version = "0.14.7"
+@@ -2719,6 +2863,17 @@ dependencies = [
+  "windows-link 0.2.1",
+ ]
+ 
++[[package]]
++name = "getrandom"
++version = "0.1.16"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8fc3cb4d91f53b50155bdcfd23f6a4c39ae1969c2ae85982b135750cccaf5fce"
++dependencies = [
++ "cfg-if",
++ "libc",
++ "wasi 0.9.0+wasi-snapshot-preview1",
++]
++
+ [[package]]
+ name = "getrandom"
+ version = "0.2.17"
+@@ -2728,7 +2883,7 @@ dependencies = [
+  "cfg-if",
+  "js-sys",
+  "libc",
+- "wasi",
++ "wasi 0.11.1+wasi-snapshot-preview1",
+  "wasm-bindgen",
+ ]
+ 
+@@ -2890,7 +3045,7 @@ dependencies = [
+  "gpui-pre",
+  "gpui-pre-macros",
+  "gpui-pre-sum-tree",
+- "html5ever",
++ "html5ever 0.27.0",
+  "instant",
+  "itertools 0.13.0",
+  "lsp-types",
+@@ -2930,7 +3085,7 @@ dependencies = [
+  "chrono",
+  "core-video",
+  "ctor",
+- "derive_more",
++ "derive_more 2.1.1",
+  "embed-resource",
+  "etagere",
+  "futures",
+@@ -3021,7 +3176,7 @@ dependencies = [
+  "chrono",
+  "core-video",
+  "ctor",
+- "derive_more",
++ "derive_more 2.1.1",
+  "embed-resource",
+  "etagere",
+  "futures",
+@@ -3090,7 +3245,7 @@ dependencies = [
+  "core-foundation 0.10.1",
+  "core-graphics 0.24.0",
+  "core-video",
+- "derive_more",
++ "derive_more 2.1.1",
+  "dispatch2",
+  "etagere",
+  "foreign-types",
+@@ -3138,7 +3293,7 @@ dependencies = [
+  "anyhow",
+  "async-compression",
+  "bytes",
+- "derive_more",
++ "derive_more 2.1.1",
+  "futures",
+  "http",
+  "http-body",
+@@ -3347,7 +3502,7 @@ dependencies = [
+  "async-task",
+  "backtrace",
+  "chrono",
+- "flume",
++ "flume 0.12.0",
+  "futures",
+  "parking_lot",
+  "rand 0.9.5",
+@@ -3533,7 +3688,9 @@ dependencies = [
+  "gpui-pre-reqwest",
+  "image",
+  "instant",
++ "lb-wry",
+  "libc",
++ "percent-encoding",
+  "quickjs-jit",
+  "quickjs-jit-runtime",
+  "quickjs-jit-stdlib",
+@@ -3727,6 +3884,7 @@ dependencies = [
+  "tracing-subscriber",
+  "ttf-parser",
+  "uds_windows",
++ "url",
+  "windows-sys 0.61.2",
+  "winresource",
+ ]
+@@ -3803,12 +3961,24 @@ checksum = "c13771afe0e6e846f1e67d038d4cb29998a6779f93c809212e4e9c32efd244d4"
+ dependencies = [
+  "log",
+  "mac",
+- "markup5ever",
++ "markup5ever 0.12.1",
+  "proc-macro2",
+  "quote",
+  "syn 2.0.119",
+ ]
+ 
++[[package]]
++name = "html5ever"
++version = "0.29.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "3b7410cae13cbc75623c98ac4cbfd1f0bedddf3227afc24f370cf0f50a44a11c"
++dependencies = [
++ "log",
++ "mac",
++ "markup5ever 0.14.1",
++ "match_token",
++]
++
+ [[package]]
+ name = "http"
+ version = "1.5.0"
+@@ -4268,6 +4438,22 @@ version = "1.0.18"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
+ 
++[[package]]
++name = "jni"
++version = "0.21.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1a87aa2bb7d2af34197c04845522473242e1aa17c12f4935d5856491a7fb8c97"
++dependencies = [
++ "cesu8",
++ "cfg-if",
++ "combine",
++ "jni-sys 0.3.1",
++ "log",
++ "thiserror 1.0.69",
++ "walkdir",
++ "windows-sys 0.45.0",
++]
++
+ [[package]]
+ name = "jni-sys"
+ version = "0.3.1"
+@@ -4355,6 +4541,18 @@ dependencies = [
+  "libc",
+ ]
+ 
++[[package]]
++name = "kuchikiki"
++version = "0.8.8-speedreader"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "02cb977175687f33fa4afa0c95c112b987ea1443e5a51c8f8ff27dc618270cc2"
++dependencies = [
++ "cssparser",
++ "html5ever 0.29.1",
++ "indexmap",
++ "selectors",
++]
++
+ [[package]]
+ name = "kurbo"
+ version = "0.13.1"
+@@ -4373,6 +4571,45 @@ version = "1.5.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
+ 
++[[package]]
++name = "lb-wry"
++version = "0.53.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d9cfe72bff8acf9af0d6d276569be5b9cb3f313f9882761ada5a50d3044214d4"
++dependencies = [
++ "base64",
++ "block2 0.6.2",
++ "cookie",
++ "crossbeam-channel",
++ "dirs 6.0.0",
++ "dpi",
++ "dunce",
++ "flume 0.11.1",
++ "html5ever 0.29.1",
++ "http",
++ "jni",
++ "kuchikiki",
++ "libc",
++ "ndk",
++ "objc2 0.6.4",
++ "objc2-app-kit 0.3.2",
++ "objc2-core-foundation",
++ "objc2-foundation 0.3.2",
++ "objc2-ui-kit",
++ "objc2-web-kit",
++ "once_cell",
++ "percent-encoding",
++ "raw-window-handle",
++ "sha2 0.10.9",
++ "tao-macros",
++ "thiserror 2.0.20",
++ "url",
++ "webview2-com",
++ "windows 0.61.3",
++ "windows-core 0.61.2",
++ "windows-version",
++]
++
+ [[package]]
+ name = "leak"
+ version = "0.1.2"
+@@ -4864,7 +5101,21 @@ checksum = "16ce3abbeba692c8b8441d036ef91aea6df8da2c6b6e21c7e14d3c18e526be45"
+ dependencies = [
+  "log",
+  "phf 0.11.3",
+- "phf_codegen",
++ "phf_codegen 0.11.3",
++ "string_cache",
++ "string_cache_codegen",
++ "tendril",
++]
++
++[[package]]
++name = "markup5ever"
++version = "0.14.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c7a7213d12e1864c0f002f52c2923d4556935a43dec5e71355c2760e0f6e7a18"
++dependencies = [
++ "log",
++ "phf 0.11.3",
++ "phf_codegen 0.11.3",
+  "string_cache",
+  "string_cache_codegen",
+  "tendril",
+@@ -4876,12 +5127,23 @@ version = "0.3.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "edaa21ab3701bfee5099ade5f7e1f84553fd19228cf332f13cd6e964bf59be18"
+ dependencies = [
+- "html5ever",
+- "markup5ever",
++ "html5ever 0.27.0",
++ "markup5ever 0.12.1",
+  "tendril",
+  "xml5ever",
+ ]
+ 
++[[package]]
++name = "match_token"
++version = "0.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "88a9689d8d44bf9964484516275f5cd4c9b59457a6940c1d5d0ecbb94510a36b"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.119",
++]
++
+ [[package]]
+ name = "matchers"
+ version = "0.2.0"
+@@ -4891,6 +5153,12 @@ dependencies = [
+  "regex-automata",
+ ]
+ 
++[[package]]
++name = "matches"
++version = "0.1.10"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "2532096657941c2fea9c289d370a250971c689d4f143798ff67113ec042024a5"
++
+ [[package]]
+ name = "maybe-owned"
+ version = "0.3.4"
+@@ -5016,7 +5284,7 @@ checksum = "4b18443e9c262bfe8fa82f51666e2642c53393f7e5c27b3e1aeab922cff5b9d8"
+ dependencies = [
+  "libc",
+  "log",
+- "wasi",
++ "wasi 0.11.1+wasi-snapshot-preview1",
+  "windows-sys 0.61.2",
+ ]
+ 
+@@ -5056,6 +5324,30 @@ dependencies = [
+  "unicode-ident",
+ ]
+ 
++[[package]]
++name = "nanorand"
++version = "0.7.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6a51313c5820b0b02bd422f4b44776fbf47961755c74ce64afc73bfad10226c3"
++dependencies = [
++ "getrandom 0.2.17",
++]
++
++[[package]]
++name = "ndk"
++version = "0.9.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c3f42e7bbe13d351b6bead8286a43aac9534b82bd3cc43e47037f012ebfd62d4"
++dependencies = [
++ "bitflags 2.13.1",
++ "jni-sys 0.3.1",
++ "log",
++ "ndk-sys",
++ "num_enum",
++ "raw-window-handle",
++ "thiserror 1.0.69",
++]
++
+ [[package]]
+ name = "ndk-sys"
+ version = "0.6.0+11769913"
+@@ -5092,6 +5384,12 @@ dependencies = [
+  "memchr",
+ ]
+ 
++[[package]]
++name = "nodrop"
++version = "0.1.14"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "72ef4a56884ca558e5ddb05a1d1e7e1bfd9a68d9ed024c21704cc98872dae1bb"
++
+ [[package]]
+ name = "nom"
+ version = "7.1.3"
+@@ -5295,6 +5593,28 @@ dependencies = [
+  "libc",
+ ]
+ 
++[[package]]
++name = "num_enum"
++version = "0.7.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26"
++dependencies = [
++ "num_enum_derive",
++ "rustversion",
++]
++
++[[package]]
++name = "num_enum_derive"
++version = "0.7.6"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8"
++dependencies = [
++ "proc-macro-crate",
++ "proc-macro2",
++ "quote",
++ "syn 2.0.119",
++]
++
+ [[package]]
+ name = "objc"
+ version = "0.2.7"
+@@ -5339,6 +5659,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3a12a8ed07aefc768292f076dc3ac8c48f3781c8f2d5851dd3d98950e8c5a89f"
+ dependencies = [
+  "objc2-encode",
++ "objc2-exception-helper",
+ ]
+ 
+ [[package]]
+@@ -5536,6 +5857,15 @@ version = "4.1.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "ef25abbcd74fb2609453eb695bd2f860d389e457f67dc17cafc8b8cbc89d0c33"
+ 
++[[package]]
++name = "objc2-exception-helper"
++version = "0.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c7a1c5fbb72d7735b076bb47b578523aedc40f3c439bea6dfd595c089d79d98a"
++dependencies = [
++ "cc",
++]
++
+ [[package]]
+ name = "objc2-foundation"
+ version = "0.2.2"
+@@ -5646,6 +5976,18 @@ dependencies = [
+  "objc2-foundation 0.3.2",
+ ]
+ 
++[[package]]
++name = "objc2-ui-kit"
++version = "0.3.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d87d638e33c06f577498cbcc50491496a3ed4246998a7fbba7ccb98b1e7eab22"
++dependencies = [
++ "bitflags 2.13.1",
++ "objc2 0.6.4",
++ "objc2-core-foundation",
++ "objc2-foundation 0.3.2",
++]
++
+ [[package]]
+ name = "objc2-user-notifications"
+ version = "0.3.2"
+@@ -5659,6 +6001,20 @@ dependencies = [
+  "objc2-foundation 0.3.2",
+ ]
+ 
++[[package]]
++name = "objc2-web-kit"
++version = "0.3.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b2e5aaab980c433cf470df9d7af96a7b46a9d892d521a2cbbb2f8a4c16751e7f"
++dependencies = [
++ "bitflags 2.13.1",
++ "block2 0.6.2",
++ "objc2 0.6.4",
++ "objc2-app-kit 0.3.2",
++ "objc2-core-foundation",
++ "objc2-foundation 0.3.2",
++]
++
+ [[package]]
+ name = "objc_exception"
+ version = "0.1.2"
+@@ -5927,6 +6283,26 @@ version = "2.3.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
+ 
++[[package]]
++name = "phf"
++version = "0.8.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "3dfb61232e34fcb633f43d12c58f83c1df82962dcdfa565a4e866ffc17dafe12"
++dependencies = [
++ "phf_shared 0.8.0",
++]
++
++[[package]]
++name = "phf"
++version = "0.10.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "fabbf1ead8a5bcbc20f5f8b939ee3f5b0f6f281b6ad3468b84656b658b455259"
++dependencies = [
++ "phf_macros 0.10.0",
++ "phf_shared 0.10.0",
++ "proc-macro-hack",
++]
++
+ [[package]]
+ name = "phf"
+ version = "0.11.3"
+@@ -5957,6 +6333,16 @@ dependencies = [
+  "phf_shared 0.14.0",
+ ]
+ 
++[[package]]
++name = "phf_codegen"
++version = "0.8.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "cbffee61585b0411840d3ece935cce9cb6321f01c45477d30066498cd5e1a815"
++dependencies = [
++ "phf_generator 0.8.0",
++ "phf_shared 0.8.0",
++]
++
+ [[package]]
+ name = "phf_codegen"
+ version = "0.11.3"
+@@ -5967,6 +6353,26 @@ dependencies = [
+  "phf_shared 0.11.3",
+ ]
+ 
++[[package]]
++name = "phf_generator"
++version = "0.8.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "17367f0cc86f2d25802b2c26ee58a7b23faeccf78a396094c13dced0d0182526"
++dependencies = [
++ "phf_shared 0.8.0",
++ "rand 0.7.3",
++]
++
++[[package]]
++name = "phf_generator"
++version = "0.10.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "5d5285893bb5eb82e6aaf5d59ee909a06a16737a8970984dd7746ba9283498d6"
++dependencies = [
++ "phf_shared 0.10.0",
++ "rand 0.8.8",
++]
++
+ [[package]]
+ name = "phf_generator"
+ version = "0.11.3"
+@@ -5997,6 +6403,20 @@ dependencies = [
+  "phf_shared 0.14.0",
+ ]
+ 
++[[package]]
++name = "phf_macros"
++version = "0.10.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "58fdf3184dd560f160dd73922bea2d5cd6e8f064bf4b13110abd81b03697b4e0"
++dependencies = [
++ "phf_generator 0.10.0",
++ "phf_shared 0.10.0",
++ "proc-macro-hack",
++ "proc-macro2",
++ "quote",
++ "syn 1.0.109",
++]
++
+ [[package]]
+ name = "phf_macros"
+ version = "0.13.1"
+@@ -6023,13 +6443,31 @@ dependencies = [
+  "syn 2.0.119",
+ ]
+ 
++[[package]]
++name = "phf_shared"
++version = "0.8.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c00cf8b9eafe68dde5e9eaa2cef8ee84a9336a47d566ec55ca16589633b65af7"
++dependencies = [
++ "siphasher 0.3.11",
++]
++
++[[package]]
++name = "phf_shared"
++version = "0.10.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b6796ad771acdc0123d2a88dc428b5e38ef24456743ddb1744ed628f9815c096"
++dependencies = [
++ "siphasher 0.3.11",
++]
++
+ [[package]]
+ name = "phf_shared"
+ version = "0.11.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "67eabc2ef2a60eb7faa00097bd1ffdb5bd28e62bf39990626a582201b7a754e5"
+ dependencies = [
+- "siphasher",
++ "siphasher 1.0.3",
+ ]
+ 
+ [[package]]
+@@ -6038,7 +6476,7 @@ version = "0.13.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "e57fef6bc5981e38c2ce2d63bfa546861309f875b8a75f092d1d54ae2d64f266"
+ dependencies = [
+- "siphasher",
++ "siphasher 1.0.3",
+ ]
+ 
+ [[package]]
+@@ -6047,7 +6485,7 @@ version = "0.14.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "c6fd9027e2d9319be6349febd1db4e8d02aa544921200c9b777720ac34a3aa89"
+ dependencies = [
+- "siphasher",
++ "siphasher 1.0.3",
+ ]
+ 
+ [[package]]
+@@ -6315,6 +6753,12 @@ dependencies = [
+  "toml_edit 0.25.13+spec-1.1.0",
+ ]
+ 
++[[package]]
++name = "proc-macro-hack"
++version = "0.5.20+deprecated"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "dc375e1527247fe1a97d8b7156678dfe7c1af2fc075c9a4db3690ecd2a148068"
++
+ [[package]]
+ name = "proc-macro2"
+ version = "1.0.107"
+@@ -6545,7 +6989,7 @@ dependencies = [
+  "getrandom 0.4.3",
+  "lru-slab",
+  "rand 0.10.2",
+- "rand_pcg",
++ "rand_pcg 0.10.2",
+  "ring",
+  "rustc-hash 2.1.3",
+  "rustls",
+@@ -6592,6 +7036,20 @@ version = "6.0.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
+ 
++[[package]]
++name = "rand"
++version = "0.7.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "6a6b1679d49b24bbfe0c803429aa1874472f50d9b363131f0e89fc356b544d03"
++dependencies = [
++ "getrandom 0.1.16",
++ "libc",
++ "rand_chacha 0.2.2",
++ "rand_core 0.5.1",
++ "rand_hc",
++ "rand_pcg 0.2.1",
++]
++
+ [[package]]
+ name = "rand"
+ version = "0.8.8"
+@@ -6624,6 +7082,16 @@ dependencies = [
+  "rand_core 0.10.1",
+ ]
+ 
++[[package]]
++name = "rand_chacha"
++version = "0.2.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f4c8ed856279c9737206bf725bf36935d8666ead7aa69b52be55af369d193402"
++dependencies = [
++ "ppv-lite86",
++ "rand_core 0.5.1",
++]
++
+ [[package]]
+ name = "rand_chacha"
+ version = "0.3.1"
+@@ -6644,6 +7112,15 @@ dependencies = [
+  "rand_core 0.9.5",
+ ]
+ 
++[[package]]
++name = "rand_core"
++version = "0.5.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "90bde5296fc891b0cef12a6d03ddccc162ce7b2aff54160af9338f8d40df6d19"
++dependencies = [
++ "getrandom 0.1.16",
++]
++
+ [[package]]
+ name = "rand_core"
+ version = "0.6.4"
+@@ -6668,6 +7145,24 @@ version = "0.10.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "63b8176103e19a2643978565ca18b50549f6101881c443590420e4dc998a3c69"
+ 
++[[package]]
++name = "rand_hc"
++version = "0.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "ca3129af7b92a17112d59ad498c6f81eaf463253766b90396d39ea7a39d6613c"
++dependencies = [
++ "rand_core 0.5.1",
++]
++
++[[package]]
++name = "rand_pcg"
++version = "0.2.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "16abd0c1b639e9eb4d7c50c0b8100b0d0f849be2349829c740fe8e6eb4816429"
++dependencies = [
++ "rand_core 0.5.1",
++]
++
+ [[package]]
+ name = "rand_pcg"
+ version = "0.10.2"
+@@ -6843,6 +7338,16 @@ dependencies = [
+  "thiserror 1.0.69",
+ ]
+ 
++[[package]]
++name = "redox_users"
++version = "0.5.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "60dc65c0ff1a7ae1294b0c67b9f14baf70b644404010370171787bfac1038fc0"
++dependencies = [
++ "libredox",
++ "thiserror 2.0.20",
++]
++
+ [[package]]
+ name = "ref-cast"
+ version = "1.0.27"
+@@ -7292,6 +7797,24 @@ dependencies = [
+  "libc",
+ ]
+ 
++[[package]]
++name = "selectors"
++version = "0.24.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "0c37578180969d00692904465fb7f6b3d50b9a2b952b87c23d0e2e5cb5013416"
++dependencies = [
++ "bitflags 1.3.2",
++ "cssparser",
++ "derive_more 0.99.20",
++ "fxhash",
++ "log",
++ "phf 0.8.0",
++ "phf_codegen 0.8.0",
++ "precomputed-hash",
++ "servo_arc",
++ "smallvec",
++]
++
+ [[package]]
+ name = "self_cell"
+ version = "1.3.0"
+@@ -7446,6 +7969,16 @@ dependencies = [
+  "serde",
+ ]
+ 
++[[package]]
++name = "servo_arc"
++version = "0.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d52aa42f8fdf0fed91e5ce7f23d8138441002fa31dca008acf47e6fd4721f741"
++dependencies = [
++ "nodrop",
++ "stable_deref_trait",
++]
++
+ [[package]]
+ name = "sha1"
+ version = "0.10.7"
+@@ -7579,6 +8112,12 @@ dependencies = [
+  "log",
+ ]
+ 
++[[package]]
++name = "siphasher"
++version = "0.3.11"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "38b58827f4464d87d377d175e90bf58eb00fd8716ff0a62f80356b5e61555d0d"
++
+ [[package]]
+ name = "siphasher"
+ version = "1.0.3"
+@@ -7879,7 +8418,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "695b5790b3131dafa99b3bbfd25a216edb3d216dad9ca208d4657bfb8f2abc3d"
+ dependencies = [
+  "kurbo",
+- "siphasher",
++ "siphasher 1.0.3",
+ ]
+ 
+ [[package]]
+@@ -7893,6 +8432,17 @@ dependencies = [
+  "zeno",
+ ]
+ 
++[[package]]
++name = "syn"
++version = "1.0.109"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "unicode-ident",
++]
++
+ [[package]]
+ name = "syn"
+ version = "2.0.119"
+@@ -8033,6 +8583,17 @@ dependencies = [
+  "objc",
+ ]
+ 
++[[package]]
++name = "tao-macros"
++version = "0.1.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "5f7eeb6d99155545da6150a1795945f16ac9c178deb2a5f2e74d776107bd5849"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.119",
++]
++
+ [[package]]
+ name = "target-lexicon"
+ version = "0.13.5"
+@@ -8157,6 +8718,7 @@ dependencies = [
+  "powerfmt",
+  "serde_core",
+  "time-core",
++ "time-macros",
+ ]
+ 
+ [[package]]
+@@ -8165,6 +8727,16 @@ version = "0.1.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "9e1c906769ad99c88eaa54e728060edef082f8e358ff32030cb7c7d315e81109"
+ 
++[[package]]
++name = "time-macros"
++version = "0.2.32"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "7e689342a48d2ea927c87ea50cabf8594854bf940e9310208848d680d668ed85"
++dependencies = [
++ "num-conv",
++ "time-core",
++]
++
+ [[package]]
+ name = "tiny-keccak"
+ version = "2.0.2"
+@@ -8661,7 +9233,7 @@ dependencies = [
+  "roxmltree 0.21.1",
+  "rustybuzz",
+  "simplecss",
+- "siphasher",
++ "siphasher 1.0.3",
+  "strict-num",
+  "svgtypes",
+  "tiny-skia-path",
+@@ -8833,6 +9405,12 @@ dependencies = [
+  "try-lock",
+ ]
+ 
++[[package]]
++name = "wasi"
++version = "0.9.0+wasi-snapshot-preview1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "cccddf32554fecc6acb585f82a32a72e28b48f8c4c1883ddfeeeaa96f7d8e519"
++
+ [[package]]
+ name = "wasi"
+ version = "0.11.1+wasi-snapshot-preview1"
+@@ -9065,6 +9643,42 @@ dependencies = [
+  "rustls-pki-types",
+ ]
+ 
++[[package]]
++name = "webview2-com"
++version = "0.38.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "7130243a7a5b33c54a444e54842e6a9e133de08b5ad7b5861cd8ed9a6a5bc96a"
++dependencies = [
++ "webview2-com-macros",
++ "webview2-com-sys",
++ "windows 0.61.3",
++ "windows-core 0.61.2",
++ "windows-implement 0.60.2",
++ "windows-interface 0.59.3",
++]
++
++[[package]]
++name = "webview2-com-macros"
++version = "0.8.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "67a921c1b6914c367b2b823cd4cde6f96beec77d30a939c8199bb377cf9b9b54"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.119",
++]
++
++[[package]]
++name = "webview2-com-sys"
++version = "0.38.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "381336cfffd772377d291702245447a5251a2ffa5bad679c99e61bc48bacbf9c"
++dependencies = [
++ "thiserror 2.0.20",
++ "windows 0.61.3",
++ "windows-core 0.61.2",
++]
++
+ [[package]]
+ name = "weezl"
+ version = "0.1.12"
+@@ -9608,6 +10222,15 @@ dependencies = [
+  "windows-link 0.2.1",
+ ]
+ 
++[[package]]
++name = "windows-sys"
++version = "0.45.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "75283be5efb2831d37ea142365f009c02ec203cd29a3ebecbc093d52315b66d0"
++dependencies = [
++ "windows-targets 0.42.2",
++]
++
+ [[package]]
+ name = "windows-sys"
+ version = "0.48.0"
+@@ -9653,6 +10276,21 @@ dependencies = [
+  "windows-link 0.2.1",
+ ]
+ 
++[[package]]
++name = "windows-targets"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8e5180c00cd44c9b1c88adb3693291f1cd93605ded80c250a75d472756b4d071"
++dependencies = [
++ "windows_aarch64_gnullvm 0.42.2",
++ "windows_aarch64_msvc 0.42.2",
++ "windows_i686_gnu 0.42.2",
++ "windows_i686_msvc 0.42.2",
++ "windows_x86_64_gnu 0.42.2",
++ "windows_x86_64_gnullvm 0.42.2",
++ "windows_x86_64_msvc 0.42.2",
++]
++
+ [[package]]
+ name = "windows-targets"
+ version = "0.48.5"
+@@ -9728,6 +10366,12 @@ dependencies = [
+  "windows-link 0.2.1",
+ ]
+ 
++[[package]]
++name = "windows_aarch64_gnullvm"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "597a5118570b68bc08d8d59125332c54f1ba9d9adeedeef5b99b02ba2b0698f8"
++
+ [[package]]
+ name = "windows_aarch64_gnullvm"
+ version = "0.48.5"
+@@ -9746,6 +10390,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
+ 
++[[package]]
++name = "windows_aarch64_msvc"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e08e8864a60f06ef0d0ff4ba04124db8b0fb3be5776a5cd47641e942e58c4d43"
++
+ [[package]]
+ name = "windows_aarch64_msvc"
+ version = "0.48.5"
+@@ -9764,6 +10414,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
+ 
++[[package]]
++name = "windows_i686_gnu"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c61d927d8da41da96a81f029489353e68739737d3beca43145c8afec9a31a84f"
++
+ [[package]]
+ name = "windows_i686_gnu"
+ version = "0.48.5"
+@@ -9794,6 +10450,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
+ 
++[[package]]
++name = "windows_i686_msvc"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "44d840b6ec649f480a41c8d80f9c65108b92d89345dd94027bfe06ac444d1060"
++
+ [[package]]
+ name = "windows_i686_msvc"
+ version = "0.48.5"
+@@ -9812,6 +10474,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
+ 
++[[package]]
++name = "windows_x86_64_gnu"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8de912b8b8feb55c064867cf047dda097f92d51efad5b491dfb98f6bbb70cb36"
++
+ [[package]]
+ name = "windows_x86_64_gnu"
+ version = "0.48.5"
+@@ -9830,6 +10498,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
+ 
++[[package]]
++name = "windows_x86_64_gnullvm"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "26d41b46a36d453748aedef1486d5c7a85db22e56aff34643984ea85514e94a3"
++
+ [[package]]
+ name = "windows_x86_64_gnullvm"
+ version = "0.48.5"
+@@ -9848,6 +10522,12 @@ version = "0.53.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
+ 
++[[package]]
++name = "windows_x86_64_msvc"
++version = "0.42.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "9aec5da331524158c6d1a4ac0ab1541149c0b9505fde06423b02f5ef0106b9f0"
++
+ [[package]]
+ name = "windows_x86_64_msvc"
+ version = "0.48.5"
+@@ -10053,7 +10733,7 @@ checksum = "9bbb26405d8e919bc1547a5aa9abc95cbfa438f04844f5fdd9dc7596b748bf69"
+ dependencies = [
+  "log",
+  "mac",
+- "markup5ever",
++ "markup5ever 0.12.1",
+ ]
+ 
+ [[package]]
+@@ -10225,7 +10905,7 @@ dependencies = [
+  "core-foundation 0.10.1",
+  "core-graphics 0.24.0",
+  "core-text",
+- "dirs",
++ "dirs 5.0.1",
+  "dwrote",
+  "float-ord",
+  "freetype-sys",
+diff --git a/Cargo.toml b/Cargo.toml
+index 5ffed0e..1b769ff 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -33,6 +33,7 @@ serde_json = "1"
+ tracing = "0.1"
+ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+ fancy-regex = "0.19"
++url = "2"
+ notify = "7"
+ sha2 = "0.10"
+ 
+diff --git a/defaults/AGENTS.md b/defaults/AGENTS.md
+index 3bcad8d..002d9e5 100644
+--- a/defaults/AGENTS.md
++++ b/defaults/AGENTS.md
+@@ -158,6 +158,24 @@ the highlighted line shows where it will land.
+   Ctrl-click (Cmd-click on macOS) a live terminal address in terminal text to
+   peek at it. Bare addresses refer to the machine of the terminal showing them;
+   use `machine/address` for another machine. Names and non-live addresses aren't links.
++- **Personal Markdown editor**: with `mods/rich-document` installed, Cmd-click
++  (Ctrl-click off macOS) on a local terminal's existing `.md`, `.markdown`,
++  `.mdown` or `.mkd` file opens a document mod tab in that pane's space.
++  Local `file://` URLs work too. Other links and remote-terminal links keep
++  the system opener. This is a personal build customization.
++  The personal macOS host also provides `WebViewState.new({asset_root, entry?})`
++  and `WebView.new(state)` for bundled document editors. Assets stay inside
++  the canonical, read-granted asset root; page network access and navigation
++  are blocked. Subscribe with `state.on("message", (text, cx) => ...)`, then
++  send strings with `state.post_message(text)` after the page reports ready.
++  The page uses `window.ipc.postMessage(text)` and window `message` events.
++  This retained page keeps its scroll, DOM selection and undo across tabs.
++  Native pages hide while their pane is inactive or a GPUI overlay is open.
++  Call `release()` during cleanup. This API requires the personal macOS build.
++- **Reveal in Finder (macOS)**: Cmd-Option-click an existing local file or folder
++  path in terminal text to select it in Finder. Local `file://` URLs work too.
++  Cmd-click keeps its usual behavior. This shortcut does not handle web links,
++  terminal addresses or paths displayed by a remote terminal.
+ - **Agent navigation order** belongs to the mods. A mod displaying agents calls
+   `setAgentOrder(list.map(a => a.address))` on render so `agent.next` /
+   `agent.prev` follow its list.
+@@ -894,6 +912,11 @@ keyword: theme().ansi5, ... } })` + `Editor.new(state)` is a code view (readonly
+ or editor with syntax highlighting, line numbers and folding. A viewer opens
+ beside the shell as a pane: `pane.split {direction, mod, props: { file }}`.
+ The full surface is in `gpui-kit.d.ts` next to this file.
++For a document palette independent of the window, use
++`TextView.markdown(id, text).text_colors({foreground, muted_foreground, link, selection, code_background, border, dark})`
++and `EditorState.new({..., colors: {foreground, muted_foreground, background, border, selection, caret}})`.
++Pass hex colors (and a boolean for `dark`); omitted fields follow the host theme.
++Editor `syntax` colors remain independent of its UI `colors`.
+ 
+ ### The `herdr` module
+ 
+diff --git a/src/SKILL.md b/src/SKILL.md
+index b5518bd..fb35ebf 100644
+--- a/src/SKILL.md
++++ b/src/SKILL.md
+@@ -106,6 +106,13 @@ those files or the generated guide. The app rewrites them on start.
+   not in an earlier task. The installed guide explains its 250 ms quit budget
+   and which cleanup commands go out before shutdown.
+ 
++The personal macOS Markdown editor uses a local-only `WebViewState` host.
++Its API and message lifecycle are documented in the installed guide. Keep its
++native page mounted across tab changes to preserve the editing state. Use an OS
++window capture for visual verification: `herdr-app shot` captures GPUI pixels
++and may omit a native WebView. GPUI overlays temporarily hide the document
++surface in this backend; closing the overlay restores the retained page.
++
+ After every mod change:
+ 
+ ```sh
+diff --git a/src/links.rs b/src/links.rs
+index 9307857..d32f302 100644
+--- a/src/links.rs
++++ b/src/links.rs
+@@ -111,6 +111,48 @@ pub fn resolve(link: &str, cwd: Option<&Path>) -> Option<Target> {
+     Path::new(bare).exists().then(|| Target::File(PathBuf::from(bare)))
+ }
+ 
++/// An existing local path, including percent-encoded file URLs.
++pub fn local_path(target: &Target) -> Option<PathBuf> {
++    let path = match target {
++        Target::File(path) => path.clone(),
++        Target::Url(uri) => {
++            let uri = url::Url::parse(uri).ok()?;
++            if uri.scheme() != "file" { return None; }
++            uri.to_file_path().ok()?
++        }
++    };
++    (path.is_absolute() && path.exists()).then_some(path)
++}
++
++/// A local Markdown document eligible for the installed read-only viewer.
++pub fn document_file(target: &Target) -> Option<PathBuf> {
++    let path = local_path(target)?;
++    let extension = path.extension()?.to_str()?;
++    (path.is_file() && ["md", "markdown", "mdown", "mkd"].iter().any(|ext| extension.eq_ignore_ascii_case(ext))).then_some(path)
++}
++
++/// Selects a local file or folder in Finder without opening its default app.
++pub fn reveal(path: &Path) {
++    if !cfg!(target_os = "macos") || !path.is_absolute() || !path.exists() {
++        return;
++    }
++    match std::process::Command::new("/usr/bin/open")
++        .arg("-R")
++        .arg(path)
++        .stdin(std::process::Stdio::null())
++        .stdout(std::process::Stdio::null())
++        .stderr(std::process::Stdio::null())
++        .spawn()
++    {
++        Ok(mut child) => drop(std::thread::spawn(move || {
++            if let Err(error) = child.wait() {
++                tracing::warn!("cannot wait for Finder reveal: {error}");
++            }
++        })),
++        Err(error) => tracing::warn!("cannot reveal path in Finder: {error}"),
++    }
++}
++
+ /// Hands the target to the system (xdg-open, open on macOS, explorer on Windows).
+ pub fn open(target: &Target) {
+     let arg = match target {
+@@ -141,10 +183,54 @@ pub fn open(target: &Target) {
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn finder_paths_keep_files_folders_and_encoded_urls_local() {
++        let root = std::env::temp_dir().join(format!("herdr-finder-paths-{}", std::process::id()));
++        std::fs::create_dir_all(&root).unwrap();
++        let file = root.join("한글 문서.txt");
++        std::fs::write(&file, "fixture").unwrap();
++        assert_eq!(local_path(&Target::File(file.clone())), Some(file.clone()));
++        assert_eq!(local_path(&Target::File(root.clone())), Some(root.clone()));
++        assert_eq!(local_path(&Target::Url(url::Url::from_file_path(&file).unwrap().to_string())), Some(file));
++        for target in [Target::File(root.join("missing.md")),
++            Target::Url("https://example.com/file.txt".into()),
++            Target::Url("file://other-host/tmp/file.txt".into())]
++        {
++            assert_eq!(local_path(&target), None, "{target:?}");
++        }
++        std::fs::remove_dir_all(root).unwrap();
++    }
++
+     fn first(text: &str) -> Option<&str> {
+         PATTERN.find(text).unwrap().map(|m| m.as_str())
+     }
+ 
++
++    #[test]
++    fn markdown_document_links_keep_local_paths_and_file_url_encoding() {
++        let dir = std::env::temp_dir().join(format!("herdr-document-links-{}", std::process::id()));
++        std::fs::create_dir_all(&dir).unwrap();
++        let path = dir.join("한글 문서.MD");
++        std::fs::write(&path, "# document").unwrap();
++        assert_eq!(document_file(&Target::File(path.clone())), Some(path.clone()));
++        let uri = url::Url::from_file_path(&path).unwrap();
++        assert_eq!(document_file(&Target::Url(uri.to_string())), Some(path));
++        for target in [
++            Target::File(dir.join("gone.md")),
++            Target::Url("https://example.com/readme.md".into()),
++            Target::Url("file://other-host/tmp/readme.md".into()),
++        ] {
++            assert_eq!(document_file(&target), None, "{target:?}");
++        }
++        let directory = dir.join("folder.md");
++        std::fs::create_dir_all(&directory).unwrap();
++        assert_eq!(document_file(&Target::File(directory)), None);
++        let text = dir.join("notes.txt");
++        std::fs::write(&text, "text").unwrap();
++        assert_eq!(document_file(&Target::File(text)), None);
++        std::fs::remove_dir_all(dir).unwrap();
++    }
++
+     /// Ghostty's own cases (`src/config/url.zig`).
+     #[test]
+     fn matches_like_ghostty() {
+diff --git a/src/terminal.rs b/src/terminal.rs
+index d34ae80..2fb30df 100644
+--- a/src/terminal.rs
++++ b/src/terminal.rs
+@@ -39,8 +39,16 @@ enum LinkTarget {
+     Terminal(String),
+ }
+ 
++#[derive(Debug, PartialEq)]
++enum LinkAction {
++    Open,
++    Reveal(PathBuf),
++}
++
+ pub enum TerminalEvent {
+     Peek(String),
++    OpenLink(links::Target),
++    RevealFile(PathBuf),
+     TitleChanged,
+     /// The program ended.
+     Ended,
+@@ -800,7 +808,23 @@ fn paste_image_bytes(format: ImageFormat, bytes: &[u8]) -> Option<(ImageFormat,
+ 
+ fn link_mods(m: &Modifiers) -> bool {
+     let key = if cfg!(target_os = "macos") { m.platform && !m.control } else { m.control && !m.platform };
+-    key && !m.alt && !m.shift
++    key && !m.shift && (!m.alt || cfg!(target_os = "macos"))
++}
++
++fn link_action(m: &Modifiers, source: &str, target: &LinkTarget) -> Option<LinkAction> {
++    if !link_mods(m) {
++        return None;
++    }
++    if cfg!(target_os = "macos") && m.alt {
++        if source.contains('/') {
++            return None;
++        }
++        return match target {
++            LinkTarget::External(target) => links::local_path(target).map(LinkAction::Reveal),
++            LinkTarget::Terminal(_) => None,
++        };
++    }
++    Some(LinkAction::Open)
+ }
+ 
+ fn local(g: &Grid, p: Point<Pixels>) -> (f32, f32) {
+@@ -1451,7 +1475,9 @@ impl Render for TerminalView {
+         }
+         let cell = cell_size(window);
+         let hover = self.grid.borrow().hover;
+-        let found = hover.filter(|_| link_mods(&window.modifiers())).and_then(|pos| self.link_at(pos));
++        let modifiers = window.modifiers();
++        let found = hover.filter(|_| link_mods(&modifiers)).and_then(|pos| self.link_at(pos))
++            .filter(|(target, _)| link_action(&modifiers, &self.address, target).is_some());
+         let (link, spans) = found.unzip();
+         self.link = link;
+         self.grid.borrow_mut().link_spans = spans.unwrap_or_default();
+@@ -1492,10 +1518,14 @@ impl Render for TerminalView {
+                 this.focus.focus(window, cx);
+                 if link_mods(&ev.modifiers)
+                     && let Some((target, _)) = this.link_at(ev.position)
++                    && let Some(action) = link_action(&ev.modifiers, &this.address, &target)
+                 {
+-                    match target {
+-                        LinkTarget::External(target) => links::open(&target),
+-                        LinkTarget::Terminal(address) => cx.emit(TerminalEvent::Peek(address)),
++                    match action {
++                        LinkAction::Reveal(path) => cx.emit(TerminalEvent::RevealFile(path)),
++                        LinkAction::Open => match target {
++                            LinkTarget::External(target) => cx.emit(TerminalEvent::OpenLink(target)),
++                            LinkTarget::Terminal(address) => cx.emit(TerminalEvent::Peek(address)),
++                        },
+                     }
+                     return;
+                 }
+@@ -1619,6 +1649,56 @@ impl Focusable for TerminalView {
+ 
+ #[cfg(test)]
+ mod tests {
++    use super::{LinkAction, LinkTarget, link_action, link_mods};
++    use crate::links;
++
++    #[test]
++    fn link_click_modifiers_preserve_existing_shortcuts() {
++        let ordinary = Modifiers {
++            platform: cfg!(target_os = "macos"),
++            control: !cfg!(target_os = "macos"),
++            ..Modifiers::default()
++        };
++        let web = LinkTarget::External(links::Target::Url("https://example.com/readme.md".into()));
++        assert_eq!(link_action(&ordinary, "t1", &web), Some(LinkAction::Open));
++        assert_eq!(link_action(&ordinary, "remote/t1", &web), Some(LinkAction::Open));
++        assert_eq!(link_action(&Modifiers::default(), "t1", &web), None);
++        assert_eq!(link_action(&Modifiers { shift: true, ..ordinary }, "t1", &web), None);
++        if !cfg!(target_os = "macos") {
++            assert_eq!(link_action(&Modifiers { alt: true, ..ordinary }, "t1", &web), None);
++        }
++    }
++
++    #[cfg(target_os = "macos")]
++    #[test]
++    fn cmd_option_reveals_only_existing_local_paths() {
++        let root = std::env::temp_dir().join(format!("herdr-finder-click-{}", std::process::id()));
++        std::fs::create_dir_all(&root).unwrap();
++        let file = root.join("한글 문서.txt");
++        std::fs::write(&file, "fixture").unwrap();
++        let modifiers = Modifiers { platform: true, alt: true, ..Modifiers::default() };
++        assert!(link_mods(&modifiers));
++        for target in [links::Target::File(file.clone()), links::Target::File(root.clone()),
++            links::Target::Url(url::Url::from_file_path(&file).unwrap().to_string())]
++        {
++            let expected = links::local_path(&target).unwrap();
++            let target = LinkTarget::External(target);
++            assert_eq!(link_action(&modifiers, "t1", &target), Some(LinkAction::Reveal(expected)));
++            assert_eq!(link_action(&modifiers, "remote/t1", &target), None);
++            assert_eq!(link_action(&Modifiers { alt: false, ..modifiers }, "t1", &target), Some(LinkAction::Open));
++            assert_eq!(link_action(&Modifiers { shift: true, ..modifiers }, "t1", &target), None);
++            assert_eq!(link_action(&Modifiers { control: true, ..modifiers }, "t1", &target), None);
++        }
++        for target in [links::Target::File(root.join("missing.md")),
++            links::Target::Url("https://example.com/readme.md".into()),
++            links::Target::Url("file://other-host/tmp/readme.md".into())]
++        {
++            assert_eq!(link_action(&modifiers, "t1", &LinkTarget::External(target)), None);
++        }
++        assert_eq!(link_action(&modifiers, "t1", &LinkTarget::Terminal("t2".into())), None);
++        std::fs::remove_dir_all(root).unwrap();
++    }
++
+     #[gpui::test]
+     fn terminal_release_ends_window_text_selection(cx: &mut gpui::TestAppContext) {
+         use gpui::*;
+diff --git a/src/window.rs b/src/window.rs
+index 30b2e4f..ef64bbd 100644
+--- a/src/window.rs
++++ b/src/window.rs
+@@ -1400,6 +1400,22 @@ impl AppWindow {
+             let (block, addr) = (id.clone(), address.clone());
+             let sub = cx.subscribe_in(&view, window, move |this, _, ev: &TerminalEvent, window, cx| match ev {
+                 TerminalEvent::Peek(address) => this.peek_terminal(address, window, cx),
++                TerminalEvent::RevealFile(path) => {
++                    if !addr.contains('/') {
++                        crate::links::reveal(path);
++                    }
++                }
++                TerminalEvent::OpenLink(target) => {
++                    if !addr.contains('/') && this.folders.contains_key("rich-document")
++                        && let Some(path) = crate::links::document_file(target)
++                    {
++                        let name = format!("Markdown - {}", path.file_name().unwrap_or_default().to_string_lossy());
++                        let space = this.model.space_of(block.trim_end_matches(SWAP)).map(|space| space.id.clone());
++                        this.run("tab.new", json!({"space": space, "name": name, "mod": "rich-document", "props": {"file": path}}), window, cx);
++                    } else {
++                        crate::links::open(target);
++                    }
++                }
+                 TerminalEvent::TitleChanged => this.publish(cx),
+                 TerminalEvent::Ended => this.terminal_ended(&block, window, cx),
+                 TerminalEvent::ContextMenu(at) => {
+@@ -4693,6 +4709,17 @@ impl Render for AppWindow {
+         let _timed = crate::bench::timed(&crate::bench::WINDOW_US);
+         crate::bench::frame_start();
+         crate::terminal::next_frame();
++        // Native document surfaces stay loaded, but may only cover a visible mod.
++        // GPUI overlays cannot composite above AppKit WebViews in this backend.
++        let (_, shown_mods) = self.visible();
++        let covered = self.overlays.iter().any(|overlay| overlay.kind != OverlayKind::Toast);
++        for (slot, copy) in &self.copies {
++            if let Some(root) = &copy.root {
++                let shown = !covered && shown_mods.iter().any(|(id, inst)| id == slot && *inst == copy.inst);
++                root.update(cx, |root, cx| root.set_native_views_visible(shown, cx));
++            }
++        }
++
+         window.set_rem_size(px(settings::ui_font_size()));
+         // A terminal the person clicked into becomes the focused pane.
+         let clicked = self
+diff --git a/vendor/gpui-kit/crates/shell/Cargo.toml b/vendor/gpui-kit/crates/shell/Cargo.toml
+index 060d1eb..94a9a1b 100644
+--- a/vendor/gpui-kit/crates/shell/Cargo.toml
++++ b/vendor/gpui-kit/crates/shell/Cargo.toml
+@@ -56,8 +56,10 @@ chrono = "0.4.38"
+ cap-std = "4.0.3"
+ async-channel = "2.5"
+ fs2 = "0.4"
++percent-encoding = "2"
+ sha2 = "0.10"
+ wait-timeout = "0.2"
++
+ reqwest = { workspace = true, features = ["blocking"], optional = true }
+ tungstenite = { version = "0.29", features = ["rustls-tls-webpki-roots", "url"], optional = true }
+ 
+@@ -97,3 +99,6 @@ windows = { workspace = true, features = [
+ 
+ [lints]
+ workspace = true
++
++[target.'cfg(target_os = "macos")'.dependencies]
++wry = { package = "lb-wry", version = "=0.53.3", default-features = false, features = ["protocol"] }
+diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
+index f88bf69..98db28b 100644
+--- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
++++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
+@@ -455,10 +455,30 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
+                         .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))?;
+                     colors.insert(name.clone(), color);
+                 }
+-                let style = gpui_base::input::InputEditorStyle {
++                let mut style = gpui_base::input::InputEditorStyle {
+                     highlight_styles: std::sync::Arc::new(crate::syntax::SyntaxStyles(colors)),
+                     ..Default::default()
+                 };
++                for (name, value) in &options.colors {
++                    let color = crate::value::Bridged::Str(value.clone())
++                        .as_color()
++                        .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))?;
++                    let target = match name.as_str() {
++                        "foreground" => &mut style.foreground,
++                        "muted_foreground" => &mut style.muted_foreground,
++                        "background" => &mut style.background,
++                        "border" => &mut style.border,
++                        "selection" => &mut style.selection,
++                        "caret" => &mut style.caret,
++                        _ => {
++                            return Err(Exception::throw_type(
++                                &ctx,
++                                &format!("unknown EditorState color `{name}`"),
++                            ));
++                        }
++                    };
++                    *target = color;
++                }
+                 let store = alive(&ctx, &create_editor)?;
+                 scope::with_current(|window, cx| {
+                     store
+@@ -538,6 +558,55 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
+         ),
+     )?;
+ 
++    // HERDR: local document pages are retained and communicate only with their owning mod.
++    let create_webview = runtime.clone();
++    globals.set("__webview_state_new", Func::from(move |ctx: Ctx<'_>, json: String| -> JsResult<EntityHandle> {
++        refuse_creation_in_render(&ctx, "WebViewState.new(...)")?;
++        let options: crate::webview::WebViewOptions = serde_json::from_str(&json)
++            .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))?;
++        let state = crate::webview::WebViewState::new(options, &scope::policy())
++            .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))?;
++        let runtime = alive(&ctx, &create_webview)?;
++        scope::with_current(|_, cx| {
++            use gpui::AppContext as _;
++            let state = cx.new(|_| state);
++            runtime.entities().create_webview(state, scope::current_application_generation())
++                .map_err(|_| entity_limit_reached(&ctx))
++        }).ok_or_else(|| needs_call(&ctx, "WebViewState.new(...)"))?
++    }))?;
++    let post_webview = runtime.clone();
++    globals.set("__webview_post_message", Func::from(move |ctx: Ctx<'_>, handle: EntityHandle, message: String| -> JsResult<()> {
++        refuse_mutation_in_render(&ctx, "WebViewState.post_message(...)")?;
++        let runtime = alive(&ctx, &post_webview)?;
++        let state = runtime.entities().webview(handle).ok_or_else(|| Exception::throw_type(&ctx, "this WebView state has been released"))?;
++        scope::with_current(|_, cx| state.read(cx).post_message(&message))
++            .ok_or_else(|| needs_call(&ctx, "WebViewState.post_message(...)"))?
++            .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))
++    }))?;
++    let subscribe_webview = runtime.clone();
++    globals.set("__webview_on", Func::from(move |ctx: Ctx<'_>, handle: EntityHandle, name: String, handler: Handler| -> JsResult<bool> {
++        if name != "message" { return Err(Exception::throw_type(&ctx, "WebView supports the message event only")); }
++        let runtime = alive(&ctx, &subscribe_webview)?;
++        let owner = runtime.callback_owner();
++        let saved = handler.0;
++        let dispatch = subscribe_webview.clone();
++        let subscribed = scope::with_current(|window, cx| runtime.entities().subscribe_webview(handle, window, cx, move |message, window, cx| {
++            if let Some(runtime) = dispatch.upgrade() { runtime.dispatch_webview_message(&saved, &owner, &message.0, window, cx); }
++        })).ok_or_else(|| needs_call(&ctx, "WebViewState.on(...)"))?;
++        if !subscribed { return Err(Exception::throw_type(&ctx, "this WebView state has been released")); }
++        Ok(true)
++    }))?;
++    let discard_webview = runtime.clone();
++    globals.set("__webview_release", Func::from(move |handle: EntityHandle| {
++        discard_webview.upgrade().is_some_and(|runtime| runtime.entities().release(handle))
++    }))?;
++    let webview_element = runtime.clone();
++    globals.set("__webview_element", Func::from(move |ctx: Ctx<'_>, handle: EntityHandle| -> JsResult<SpecId> {
++        let runtime = alive(&ctx, &webview_element)?;
++        if runtime.entities().webview(handle).is_none() { return Err(Exception::throw_type(&ctx, "this WebView state has been released")); }
++        Ok(runtime.push_component(Component::WebView(handle)))
++    }))?;
++
+     // Sliders. A slider's value is retained for the same reason an input's
+     // text is, and for one more: a drag writes it from a GPUI listener with no
+     // script in the loop, so there is nowhere else it could live.
+diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
+index 6061806..e4f8d53 100644
+--- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
++++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
+@@ -1188,6 +1188,8 @@ pub(crate) mod exports {
+         // HERDR: source editor exports in gpui-base.
+         "Editor",
+         "EditorState",
++        "WebView",
++        "WebViewState",
+         "Textarea",
+         "TextView",
+         "TextareaState",
+@@ -3600,6 +3602,22 @@ impl ShellRuntime {
+         }
+     }
+ 
++    pub(super) fn dispatch_webview_message(
++        self: &Rc<Self>, handler: &Persistent<Function<'static>>, owner: &InputCallbackOwner,
++        message: &str, window: &mut Window, cx: &mut App,
++    ) {
++        if owner.application.as_ref().is_some_and(|application| !application.is_active()) { return; }
++        let view = owner.view.as_ref().and_then(WeakEntity::upgrade);
++        let (_guard, generation) = scope::enter_with_application(self, window, cx, ScopePhase::Event,
++            view, owner.policy.clone(), owner.application.clone());
++        let result = self.with_js(|ctx| {
++            let handler = handler.clone().restore(ctx)?;
++            handler.call::<_, ()>((message.to_owned(), context_object(ctx, ContextBinding::Call(generation))?))
++        });
++        if let Err(error) = result { tracing::error!("error in document WebView handler: {error}"); }
++        scheduler::drain_runtime_jobs(self, window, cx);
++    }
++
+     /// Tells a script that the layout it is watching changed.
+     ///
+     /// The event carries nothing: what changed is the whole layout, and
+@@ -5575,6 +5593,11 @@ globalThis.__gpui = (() => {
+     };
+   };
+ 
++  methods.text_colors = function (colors) {
++    __apply(this.__id, "text_colors", [JSON.stringify(colors)]);
++    return this;
++  };
++
+   // Styles do not go through `__apply`, and the reason is arithmetic. They are
+   // most of what a description records, and the generic form above pays three
+   // times over for information the prelude already has: it allocates a rest
+@@ -7040,6 +7063,17 @@ globalThis.__gpui = (() => {
+       },
+     },
+     Editor: { new: (state) => element(__editor_element(state.__handle)) },
++    WebViewState: {
++      new: (options) => {
++        const handle = __webview_state_new(JSON.stringify(options));
++        return { __handle: handle,
++          post_message: (message) => __webview_post_message(handle, String(message)),
++          on: (event, handler) => __webview_on(handle, String(event), handler),
++          release: () => __webview_release(handle),
++        };
++      },
++    },
++    WebView: { new: (state) => element(__webview_element(state.__handle)) },
+     TextareaState: {
+       new: (options) =>
+         textareaState(
+@@ -7943,6 +7977,28 @@ impl ShellRuntime {
+     }
+ 
+     fn apply(&self, ctx: &Ctx<'_>, id: SpecId, method: &str, args: Arguments) -> JsResult<()> {
++        if method == "text_colors" {
++            let is_text_view = self
++                .arena
++                .borrow()
++                .node(id)
++                .is_some_and(|node| matches!(node.component(), Some(Component::TextView(_))));
++            if !is_text_view {
++                return Err(Exception::throw_type(
++                    ctx,
++                    "text_colors is only supported by TextView",
++                ));
++            }
++            let values = args.values(method)?;
++            let json = values
++                .first()
++                .and_then(|value| value.as_str().ok())
++                .ok_or_else(|| Exception::throw_type(ctx, "text_colors expects a color object"))?;
++            crate::spec::TextViewColors::parse(json)
++                .map_err(|error| Exception::throw_type(ctx, &error))?;
++            return self
++                .push_op_checked(ctx, self.push_op(id, SpecOp::Method("text_colors", values)));
++        }
+         // A sentinel among the arguments means this call is being recorded into
+         // a template rather than into a description, and the position it landed
+         // in is a slot. Checked before the dispatch below because the ordinary
+diff --git a/vendor/gpui-kit/crates/shell/src/entities.rs b/vendor/gpui-kit/crates/shell/src/entities.rs
+index 790ab6c..d44ed99 100644
+--- a/vendor/gpui-kit/crates/shell/src/entities.rs
++++ b/vendor/gpui-kit/crates/shell/src/entities.rs
+@@ -95,6 +95,12 @@ enum Record {
+         application: Option<Rc<ApplicationGeneration>>,
+         subscriptions: Vec<Subscription>,
+     },
++    // HERDR: locally bundled document editors retain their DOM across tabs.
++    WebView {
++        state: Entity<crate::webview::WebViewState>,
++        application: Option<Rc<ApplicationGeneration>>,
++        subscriptions: Vec<Subscription>,
++    },
+     /// A calendar's month, view and selected date.
+     ///
+     /// Retained because the month a script is looking at outlives the frame
+@@ -182,6 +188,7 @@ pub(crate) struct EditorOptions {
+     pub readonly: bool,
+     pub soft_wrap: bool,
+     pub syntax: HashMap<String, String>,
++    pub colors: HashMap<String, String>,
+     pub font_family: Option<String>,
+     pub font_size: Option<f32>,
+ }
+@@ -196,6 +203,7 @@ impl Default for EditorOptions {
+             readonly: false,
+             soft_wrap: false,
+             syntax: HashMap::new(),
++            colors: HashMap::new(),
+             font_family: None,
+             font_size: None,
+         }
+@@ -303,6 +311,7 @@ impl EntityStore {
+             Record::Textarea { .. } => Some("TextareaState"),
+             // HERDR: expose the distinct code-editor handle type.
+             Record::Editor { .. } => Some("EditorState"),
++            Record::WebView { .. } => Some("WebViewState"),
+             Record::Calendar { .. } => Some("CalendarState"),
+             Record::Slider { .. } => Some("SliderState"),
+             Record::Otp { .. } => Some("OtpState"),
+@@ -483,6 +492,33 @@ impl EntityStore {
+         })
+     }
+ 
++    pub(crate) fn create_webview(
++        &mut self, state: Entity<crate::webview::WebViewState>, application: Option<Rc<ApplicationGeneration>>,
++    ) -> Result<EntityHandle, EntityLimitError> {
++        self.push(Record::WebView { state, application, subscriptions: Vec::new() })
++    }
++    pub(crate) fn webview(&self, handle: EntityHandle) -> Option<Entity<crate::webview::WebViewState>> {
++        match self.record(handle) { Some(Record::WebView {state, ..}) => Some(state.clone()), _ => None }
++    }
++    pub(crate) fn subscribe_webview(&mut self, handle: EntityHandle, window: &mut Window, cx: &mut App,
++        handler: impl Fn(&crate::webview::WebViewMessage, &mut Window, &mut App) + 'static) -> bool {
++        let Some(state) = self.webview(handle) else { return false; };
++        let subscription = window.subscribe(&state, cx, move |_, event, window, cx| handler(event, window, cx));
++        if let Some(Record::WebView {subscriptions, ..}) = self.record_mut(handle) {
++            subscriptions.push(subscription); return true;
++        }
++        false
++    }
++    pub(crate) fn set_webviews_visible(&self, application: Option<&Rc<ApplicationGeneration>>, visible: bool, cx: &mut App) {
++        for stored in self.records.values() {
++            if let Record::WebView {state, application: owner, ..} = &stored.record {
++                if matches!((application, owner.as_ref()), (Some(a), Some(b)) if Rc::ptr_eq(a, b)) {
++                    state.update(cx, |state, _| state.set_visible(visible));
++                }
++            }
++        }
++    }
++
+     // HERDR: never resolve an editor as an input or textarea.
+     pub fn editor(&self, handle: EntityHandle) -> Option<Entity<EditorState>> {
+         match self.record(handle) {
+@@ -1018,6 +1054,7 @@ impl EntityStore {
+                 }
+                 // HERDR: unload editors and their subscriptions with the owning mod.
+                 | Record::Editor { application: owner, .. }
++                | Record::WebView { application: owner, .. }
+                 | Record::Slider {
+                     application: owner, ..
+                 }
+diff --git a/vendor/gpui-kit/crates/shell/src/lib.rs b/vendor/gpui-kit/crates/shell/src/lib.rs
+index 1951249..ffee536 100644
+--- a/vendor/gpui-kit/crates/shell/src/lib.rs
++++ b/vendor/gpui-kit/crates/shell/src/lib.rs
+@@ -99,6 +99,7 @@ mod typings;
+ pub(crate) mod value;
+ pub mod view;
+ pub(crate) mod watch;
++mod webview;
+ 
+ pub use anyhow;
+ pub use value::set_pixel_scale;
+diff --git a/vendor/gpui-kit/crates/shell/src/materialize.rs b/vendor/gpui-kit/crates/shell/src/materialize.rs
+index 5b6693b..f572162 100644
+--- a/vendor/gpui-kit/crates/shell/src/materialize.rs
++++ b/vendor/gpui-kit/crates/shell/src/materialize.rs
+@@ -316,6 +316,7 @@ struct Behavior {
+     disabled: bool,
+     selectable: Option<bool>,
+     text_scrollable: Option<bool>,
++    text_colors: Option<crate::spec::TextViewColors>,
+     on_link_click: Option<CallbackId>,
+ 
+     /// Whether a `NumberInput` stacks both step buttons to the right of the
+@@ -1101,11 +1102,16 @@ fn materialize_component(
+             )
+         }
+         Component::TextView(spec) => {
++            let style = TextViewStyle::from_theme(&Theme::global(cx));
++            let style = match &behavior.text_colors {
++                Some(colors) => colors.apply(style),
++                None => style,
++            };
+             let mut view = match spec.format {
+                 crate::spec::TextViewFormat::Html => TextView::html(spec.id, spec.text),
+                 crate::spec::TextViewFormat::Markdown => TextView::markdown(spec.id, spec.text),
+             }
+-            .style(TextViewStyle::from_theme(&Theme::global(cx)));
++            .style(style);
+             if let Some(selectable) = behavior.selectable {
+                 view = view.selectable(selectable);
+             }
+@@ -1603,6 +1609,12 @@ fn materialize_component(
+         Component::Editor(handle) => {
+             components::editor::editor(runtime, handle, refinement, behavior, states, children, cx)
+         }
++        Component::WebView(handle) => {
++            match runtime.entities().webview(handle) {
++                Some(state) => crate::webview::element(state, refinement, window, cx),
++                None => div().child("This document editor was released.").into_any_element(),
++            }
++        }
+         Component::NumberInput(handle) => components::number_input::number_input(
+             runtime, snapshot, arena, handle, inherited, refinement, behavior, states, slot_specs,
+             children, window, cx,
+@@ -2531,6 +2543,9 @@ fn motion_element_id(
+         Component::Editor(handle) => {
+             gpui::ElementId::NamedInteger("gpui-shell-editor".into(), *handle)
+         }
++        Component::WebView(handle) => {
++            gpui::ElementId::NamedInteger("gpui-shell-webview".into(), *handle)
++        }
+         Component::NumberInput(handle) => {
+             gpui::ElementId::NamedInteger("gpui-shell-number-input".into(), *handle)
+         }
+@@ -3420,6 +3435,11 @@ fn apply_behavior(behavior: &mut Behavior, name: &str, args: &[Bridged]) {
+         "disabled" => behavior.disabled = flag.unwrap_or(true),
+         "selectable" => behavior.selectable = Some(flag.unwrap_or(true)),
+         "scrollable" => behavior.text_scrollable = Some(flag.unwrap_or(true)),
++        "text_colors" => {
++            behavior.text_colors = args.first()
++                .and_then(|value| value.as_str().ok())
++                .and_then(|json| crate::spec::TextViewColors::parse(json).ok());
++        }
+         "selected" => behavior.selected = flag.unwrap_or(true),
+         "checked" => behavior.checked = flag.unwrap_or(true),
+         "value" => behavior.value = args.first().and_then(|value| value.as_f32().ok()),
+diff --git a/vendor/gpui-kit/crates/shell/src/root.rs b/vendor/gpui-kit/crates/shell/src/root.rs
+index f247daa..56f68f3 100644
+--- a/vendor/gpui-kit/crates/shell/src/root.rs
++++ b/vendor/gpui-kit/crates/shell/src/root.rs
+@@ -290,6 +290,15 @@ impl ShellRoot {
+         Some(root.read(cx).tooltip_overlay.clone())
+     }
+ 
++    /// HERDR: hide native document surfaces while their mod is offscreen or covered.
++    /// Keeping the entity alive preserves its page, selection, scroll and undo history.
++    pub fn set_native_views_visible(&self, visible: bool, cx: &mut App) {
++        if let Some(application) = &self.application {
++            let runtime = application.view.read(cx).runtime();
++            runtime.entities().set_webviews_visible(self.application_generation.as_ref(), visible, cx);
++        }
++    }
++
+     /// The view this window was opened with, below every overlay.
+     pub fn content(&self) -> &AnyView {
+         &self.content
+diff --git a/vendor/gpui-kit/crates/shell/src/spec.rs b/vendor/gpui-kit/crates/shell/src/spec.rs
+index a22ebe7..548c4a9 100644
+--- a/vendor/gpui-kit/crates/shell/src/spec.rs
++++ b/vendor/gpui-kit/crates/shell/src/spec.rs
+@@ -198,6 +198,79 @@ pub(crate) enum TextViewFormat {
+     Markdown,
+ }
+ 
++/// Per-document presentation; omitted fields keep the window's current palette.
++#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize)]
++#[serde(default, deny_unknown_fields)]
++pub(crate) struct TextViewColors {
++    pub foreground: Option<String>,
++    pub muted_foreground: Option<String>,
++    pub link: Option<String>,
++    pub selection: Option<String>,
++    pub code_background: Option<String>,
++    pub border: Option<String>,
++    pub dark: Option<bool>,
++}
++
++impl TextViewColors {
++    pub fn parse(json: &str) -> Result<Self, String> {
++        let colors: Self = serde_json::from_str(json).map_err(|error| error.to_string())?;
++        for value in [
++            &colors.foreground,
++            &colors.muted_foreground,
++            &colors.link,
++            &colors.selection,
++            &colors.code_background,
++            &colors.border,
++        ]
++        .into_iter()
++        .flatten()
++        {
++            crate::value::Bridged::Str(value.clone())
++                .as_color()
++                .map_err(|error| error.to_string())?;
++        }
++        Ok(colors)
++    }
++
++    pub fn apply(&self, mut style: gpui_base::TextViewStyle) -> gpui_base::TextViewStyle {
++        let color = |value: &Option<String>| {
++            value
++                .as_ref()
++                .and_then(|value| crate::value::Bridged::Str(value.clone()).as_color().ok())
++        };
++        if let Some(value) = color(&self.foreground) {
++            let inline = gpui::HighlightStyle {
++                color: Some(value),
++                ..style.inline_code()
++            };
++            style = style.with_foreground(value).with_inline_code(inline);
++        }
++        if let Some(value) = color(&self.muted_foreground) {
++            style = style.with_muted_foreground(value);
++        }
++        if let Some(value) = color(&self.link) {
++            style = style.with_link(value);
++        }
++        if let Some(value) = color(&self.selection) {
++            style = style.with_selection(value);
++        }
++        if let Some(value) = color(&self.code_background) {
++            let inline = gpui::HighlightStyle {
++                background_color: Some(value),
++                ..style.inline_code()
++            };
++            style = style.with_code_background(value).with_inline_code(inline);
++        }
++        if let Some(value) = color(&self.border) {
++            style = style.with_border(value);
++        }
++        if let Some(value) = self.dark {
++            style = style.with_dark(value);
++        }
++        style
++    }
++}
++
+ /// A document keeps the authority of the script that described it. Image
+ /// loads happen in later native rendering phases, after the script scope ends.
+ #[derive(Clone)]
+@@ -264,6 +337,7 @@ pub(crate) enum Component {
+     Textarea(crate::entities::EntityHandle),
+     // HERDR: source-code editor element, backed by retained EditorState.
+     Editor(crate::entities::EntityHandle),
++    WebView(crate::entities::EntityHandle),
+ 
+     /// A spinbutton frame over the same `InputState` a [`Component::Input`]
+     /// holds: there is no numeric state type, only a text state carrying a
+@@ -688,6 +762,7 @@ impl Component {
+             Component::Textarea(_) => "Textarea",
+             // HERDR: source editor in spec diagnostics.
+             Component::Editor(_) => "Editor",
++            Component::WebView(_) => "WebView",
+             Component::NumberInput(_) => "NumberInput",
+             Component::OtpInput(_) => "OtpInput",
+             Component::Svg(_) => "svg",
+@@ -1392,6 +1467,7 @@ impl SpecArena {
+             | Component::Textarea(handle)
+             // HERDR: editor handles also participate in retained-state reachability.
+             | Component::Editor(handle)
++            | Component::WebView(handle)
+             | Component::NumberInput(handle)
+             | Component::OtpInput(handle) => out.push_str(&format!(" #{handle}")),
+             _ => {}
+@@ -1613,3 +1689,38 @@ mod tests {
+         );
+     }
+ }
++
++#[cfg(test)]
++mod document_colors_tests {
++    use super::TextViewColors;
++    use gpui_base::TextViewStyle;
++
++    #[test]
++    fn document_colors_preserve_the_host_style_when_omitted() {
++        let base = TextViewStyle::default().with_dark(true);
++        assert!(TextViewColors::parse("{}").unwrap().apply(base.clone()) == base);
++    }
++
++    #[test]
++    fn document_colors_override_body_links_and_inline_code_without_mutating_host() {
++        let base = TextViewStyle::default().with_dark(true);
++        let light = TextViewColors::parse(r##"{"foreground":"#112233","link":"#2244aa","code_background":"#f1f3f5","dark":false}"##)
++            .unwrap().apply(base.clone());
++        assert_eq!(light.foreground(), gpui::rgb(0x112233).into());
++        assert_eq!(light.link(), gpui::rgb(0x2244aa).into());
++        assert_eq!(
++            light.inline_code().background_color,
++            Some(gpui::rgb(0xf1f3f5).into())
++        );
++        assert_eq!(light.inline_code().color, Some(gpui::rgb(0x112233).into()));
++        assert!(!light.is_dark());
++        assert!(base.is_dark());
++    }
++
++    #[test]
++    fn document_colors_refuse_misspelled_roles_and_invalid_colors() {
++        assert!(TextViewColors::parse(r##"{"forground":"#112233"}"##).is_err());
++        assert!(TextViewColors::parse(r#"{"foreground":"red"}"#).is_err());
++        assert!(TextViewColors::parse(r#"{"dark":"false"}"#).is_err());
++    }
++}
+diff --git a/vendor/gpui-kit/crates/shell/src/tests/host_api.rs b/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
+index 72516eb..e646792 100644
+--- a/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
++++ b/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
+@@ -318,3 +318,62 @@ impl gpui::Render for Empty {
+         gpui::div()
+     }
+ }
++
++#[gpui::test]
++fn document_palette_apis_accept_explicit_colors_and_reject_invalid_roles(cx: &mut TestAppContext) {
++    let source = r##"
++import { View, div } from 'gpui-kit';
++import { TextView, EditorState, Editor } from 'gpui-base';
++export default class Probe extends View {
++  init() {
++    this.state = EditorState.new({value:'const a = 1',readonly:true,colors:{foreground:'#112233',background:'#ffffff',selection:'#aaccee'},syntax:{keyword:'#331199'}});
++    try { EditorState.new({colors:{forground:'#112233'}}); this.invalid='accepted'; }
++    catch (error) { this.invalid=error.message; }
++  }
++  render() { return div().child(TextView.markdown('light','body').text_colors({foreground:'#112233',dark:false})).child(Editor.new(this.state).h(90)).child(this.invalid); }
++}
++"##;
++    let (runtime, mut context, view) =
++        script_view(cx, Capabilities::new(), "document-colors.js", source);
++    let _keep_runtime_alive = runtime;
++    draw(&mut context, &view);
++    let rendered = snapshot_text(&mut context, &view);
++    assert!(
++        rendered.contains("unknown EditorState color `forground`"),
++        "{rendered}"
++    );
++    assert!(rendered.contains("text_colors"), "{rendered}");
++}
++
++
++#[gpui::test]
++fn local_webview_retained_api_exports_and_rejects_released_handles(cx: &mut TestAppContext) {
++    let directory = std::env::temp_dir().join(format!("herdr-webview-api-{}", std::process::id()));
++    std::fs::create_dir_all(&directory).unwrap();
++    std::fs::write(directory.join("index.html"), "<!doctype html><p>local</p>").unwrap();
++    let directory = directory.canonicalize().unwrap();
++    let root = serde_json::to_string(&directory).unwrap();
++    let source = format!(r#"
++import {{View, div}} from 'gpui-kit';
++import {{WebViewState, WebView}} from 'gpui-base';
++export default class Probe extends View {{
++  init() {{
++    const state = WebViewState.new({{asset_root:{root}}});
++    this.results = [];
++    try {{ state.post_message('before mount'); }} catch(error) {{ this.results.push(error.message); }}
++    try {{ state.on('change', () => {{}}); }} catch(error) {{ this.results.push(error.message); }}
++    this.results.push(String(state.release()));
++    try {{ WebView.new(state); }} catch(error) {{ this.results.push(error.message); }}
++  }}
++  render() {{ return div().child(this.results.join('|')); }}
++}}
++"#);
++    let (runtime, mut context, view) = script_view(cx, Capabilities::new().read_roots([directory.clone()]), "local-webview.js", &source);
++    let _keep_runtime_alive = runtime;
++    draw(&mut context, &view);
++    let rendered = snapshot_text(&mut context, &view);
++    assert!(rendered.contains("WebView has not been mounted yet"), "{rendered}");
++    assert!(rendered.contains("WebView supports the message event only"), "{rendered}");
++    assert!(rendered.contains("true|this WebView state has been released"), "{rendered}");
++    std::fs::remove_dir_all(directory).unwrap();
++}
+diff --git a/vendor/gpui-kit/crates/shell/src/typings.rs b/vendor/gpui-kit/crates/shell/src/typings.rs
+index 813b410..862175e 100644
+--- a/vendor/gpui-kit/crates/shell/src/typings.rs
++++ b/vendor/gpui-kit/crates/shell/src/typings.rs
+@@ -2413,6 +2413,9 @@ const BASE: &str = r#"  /** A row. */
+   export const Switch: ComponentType;
+   /** Rich HTML or Markdown text. CSS in HTML is not supported. */
+   export interface TextViewElement extends NativeElement {
++    /** Per-view palette overrides; omitted fields follow the host theme. */
++    text_colors(colors: { foreground?: string; muted_foreground?: string; link?: string;
++      selection?: string; code_background?: string; border?: string; dark?: boolean }): this;
+     /** Overrides TextView's default URL opening and reports the resolved URL. */
+     on_link_click(handler: (url: string, cx: Context) => void): this;
+     selectable(value?: boolean): this;
+@@ -3168,10 +3171,25 @@ const BASE: &str = r#"  /** A row. */
+        * constant, variable, operator, punctuation, boolean, string.escape.
+        * Values are concrete hex colors; unspecified UI colors follow the theme. */
+       syntax?: Record<string, string>;
++      /** Editor UI colors, independent of syntax and the host theme. */
++      colors?: { foreground?: string; muted_foreground?: string; background?: string;
++        border?: string; selection?: string; caret?: string };
+     }) => EditorState;
+   };
+   export const Editor: { new: (state: EditorState) => NativeElement };
+ 
++  /** HERDR personal host extension: a local, network-isolated document page. */
++  export interface WebViewState {
++    /** Send a string to the page's window message listener, after its ready event. */
++    post_message(message: string): void;
++    on(event: "message", handler: (message: string, cx: Context) => void): boolean;
++    release(): boolean;
++  }
++  export const WebViewState: {
++    new: (options: {asset_root: string; entry?: string}) => WebViewState;
++  };
++  export const WebView: {new: (state: WebViewState) => NativeElement};
++
+   /** One thumb, or the two ends of a range. */
+   export type SliderValue = number | [number, number];
+ 
+@@ -4678,6 +4696,8 @@ mod tests {
+         assert!(!element.contains("on_link_click("));
+         assert!(!element.contains("selectable("));
+         assert!(!element.contains("scrollable("));
++        assert!(!element.contains("text_colors("));
++        assert!(declarations.contains("text_colors(colors:"));
+         assert!(declarations.contains("export interface TextViewElement extends NativeElement"));
+         assert!(declarations.contains("html(id: string, html: string): TextViewElement;"));
+     }
+diff --git a/vendor/gpui-kit/crates/shell/src/webview.rs b/vendor/gpui-kit/crates/shell/src/webview.rs
+new file mode 100644
+index 0000000..6497be5
+--- /dev/null
++++ b/vendor/gpui-kit/crates/shell/src/webview.rs
+@@ -0,0 +1,480 @@
++//! HERDR: a retained, local-only WebView for document editor mods.
++//!
++//! This host does not grant the page file or network access. The owning mod
++//! handles its messages under the same policy as its other retained inputs.
++
++use anyhow::{Context as _, Result, bail};
++use gpui::{
++    App, Bounds, Context, Entity, EventEmitter, IntoElement as _, ParentElement as _, Pixels,
++    Refineable as _, Styled as _, Window, div,
++};
++use std::{
++    io::Read as _,
++    path::{Path, PathBuf},
++    rc::Rc,
++    sync::Arc,
++};
++
++const MAX_ASSET: u64 = 16 * 1024 * 1024;
++const MAX_MESSAGE: usize = 8 * 1024 * 1024;
++const ORIGIN: &str = "herdr-mod://localhost";
++
++#[derive(serde::Deserialize)]
++pub(crate) struct WebViewOptions {
++    pub asset_root: PathBuf,
++    #[serde(default = "default_entry")]
++    pub entry: String,
++}
++fn default_entry() -> String {
++    "index.html".into()
++}
++
++pub(crate) struct WebViewMessage(pub String);
++
++fn message_channel() -> (
++    async_channel::Sender<String>,
++    async_channel::Receiver<String>,
++) {
++    // Like mod commands, control messages must survive bursts of asset requests.
++    async_channel::unbounded()
++}
++
++pub(crate) struct WebViewState {
++    assets: Arc<cap_std::fs::Dir>,
++    entry: String,
++    allowed_visible: bool,
++    #[cfg(target_os = "macos")]
++    native: Option<Rc<wry::WebView>>,
++    #[cfg(target_os = "macos")]
++    messages: Option<gpui::Task<()>>,
++}
++impl EventEmitter<WebViewMessage> for WebViewState {}
++impl Drop for WebViewState {
++    fn drop(&mut self) {
++        #[cfg(target_os = "macos")]
++        if let Some(native) = &self.native {
++            let _ = native.set_visible(false);
++        }
++    }
++}
++impl WebViewState {
++    pub(crate) fn new(options: WebViewOptions, policy: &crate::policy::Policy) -> Result<Self> {
++        // The whole bundle needs its own grant. An allowed entry in a child
++        // directory does not authorize sibling assets in the requested parent.
++        let grant = policy
++            .capabilities()
++            .open(&options.asset_root, crate::capability::Access::Read)?;
++        let (dir, relative) = grant.into_parts();
++        let assets = Arc::new(
++            dir.open_dir(relative)
++                .context("WebView asset_root must be a read-granted directory")?,
++        );
++        read_asset(&assets, &options.entry)?;
++        Ok(Self {
++            assets,
++            entry: options.entry,
++            allowed_visible: true,
++            #[cfg(target_os = "macos")]
++            native: None,
++            #[cfg(target_os = "macos")]
++            messages: None,
++        })
++    }
++    pub(crate) fn post_message(&self, message: &str) -> Result<()> {
++        if message.len() > MAX_MESSAGE {
++            bail!("WebView message exceeds 8 MiB");
++        }
++        #[cfg(target_os = "macos")]
++        {
++            let native = self
++                .native
++                .as_ref()
++                .context("WebView has not been mounted yet")?;
++            let payload = serde_json::to_string(message)?;
++            native.evaluate_script(&format!(
++                "window.dispatchEvent(new MessageEvent('message',{{data:{payload}}}));"
++            ))?;
++            Ok(())
++        }
++        #[cfg(not(target_os = "macos"))]
++        bail!("Local document WebViews are currently supported on macOS only")
++    }
++    pub(crate) fn set_visible(&mut self, visible: bool) {
++        if self.allowed_visible == visible {
++            return;
++        }
++        self.allowed_visible = visible;
++        #[cfg(target_os = "macos")]
++        if let Some(native) = &self.native {
++            let _ = native.set_visible(visible);
++            if !visible {
++                let _ = native.focus_parent();
++            }
++        }
++    }
++    #[cfg(target_os = "macos")]
++    fn attach(&mut self, window: &mut Window, cx: &mut Context<Self>) -> Result<()> {
++        if self.native.is_some() {
++            return Ok(());
++        }
++        let assets = self.assets.clone();
++        let (send, receive) = message_channel();
++        let url = format!("{ORIGIN}/{}", self.entry);
++        let native = wry::WebViewBuilder::new()
++            .with_url(&url)
++            .with_visible(false)
++            .with_initialization_script(
++                "Object.defineProperty(window, '__HERDR_DOCUMENT_HOST__', {value: true});",
++            )
++            .with_custom_protocol("herdr-mod".into(), move |_, request| {
++                asset_response(&assets, request.uri().path())
++            })
++            .with_navigation_handler(move |target| {
++                target == url
++                    || target
++                        .strip_prefix(&url)
++                        .is_some_and(|tail| tail.starts_with('#'))
++            })
++            .with_new_window_req_handler(|_, _| wry::NewWindowResponse::Deny)
++            .with_ipc_handler(move |request| {
++                if request.uri().scheme_str() == Some("herdr-mod")
++                    && request.uri().host() == Some("localhost")
++                    && request.body().len() <= MAX_MESSAGE
++                {
++                    let _ = send.try_send(request.into_body());
++                }
++            })
++            .build_as_child(&*window)?;
++        self.native = Some(Rc::new(native));
++        let window_handle = window.window_handle();
++        self.messages = Some(cx.spawn(async move |state, cx| {
++            while let Ok(message) = receive.recv().await {
++                let result = window_handle.update(cx, |_, _, cx| {
++                    state.update(cx, |_, cx| cx.emit(WebViewMessage(message)))
++                });
++                if result.is_err() {
++                    break;
++                }
++            }
++        }));
++        Ok(())
++    }
++}
++
++fn read_asset(directory: &cap_std::fs::Dir, relative: &str) -> Result<Vec<u8>> {
++    let path = Path::new(relative);
++    if path.is_absolute()
++        || path
++            .components()
++            .any(|c| !matches!(c, std::path::Component::Normal(_)))
++    {
++        bail!("WebView asset path must stay inside asset_root");
++    }
++    // cap-std resolves every component through the retained directory handle,
++    // including symlinks. No path is reopened with ambient authority after validation.
++    let file = directory
++        .open(path)
++        .context("WebView asset is unavailable or outside asset_root")?;
++    let metadata = file.metadata()?;
++    if !metadata.is_file() {
++        bail!("WebView asset must be a file");
++    }
++    if metadata.len() > MAX_ASSET {
++        bail!("WebView asset exceeds 16 MiB");
++    }
++    let mut body = Vec::with_capacity(metadata.len() as usize);
++    file.take(MAX_ASSET + 1).read_to_end(&mut body)?;
++    if body.len() as u64 > MAX_ASSET {
++        bail!("WebView asset exceeds 16 MiB");
++    }
++    Ok(body)
++}
++
++#[cfg(target_os = "macos")]
++fn asset_response(
++    assets: &cap_std::fs::Dir,
++    url_path: &str,
++) -> wry::http::Response<std::borrow::Cow<'static, [u8]>> {
++    use std::borrow::Cow;
++    let path = percent_encoding::percent_decode_str(url_path.trim_start_matches('/')).decode_utf8();
++    let asset = path.ok().and_then(|path| {
++        read_asset(assets, &path)
++            .ok()
++            .map(|body| (path.into_owned(), body))
++    });
++    let Some((relative, body)) = asset else {
++        return wry::http::Response::builder()
++            .status(404)
++            .body(Cow::Borrowed(&b"Asset unavailable"[..]))
++            .unwrap();
++    };
++    let mime = match Path::new(&relative)
++        .extension()
++        .and_then(|ext| ext.to_str())
++        .unwrap_or("")
++    {
++        "html" => "text/html; charset=utf-8",
++        "js" | "mjs" => "text/javascript; charset=utf-8",
++        "css" => "text/css; charset=utf-8",
++        "woff2" => "font/woff2",
++        "woff" => "font/woff",
++        "ttf" => "font/ttf",
++        "otf" => "font/otf",
++        "png" => "image/png",
++        "jpg" | "jpeg" => "image/jpeg",
++        "webp" => "image/webp",
++        "gif" => "image/gif",
++        "avif" => "image/avif",
++        "svg" => "image/svg+xml",
++        _ => "application/octet-stream",
++    };
++    wry::http::Response::builder().header("Content-Type", mime)
++        .header("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'")
++        .header("X-Content-Type-Options", "nosniff")
++        .body(Cow::Owned(body)).unwrap()
++}
++
++pub(crate) fn element(
++    state: Entity<WebViewState>,
++    refinement: gpui::StyleRefinement,
++    window: &mut Window,
++    cx: &mut App,
++) -> gpui::AnyElement {
++    #[cfg(target_os = "macos")]
++    if let Err(error) = state.update(cx, |state, cx| state.attach(window, cx)) {
++        tracing::error!("cannot mount local document WebView: {error:#}");
++        return div()
++            .child(format!("Document editor could not open: {error}"))
++            .into_any_element();
++    }
++    #[cfg(not(target_os = "macos"))]
++    let _ = window;
++    let mut frame = div().size_full().min_h_0().min_w_0();
++    frame.style().refine(&refinement);
++    #[cfg(target_os = "macos")]
++    return frame.child(WebViewElement { state }).into_any_element();
++    #[cfg(not(target_os = "macos"))]
++    return frame
++        .child("Local document editing requires the macOS host extension.")
++        .into_any_element();
++}
++
++#[cfg(target_os = "macos")]
++struct WebViewElement {
++    state: Entity<WebViewState>,
++}
++#[cfg(target_os = "macos")]
++impl gpui::IntoElement for WebViewElement {
++    type Element = Self;
++    fn into_element(self) -> Self {
++        self
++    }
++}
++#[cfg(target_os = "macos")]
++impl gpui::Element for WebViewElement {
++    type RequestLayoutState = ();
++    type PrepaintState = ();
++    fn id(&self) -> Option<gpui::ElementId> {
++        None
++    }
++    fn source_location(&self) -> Option<&'static std::panic::Location<'static>> {
++        None
++    }
++    fn request_layout(
++        &mut self,
++        _: Option<&gpui::GlobalElementId>,
++        _: Option<&gpui::InspectorElementId>,
++        window: &mut Window,
++        cx: &mut App,
++    ) -> (gpui::LayoutId, ()) {
++        (
++            window.request_layout(
++                gpui::Style {
++                    size: gpui::Size::full(),
++                    ..Default::default()
++                },
++                [],
++                cx,
++            ),
++            (),
++        )
++    }
++    fn prepaint(
++        &mut self,
++        _: Option<&gpui::GlobalElementId>,
++        _: Option<&gpui::InspectorElementId>,
++        bounds: Bounds<Pixels>,
++        _: &mut (),
++        window: &mut Window,
++        cx: &mut App,
++    ) {
++        let clip = bounds.intersect(&window.content_mask().bounds);
++        let state = self.state.read(cx);
++        if let Some(native) = &state.native {
++            let visible = state.allowed_visible
++                && clip.size.width > gpui::px(0.)
++                && clip.size.height > gpui::px(0.);
++            if visible {
++                let rect = wry::Rect {
++                    position: wry::dpi::LogicalPosition::new(
++                        f64::from(clip.origin.x),
++                        f64::from(clip.origin.y),
++                    )
++                    .into(),
++                    size: wry::dpi::LogicalSize::new(
++                        f64::from(clip.size.width),
++                        f64::from(clip.size.height),
++                    )
++                    .into(),
++                };
++                if let Err(error) = native.set_bounds(rect) {
++                    tracing::warn!("WebView bounds failed: {error}");
++                    return;
++                }
++                let _ = native.zoom(f64::from(f32::from(crate::value::scaled_px(1.))));
++                window.insert_hitbox(clip, gpui::HitboxBehavior::BlockMouse);
++            }
++            let _ = native.set_visible(visible);
++        }
++    }
++    fn paint(
++        &mut self,
++        _: Option<&gpui::GlobalElementId>,
++        _: Option<&gpui::InspectorElementId>,
++        _: Bounds<Pixels>,
++        _: &mut (),
++        _: &mut (),
++        _: &mut Window,
++        _: &mut App,
++    ) {
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    fn test_directory() -> PathBuf {
++        let path = std::env::temp_dir().join(format!(
++            "herdr-webview-{}-{}",
++            std::process::id(),
++            std::time::SystemTime::now()
++                .duration_since(std::time::UNIX_EPOCH)
++                .unwrap()
++                .as_nanos()
++        ));
++        std::fs::create_dir_all(&path).unwrap();
++        path.canonicalize().unwrap()
++    }
++    #[test]
++    fn local_assets_reject_parent_and_absolute_paths() {
++        let root = test_directory();
++        std::fs::write(root.as_path().join("index.html"), "local").unwrap();
++        let assets =
++            cap_std::fs::Dir::open_ambient_dir(&root, cap_std::ambient_authority()).unwrap();
++        assert_eq!(read_asset(&assets, "index.html").unwrap(), b"local");
++        for path in ["../outside", "/etc/passwd", "nested/../index.html", ""] {
++            assert!(read_asset(&assets, path).is_err(), "{path}");
++        }
++    }
++    #[test]
++    fn local_webview_bridge_keeps_image_burst_and_save_in_order() {
++        let (send, receive) = message_channel();
++        let mut expected: Vec<String> = (0..128).map(|index| format!("image:{index}")).collect();
++        expected.push("save".into());
++        for message in &expected {
++            let _ = send.try_send(message.clone());
++        }
++        let mut actual = Vec::new();
++        while let Ok(message) = receive.try_recv() {
++            actual.push(message);
++        }
++        assert_eq!(
++            actual, expected,
++            "image requests must not drop a queued save"
++        );
++    }
++    #[test]
++    fn local_webview_rejects_entry_only_read_grant() {
++        let root = test_directory();
++        let allowed = root.join("allowed");
++        std::fs::create_dir(&allowed).unwrap();
++        std::fs::write(allowed.join("index.html"), "local").unwrap();
++        std::fs::write(root.join("private.txt"), "private sibling").unwrap();
++        let policy = crate::policy::Policy::new()
++            .with_capabilities(crate::Capabilities::new().read_roots([allowed]));
++        let state = WebViewState::new(
++            WebViewOptions {
++                asset_root: root.clone(),
++                entry: "allowed/index.html".into(),
++            },
++            &policy,
++        );
++        assert!(
++            state.is_err(),
++            "an allowed entry must not grant its parent asset directory"
++        );
++        std::fs::remove_dir_all(root).unwrap();
++    }
++    #[test]
++    fn local_webview_granted_bundle_serves_html_script_and_fonts() {
++        let root = test_directory();
++        let assets = root.join("allowed");
++        std::fs::create_dir(&assets).unwrap();
++        for (name, bytes) in [
++            ("index.html", "html"),
++            ("editor.js", "script"),
++            ("font.woff2", "font"),
++        ] {
++            std::fs::write(assets.join(name), bytes).unwrap();
++        }
++        std::fs::write(root.join("private.txt"), "private sibling").unwrap();
++        let policy = crate::policy::Policy::new()
++            .with_capabilities(crate::Capabilities::new().read_roots([assets.clone()]));
++        let state = WebViewState::new(
++            WebViewOptions {
++                asset_root: assets.clone(),
++                entry: "index.html".into(),
++            },
++            &policy,
++        )
++        .unwrap();
++        for (name, bytes) in [
++            ("index.html", "html"),
++            ("editor.js", "script"),
++            ("font.woff2", "font"),
++        ] {
++            assert_eq!(read_asset(&state.assets, name).unwrap(), bytes.as_bytes());
++        }
++        assert!(read_asset(&state.assets, "../private.txt").is_err());
++        #[cfg(target_os = "macos")]
++        {
++            let script = asset_response(&state.assets, "/editor.js");
++            assert_eq!(script.status(), 200);
++            assert_eq!(
++                script.headers()["Content-Type"],
++                "text/javascript; charset=utf-8"
++            );
++            assert_eq!(script.body().as_ref(), b"script");
++            let font = asset_response(&state.assets, "/font.woff2");
++            assert_eq!(font.status(), 200);
++            assert_eq!(font.headers()["Content-Type"], "font/woff2");
++            let sibling = asset_response(&state.assets, "/../private.txt");
++            assert_eq!(sibling.status(), 404);
++            assert_ne!(sibling.body().as_ref(), b"private sibling");
++        }
++        std::fs::remove_dir_all(root).unwrap();
++    }
++    #[cfg(unix)]
++    #[test]
++    fn local_assets_reject_symlinks_outside_the_bundle() {
++        let root = test_directory();
++        let outside = root.join("outside");
++        std::fs::write(&outside, "outside").unwrap();
++        let inner = root.join("inner");
++        std::fs::create_dir(&inner).unwrap();
++        std::os::unix::fs::symlink(&outside, inner.join("link")).unwrap();
++        let assets =
++            cap_std::fs::Dir::open_ambient_dir(&inner, cap_std::ambient_authority()).unwrap();
++        assert!(read_asset(&assets, "link").is_err());
++    }
++}

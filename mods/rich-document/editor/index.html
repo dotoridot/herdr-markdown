@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="editor.css">
+  <title>Markdown</title>
+</head>
+<body>
+  <main id="app">
+    <form id="open-form" class="toolbar pathbar" aria-label="Open Markdown file">
+      <button type="button" id="back" aria-label="Previous document" title="Previous document" disabled>←</button>
+      <input id="path" aria-label="Absolute Markdown file path" placeholder="Absolute Markdown file path" spellcheck="false">
+      <button type="submit">Open</button>
+      <button type="button" id="file-menu-button" aria-haspopup="menu" aria-expanded="false">File</button>
+    </form>
+    <div class="toolbar controls" aria-label="Document controls">
+      <div class="segmented" role="group" aria-label="Editor view">
+        <button id="source-button" type="button" aria-pressed="false" title="Edit Markdown source">&lt;&gt; Source</button>
+        <button id="rich-button" type="button" aria-pressed="true" title="Edit formatted document">✎ Rich</button>
+      </div>
+      <div class="segmented" role="group" aria-label="Document theme">
+        <button id="light-button" type="button" aria-pressed="true">Light</button>
+        <button id="dark-button" type="button" aria-pressed="false">Dark</button>
+      </div>
+      <button id="width-button" type="button" aria-pressed="false">Wide</button>
+      <button id="smaller" type="button" aria-label="Decrease document text size">A−</button>
+      <button id="larger" type="button" aria-label="Increase document text size">A+</button>
+      <span class="spacer"></span>
+      <button id="reload" type="button">Reload</button>
+      <button id="save" type="button" class="primary" disabled>Save</button>
+    </div>
+    <div id="format-toolbar" class="toolbar format" role="toolbar" aria-label="Rich text formatting">
+      <button type="button" data-command="bold" aria-label="Bold" title="Bold (⌘B)"><b>B</b></button>
+      <button type="button" data-command="italic" aria-label="Italic" title="Italic (⌘I)"><i>I</i></button>
+      <button type="button" data-command="strike" aria-label="Strikethrough" title="Strikethrough"><s>S</s></button>
+      <button type="button" data-command="heading1" title="Heading 1">H1</button>
+      <button type="button" data-command="heading2" title="Heading 2">H2</button>
+      <button type="button" data-command="bulletList" title="Bullet list">List</button>
+      <button type="button" data-command="orderedList" title="Numbered list">1. List</button>
+      <button type="button" data-command="taskList" title="Task list">Tasks</button>
+      <button type="button" data-command="blockquote" title="Blockquote">Quote</button>
+      <button type="button" data-command="code" title="Inline code">Code</button>
+      <button type="button" data-command="codeBlock" title="Code block">Block</button>
+      <button type="button" data-command="table" title="Insert table">Table</button>
+      <button type="button" data-command="undo" title="Undo (⌘Z)">Undo</button>
+      <button type="button" data-command="redo" title="Redo (⇧⌘Z)">Redo</button>
+    </div>
+    <div id="notice" role="status" hidden></div>
+    <div id="viewport" tabindex="-1">
+      <div id="rich-shell"><div id="rich-editor" aria-label="Rich Markdown editor"></div></div>
+      <textarea id="source-editor" aria-label="Markdown source editor" spellcheck="false" hidden></textarea>
+      <div id="empty">Enter a Markdown file path above and choose Open.</div>
+    </div>
+    <footer><span id="document-name">Markdown</span><span id="status" role="status">Ready</span></footer>
+  </main>
+  <div id="file-menu" role="menu" hidden>
+    <button type="button" role="menuitem" data-file-action="reveal">Reveal in Finder</button>
+    <button type="button" role="menuitem" data-file-action="copy-path">Copy path</button>
+    <button type="button" role="menuitem" data-file-action="copy-relative">Copy relative path</button>
+    <button type="button" role="menuitem" id="close-menu">Close</button>
+  </div>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">Unsaved changes</h2>
+    <p id="confirm-message">Save this document before opening another file.</p>
+    <div class="dialog-actions"><button id="cancel-confirm" type="button">Cancel</button><button id="accept-confirm" type="button" class="primary">Continue</button></div>
+  </dialog>
+  <script src="editor.js"></script>
+</body>
+</html>

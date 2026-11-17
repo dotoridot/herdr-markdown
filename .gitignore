@@ -1,0 +1,7 @@
+node_modules/
+.cache/
+*.error
+mods/rich-document/.cache/
+mods/rich-document/editor/cache/
+mods/rich-document/gpui-kit.d.ts
+mods/rich-document/jsconfig.json
