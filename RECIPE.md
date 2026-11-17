@@ -1,6 +1,6 @@
 # Markdown
 
-A Markdown tab with a source editor and a formatted document you can edit directly. It offers local fonts, neutral Light and Dark themes, safe explicit saving, and retained reading positions.
+A Markdown tab with a source editor and a formatted document you can edit directly. It requires the included experimental macOS native host patch. It offers local fonts, neutral Light and Dark themes, safe explicit saving, and retained reading positions.
 
 ![Markdown editor](preview.png)
 
@@ -32,7 +32,7 @@ The mod uses Herdr's `readTextFile`, `writeTextFile` with the expected contents,
 
 ## Watch out
 
-The current full editor needs the included macOS native host extension. Copying files into a stock Herdr installation provides a read-only fallback, not WYSIWYG editing. The GPUI pre backend places native WebViews above GPUI content; the host temporarily hides the retained page while a non-toast GPUI overlay is open. Native WebViews can be missing from GPUI frame screenshots, so validate them with an OS window capture.
+The current full editor needs the included macOS native host extension. The legacy read-only preview targets earlier patched builds; stock Herdr compatibility is not verified. The GPUI pre backend places native WebViews above GPUI content; the host temporarily hides the retained page while a non-toast GPUI overlay is open. Native WebViews can be missing from GPUI frame screenshots, so validate them with an OS window capture.
 
 Keep script inputs separate from source code: `post_message` serializes strings through JSON. Keep arbitrary document HTML inert and network access disabled. Asset files stay inside the granted root. Document text is limited to 1 MiB UTF-8, and local image previews to 16 MiB.
 

@@ -15,7 +15,7 @@ A local Markdown editor for Herdr, with **Source** and editable **Rich** views, 
 
 YAML frontmatter and raw HTML are preserved as inert source fragments. Use Source to edit those fragments. Opening a document or switching views leaves the original Markdown untouched. Rich edits can normalize Markdown spacing, delimiters, and line endings when serialized.
 
-Existing non-text control characters are preserved and shown as codes such as `[U+001C]` in Rich. Ordinary key input cannot insert these characters accidentally. Source and paste retain the original text; null bytes must be removed before saving a text document.
+In Rich prose, existing C0 controls (except U+0009, U+000A, and U+000D) and DEL are preserved and shown as codes such as `[U+001C]`. Code spans, code blocks, and raw fragments retain their original text. Ordinary key input cannot insert these characters accidentally. Source and paste retain the original text; null bytes must be removed before saving a text document.
 
 ## Install
 
@@ -31,7 +31,7 @@ herdr-app do tab.new '{"name":"Markdown","mod":"rich-document","props":{"file":"
 
 Cmd-click handles existing local `.md`, `.markdown`, `.mdown`, and `.mkd` files. Remote terminal links retain Herdr's system opener behavior. Manually opened remote document props use the read-only native preview.
 
-The editing limit is 1 MiB of UTF-8 text per file. Local image previews are limited to 16 MiB. An unavailable native host falls back to a read-only preview; its optional Mermaid renderer needs Node, Python 3, local Chrome/Chromium, and `npm ci` in `mods/rich-document/renderer/`.
+The editing limit is 1 MiB of UTF-8 text per file. Local image previews are limited to 16 MiB. The legacy read-only preview targets earlier patched builds; compatibility with stock Herdr releases is not verified. Its optional Mermaid renderer needs Node, Python 3, local Chrome/Chromium, and `npm ci` in `mods/rich-document/renderer/`.
 
 ## Develop
 
@@ -50,7 +50,7 @@ The WebView page loads only bundled assets under its assigned root. It has no ne
 
 ## Sharing
 
-This repository uses the `herdr-mod` topic, `RECIPE.md`, and `preview.png` for discovery by Herdr Mods. Repository publication and catalog indexing are separate: indexing is controlled by Herdr's catalog.
+Herdr Mods discovers repositories through the `herdr-mod` topic, `RECIPE.md`, and `preview.png`. Repository publication and catalog indexing are separate: indexing is controlled by Herdr's catalog. See `VALIDATION.md` for release status.
 
 ## Licenses
 
