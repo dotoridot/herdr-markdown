@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/herdrdev/herdr-app",
   "base": "f6fe216e3078225619621174e62b8b4d8cc56513",
-  "host": "b394efe614c9f6c2ae65084c94fc62cf7a923d59",
+  "host": "be637ba774d3541684b96dd16771c58d99e87582",
   "platform": "macOS",
   "includes": [
     "local terminal Markdown Cmd-click route",
@@ -10,6 +10,7 @@
     "child WebView editing shortcuts",
     "native document pane focus",
     "native child cursor ownership",
-    "current-generation WebView visibility and synchronous retirement"
+    "current-generation WebView visibility and synchronous retirement",
+    "filename-only Markdown tab titles"
   ]
 }

@@ -1587,7 +1587,7 @@ index d34ae80..2fb30df 100644
      fn terminal_release_ends_window_text_selection(cx: &mut gpui::TestAppContext) {
          use gpui::*;
 diff --git a/src/window.rs b/src/window.rs
-index 30b2e4f..75e9bda 100644
+index 30b2e4f..f9083b2 100644
 --- a/src/window.rs
 +++ b/src/window.rs
 @@ -1400,6 +1400,22 @@ impl AppWindow {
@@ -1603,7 +1603,7 @@ index 30b2e4f..75e9bda 100644
 +                    if !addr.contains('/') && this.folders.contains_key("rich-document")
 +                        && let Some(path) = crate::links::document_file(target)
 +                    {
-+                        let name = format!("Markdown - {}", path.file_name().unwrap_or_default().to_string_lossy());
++                        let name = path.file_name().unwrap_or_default().to_string_lossy().into_owned();
 +                        let space = this.model.space_of(block.trim_end_matches(SWAP)).map(|space| space.id.clone());
 +                        this.run("tab.new", json!({"space": space, "name": name, "mod": "rich-document", "props": {"file": path}}), window, cx);
 +                    } else {
