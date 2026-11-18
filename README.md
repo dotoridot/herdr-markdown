@@ -20,8 +20,6 @@ https://github.com/user-attachments/assets/1adb457c-a0cb-4421-9536-b59e08ce3e83
 
 ## Screenshots
 
-![Herdr Markdown in Rich view with a task list, a table, and a local document link](preview.png)
-
 | Source view | Dark theme |
 | --- | --- |
 | ![The same document as editable Markdown](media/source.png) | ![The formatted document in Dark mode](media/rich-dark.png) |
