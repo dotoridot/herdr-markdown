@@ -130,8 +130,22 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       const source='# Back position\n\n[Other](other.md)\n\nA final paragraph.\n';
       await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/back.md',source}),source);
       await new Promise(resolve=>setTimeout(resolve,220));
+      const linkStyle=()=>page.$eval('.tiptap a',node=>{
+        const style=getComputedStyle(node);
+        return {cursor:style.cursor,weight:style.fontWeight};
+      });
+      await page.hover('.tiptap a');
+      assert.deepEqual(await linkStyle(),{cursor:'text',weight:'600'});
+      await page.keyboard.down('Meta');
+      assert.equal((await linkStyle()).cursor,'pointer');
+      await page.keyboard.up('Meta');
+      assert.equal((await linkStyle()).cursor,'text');
+      await page.mouse.move(5,5);
+      await page.keyboard.down('Meta');
+      await page.hover('.tiptap a');
+      assert.equal((await linkStyle()).cursor,'pointer');
       await page.click('.tiptap a');
-      await page.keyboard.down('Meta');await page.click('.tiptap a');await page.keyboard.up('Meta');
+      await page.keyboard.up('Meta');
       const selection=await page.evaluate(()=>window.herdrMarkdown.snapshot().richSelection);
       await page.evaluate(()=>window.herdrMarkdown.receive({type:'loading'}));
       await page.evaluate(()=>window.herdrMarkdown.receive({type:'document',file:'/example/other.md',source:'# Other'}));

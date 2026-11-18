@@ -257,6 +257,13 @@ function receive(message){
 window.addEventListener('message',event=>receive(event.data));
 // The native host calls this hook; the browser harness uses the same contract.
 window.herdrMarkdown={receive,snapshot:()=>snapshot(),editor};
+const updateLinkModifier=event=>{
+  document.documentElement.classList.toggle('follow-links',event.metaKey||event.ctrlKey);
+};
+window.addEventListener('keydown',updateLinkModifier,true);
+window.addEventListener('keyup',updateLinkModifier,true);
+window.addEventListener('pointermove',updateLinkModifier,{capture:true,passive:true});
+window.addEventListener('blur',()=>document.documentElement.classList.remove('follow-links'));
 window.addEventListener('keydown',event=>{
   if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='s'){event.preventDefault();save();}
   if(event.key==='Escape')closeMenu();
@@ -315,5 +322,9 @@ document.addEventListener('pointerdown',event=>{if(!event.target.closest('#file-
 for(const button of document.querySelectorAll('[data-file-action]'))button.onclick=()=>{send({type:'file-action',action:button.dataset.fileAction});closeMenu();};
 $('cancel-confirm').onclick=()=>$('confirm-dialog').close();
 $('confirm-dialog').addEventListener('click',event=>{if(event.target===$('confirm-dialog')){const r=event.target.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)event.target.close();}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&file)send({type:'draft',snapshot:snapshot()});});
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden)return;
+  document.documentElement.classList.remove('follow-links');
+  if(file)send({type:'draft',snapshot:snapshot()});
+});
 applyPreferences(preferences,false);update();ready=true;send({type:'ready'});
