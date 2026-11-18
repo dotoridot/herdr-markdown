@@ -1,32 +1,54 @@
 # Herdr Markdown
 
-A local Markdown editor for Herdr, with **Source** and editable **Rich** views, explicit **Light / Dark** themes, and bundled fonts.
+Open a Markdown file from a Herdr terminal and edit it in a tab. Use **Rich** to edit the formatted document directly, or switch to **Source** to edit the Markdown.
 
-> Experimental macOS host extension required. This is a community mod, not a built-in Herdr feature. The bundled native patch provides the `WebViewState` / `WebView` APIs used by the editor. A stock Herdr build cannot provide Rich editing just by copying this mod.
+> **Requires a patched macOS build of Herdr.** The bundled [native host patch](native/README.md) provides the WebView APIs used by the editor. Install the mod alongside that build to use Rich editing.
 
-## Editing
+![Herdr Markdown in Rich view with a task list, a table, and a local document link](preview.png)
 
-- Type directly into the formatted document in Rich, or edit Markdown in Source.
-- Save with the **Save** button. The editor checks the file's original contents before writing. If another program changed the file, it keeps your draft and reports the conflict.
-- Switching views preserves the draft. The native host keeps the same editor page while its tab is inactive, preserving scroll and selection.
-- Reload asks before discarding unsaved changes. Unsaved drafts are also stored in Herdr's local mod storage for recovery; this is separate from saving the file.
-- Light and Dark use Docpilot's neutral palette. Body text uses DM Sans and Noto Sans KR, headings and controls use Space Grotesk and Noto Sans KR, and code uses JetBrains Mono. All font files are local and include their OFL licenses.
-- Tables, task lists, code blocks, and Mermaid diagrams work in Rich. Local document images are staged into the mod's local cache. External images are not fetched.
+## Demo videos
 
-YAML frontmatter and raw HTML are preserved as inert source fragments. Use Source to edit those fragments. Opening a document or switching views leaves the original Markdown untouched. Rich edits can normalize Markdown spacing, delimiters, and line endings when serialized.
+These short, silent recordings show Herdr Markdown running on macOS. Each clip leaves time to read the screen after an action.
 
-In Rich prose, existing C0 controls (except U+0009, U+000A, and U+000D) and DEL are preserved and shown as codes such as `[U+001C]`. Code spans, code blocks, and raw fragments retain their original text. Ordinary key input cannot insert these characters accidentally. Source and paste retain the original text; null bytes must be removed before saving a text document.
+| Video | What you’ll see |
+| --- | --- |
+| [Open from a terminal](media/open-from-terminal.mp4) | Cmd-click a local Markdown path and open it in a tab named after the file. |
+| [Edit and save in Rich](media/editing.mp4) | Type directly into a formatted paragraph and save the file. |
+| [Switch views and themes](media/formatting.mp4) | Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram. |
+| [Follow links and switch tabs](media/navigation.mp4) | Follow a local document link, use Back, and switch between the document and terminal tabs. |
+
+## Screenshots
+
+| Source view | Dark theme |
+| --- | --- |
+| ![The same document as editable Markdown](media/source.png) | ![The formatted document in Dark mode](media/rich-dark.png) |
+
+![A rendered Mermaid flowchart above its editable code block](media/formatting.png)
+
+## What you can do
+
+| Workflow | In Herdr Markdown |
+| --- | --- |
+| Open and edit | Cmd-click a local Markdown path in a terminal to open a tab named after the file. Edit text directly in Rich or switch to Source. |
+| Format | Use the Rich toolbar for headings, emphasis, lists, quotes, code and tables. Tick task checkboxes inline and preview Mermaid code and local images. |
+| Read | Choose Light or Dark, adjust the text size, and switch between a reading column and a wide layout. Links are blue and underlined. Hold Cmd over a link to see a hand pointer, then click to follow it. |
+| Switch and return | Keep the scroll position and draft when leaving a Herdr tab. Use Back to return after following a link to another local Markdown file. |
+| Save | Click Save or press Cmd+S. If the file changed on disk, the editor keeps your draft and reports the conflict. Reload asks before discarding unsaved edits. |
+
+YAML frontmatter and raw HTML appear as inert source fragments in Rich. Use Source to edit them. Opening a file or switching views preserves the original Markdown. Editing in Rich can normalize whitespace, delimiters, and line endings when the draft is serialized.
+
+The editor bundles DM Sans, Space Grotesk, Noto Sans KR and JetBrains Mono. Existing non-printing control characters in Rich prose appear as labels such as `[U+001C]`. The bytes are preserved in the draft. A file containing a null byte is treated as binary.
 
 ## Install
 
-The native host patch and its matching base revision are in `native/`. Build and test the patched application separately before replacing your usual Herdr app. Keep your existing app and config available for rollback.
+The native host patch and its matching base revision are in [native/](native/README.md). Build and test the patched application separately before replacing your usual Herdr app. Keep your existing app and config available for rollback.
 
 Copy `mods/rich-document/` into your Herdr app home's `mods/` directory. The usual home is `~/.config/herdr-app`. Preserve any existing mod under a different name before replacing it.
 
 Open a document through the patched app's local terminal Cmd-click handler, or explicitly create a mod tab:
 
 ```sh
-herdr-app do tab.new '{"name":"Markdown","mod":"rich-document","props":{"file":"/absolute/path/notes.md"}}'
+herdr-app do tab.new '{"name":"notes.md","mod":"rich-document","props":{"file":"/absolute/path/notes.md"}}'
 ```
 
 Cmd-click handles existing local `.md`, `.markdown`, `.mdown`, and `.mkd` files. Remote terminal links retain Herdr's system opener behavior. Manually opened remote document props use the read-only native preview.
