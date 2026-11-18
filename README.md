@@ -6,15 +6,15 @@ Open a Markdown file from a Herdr terminal and edit it in a tab. Use **Rich** to
 
 ## Edit and save in Rich
 
-Type directly into a formatted paragraph and save the file.
+Edit a formatted paragraph and save it directly in the Herdr app.
 
-https://github.com/user-attachments/assets/1adb457c-a0cb-4421-9536-b59e08ce3e83
+https://github.com/user-attachments/assets/d87c9840-f7d7-4341-a2c4-211cf2625111
 
 ## More demos
 
 | Video | What you’ll see |
 | --- | --- |
-| [Open from a terminal](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/open-from-terminal.mp4) | Cmd-click a local Markdown path to open it in a tab named after the file. |
+| [Open a Markdown file from Codex](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@057c9786de5288a9d41c417b02c736a6e43632af/media/open-from-terminal.mp4) | Ask Codex to create a sample Markdown file, then Cmd-click the returned path in the terminal to open it in Herdr. |
 | [Switch views and themes](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/formatting.mp4) | Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram. |
 | [Follow links and switch tabs](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/navigation.mp4) | Follow a local document link, use Back, and switch between the document and terminal tabs. |
 
