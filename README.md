@@ -12,23 +12,11 @@ https://github.com/user-attachments/assets/1adb457c-a0cb-4421-9536-b59e08ce3e83
 
 ## More demos
 
-### Open from a terminal
-
-Cmd-click a local Markdown path to open it in a tab named after the file.
-
-https://github.com/user-attachments/assets/1d53e9b5-7d89-4d54-a2b6-c5b7d1679000
-
-### Switch views and themes
-
-Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram.
-
-https://github.com/user-attachments/assets/016b2e0c-d590-4549-9ab2-df92d5296a84
-
-### Follow links and switch tabs
-
-Follow a local document link, use Back, and switch between the document and terminal tabs.
-
-https://github.com/user-attachments/assets/ec86ef9f-6e37-4db5-a322-c07ccbc7de30
+| Video | What you’ll see |
+| --- | --- |
+| [Open from a terminal](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/open-from-terminal.mp4) | Cmd-click a local Markdown path to open it in a tab named after the file. |
+| [Switch views and themes](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/formatting.mp4) | Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram. |
+| [Follow links and switch tabs](https://cdn.jsdelivr.net/gh/dotoridot/herdr-markdown@b7609e257ad84d8bc6b0853a7cb20a1fef6a299d/media/navigation.mp4) | Follow a local document link, use Back, and switch between the document and terminal tabs. |
 
 ## Screenshots
 
