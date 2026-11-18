@@ -4,20 +4,35 @@ Open a Markdown file from a Herdr terminal and edit it in a tab. Use **Rich** to
 
 > **Requires a patched macOS build of Herdr.** The bundled [native host patch](native/README.md) provides the WebView APIs used by the editor. Install the mod alongside that build to use Rich editing.
 
-![Herdr Markdown in Rich view with a task list, a table, and a local document link](preview.png)
+## Edit and save in Rich
 
-## Demo videos
+Type directly into a formatted paragraph and save the file.
 
-These short, silent recordings show Herdr Markdown running on macOS. Each clip leaves time to read the screen after an action.
+https://github.com/user-attachments/assets/1adb457c-a0cb-4421-9536-b59e08ce3e83
 
-| Video | What you’ll see |
-| --- | --- |
-| [Open from a terminal](media/open-from-terminal.mp4) | Cmd-click a local Markdown path and open it in a tab named after the file. |
-| [Edit and save in Rich](media/editing.mp4) | Type directly into a formatted paragraph and save the file. |
-| [Switch views and themes](media/formatting.mp4) | Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram. |
-| [Follow links and switch tabs](media/navigation.mp4) | Follow a local document link, use Back, and switch between the document and terminal tabs. |
+## More demos
+
+### Open from a terminal
+
+Cmd-click a local Markdown path to open it in a tab named after the file.
+
+https://github.com/user-attachments/assets/1d53e9b5-7d89-4d54-a2b6-c5b7d1679000
+
+### Switch views and themes
+
+Toggle Light and Dark, switch between Source and Rich, and see a rendered Mermaid diagram.
+
+https://github.com/user-attachments/assets/016b2e0c-d590-4549-9ab2-df92d5296a84
+
+### Follow links and switch tabs
+
+Follow a local document link, use Back, and switch between the document and terminal tabs.
+
+https://github.com/user-attachments/assets/ec86ef9f-6e37-4db5-a322-c07ccbc7de30
 
 ## Screenshots
+
+![Herdr Markdown in Rich view with a task list, a table, and a local document link](preview.png)
 
 | Source view | Dark theme |
 | --- | --- |
