@@ -307,20 +307,20 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       await page.waitForFunction(()=>document.querySelector('.mermaid-preview > svg')?.textContent.includes('연결'),{timeout:5000});
       assert.equal(await page.$eval('.mermaid-fit',button=>button.hidden),true);
     });
-    await t.test('code blocks use GitHub highlighting, diff rows, copy, and wrap controls',async()=>{
+    await t.test('code blocks use GitHub highlighting, diff rows, and a Copy control',async()=>{
       const diff='@@ -1,2 +1,3 @@\n-    flavorDimensions "env", "region"\n+    flavorDimensions "client"\n+                    "fakefinder-${customer}_embedded-kr-${environment}${variant.buildType.name.capitalize()}-${defaultConfig.versionName}-with-a-very-long-suffix.aar"\n     unchanged line';
       const source='```kotlin\nval answer = 42 // note\n```\n\n```diff\n'+diff+'\n```\n\n```\nplain text\n```\n';
       await page.setViewport({width:480,height:640});
       await page.click('#light-button');
       await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/code.md',source}),source);
       const blocks=()=>page.$$eval('.code-block',nodes=>nodes.map(node=>({
-        label:node.querySelector('.code-language')?.textContent,
+        controls:[...node.querySelectorAll('.code-toolbar > *')].map(control=>control.textContent),
         keywords:[...node.querySelectorAll('code .hljs-keyword')].map(span=>span.textContent),
         spans:node.querySelectorAll('code [class^="hljs-"]').length,
       })));
       await page.waitForFunction(()=>document.querySelector('.code-block code .hljs-keyword'),{timeout:5000});
       const rendered=await blocks();
-      assert.deepEqual(rendered.map(block=>block.label),['kotlin','diff','']);
+      assert.deepEqual(rendered.map(block=>block.controls),[['Copy'],['Copy'],['Copy']]);
       assert.deepEqual(rendered[0].keywords,['val']);
       assert.equal(rendered[2].spans,0);
 
@@ -346,9 +346,6 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
 
       const diffPre='.code-block:nth-of-type(2) pre';
       assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth>pre.clientWidth));
-      await page.click('.code-block:nth-of-type(2) .code-wrap');
-      assert.equal(await page.$eval('.code-block:nth-of-type(2) .code-wrap',button=>button.getAttribute('aria-pressed')),'true');
-      assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth<=pre.clientWidth+1));
 
       await page.evaluate(()=>{window.testMessages.length=0;});
       await page.click('.code-block:nth-of-type(2) .code-copy');

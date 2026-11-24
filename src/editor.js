@@ -72,30 +72,26 @@ const DiagramCode=CodeBlockLowlight.extend({
     const dom=document.createElement('div');
     if(node.attrs.language!=='mermaid'){
       let current=node,copied;
-      const bar=document.createElement('div'),label=document.createElement('span');
-      const wrap=document.createElement('button'),copy=document.createElement('button');
+      const bar=document.createElement('div'),copy=document.createElement('button');
       const pre=document.createElement('pre'),code=document.createElement('code');
       dom.className='code-block';bar.className='code-toolbar';bar.contentEditable='false';
-      const language=value=>{label.textContent=value||'';code.className=value?'language-'+value:'';};
-      label.className='code-language';language(node.attrs.language);
-      wrap.type='button';wrap.className='code-wrap';wrap.textContent='Wrap';wrap.setAttribute('aria-pressed','false');
+      const language=value=>{code.className=value?'language-'+value:'';};
+      language(node.attrs.language);
       copy.type='button';copy.className='code-copy';copy.textContent='Copy';copy.setAttribute('aria-live','polite');
-      wrap.onclick=()=>wrap.setAttribute('aria-pressed',String(pre.classList.toggle('code-wrapped')));
       copy.onclick=()=>{
         // An empty block would only clear the clipboard.
         if(!current.textContent)return;
         send({type:'copy-code',text:current.textContent});
         copy.textContent='Copied';clearTimeout(copied);copied=setTimeout(()=>{copy.textContent='Copy';},1500);
       };
-      bar.append(label,wrap,copy);pre.append(code);dom.append(bar,pre);
+      bar.append(copy);pre.append(code);dom.append(bar,pre);
       return {dom,contentDOM:code,update(next){
           if(next.type!==current.type||next.attrs.language==='mermaid')return false;
           current=next;language(next.attrs.language);return true;
         },
         destroy(){clearTimeout(copied);},
         stopEvent(event){return bar.contains(event.target);},
-        // The Wrap class on pre is view state, not document content.
-        ignoreMutation(m){return bar.contains(m.target)||m.type==='attributes'&&m.target===pre;}};
+        ignoreMutation(m){return bar.contains(m.target);}};
     }
 
     let current=node,request=0,timer;

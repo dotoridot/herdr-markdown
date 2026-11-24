@@ -10,12 +10,9 @@
 .code-block{position:relative;margin:1em 0;border-radius:6px;background:var(--subtle);overflow:hidden}
 .code-toolbar{position:absolute;top:6px;right:6px;z-index:1;display:flex;align-items:center;gap:2px;padding:2px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);font:12px/1.5 var(--font-mono);color:var(--secondary);cursor:default;user-select:none;white-space:normal;opacity:0;transition:opacity .12s}
 .code-block:hover .code-toolbar,.code-toolbar:focus-within{opacity:1}
-.code-language{padding:0 6px;max-width:12em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.code-language:empty{display:none}
 .code-toolbar button{font-size:12px;min-height:24px;padding:2px 8px;color:var(--secondary)}
 .tiptap .code-block pre{margin:0;padding:12px 16px;border:0;border-radius:0;background:none;white-space:pre}
 .tiptap .code-block pre:has(>code.language-diff,>code.language-patch){padding-block:0}
-.tiptap .code-block pre.code-wrapped{white-space:pre-wrap;overflow-wrap:anywhere}
 .code-block pre code{display:inline-block;min-width:100%}
 .hljs-keyword,.hljs-doctag,.hljs-template-tag,.hljs-type{color:var(--hl-keyword)}
 .hljs-title,.hljs-title.class_,.hljs-title.function_{color:var(--hl-title)}
