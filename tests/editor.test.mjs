@@ -339,9 +339,10 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.deepEqual(hunk,{background:'rgb(221, 244, 255)',coversRow:true});
       const edges=await page.$eval('.code-block:nth-of-type(2)',block=>{
         const outer=block.getBoundingClientRect(),first=block.querySelector('code .hljs-meta').getBoundingClientRect();
-        return {border:getComputedStyle(block).borderTopWidth,left:Math.round(first.left-outer.left),top:Math.round(first.top-outer.top)};
+        return {border:getComputedStyle(block).borderTopWidth,left:Math.round(first.left-outer.left),top:Math.round(first.top-outer.top),
+          right:Math.round(outer.right-Math.min(first.right,outer.right))};
       });
-      assert.deepEqual(edges,{border:'0px',left:0,top:0});
+      assert.deepEqual(edges,{border:'0px',left:0,top:0,right:0});
 
       const diffPre='.code-block:nth-of-type(2) pre';
       assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth>pre.clientWidth));
