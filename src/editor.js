@@ -9,13 +9,13 @@ import TaskItem from '@tiptap/extension-task-item';
 import mermaid from 'mermaid';
 
 const $=id=>document.getElementById(id);
-const viewport=$('viewport'),sourceInput=$('source-editor');
+const viewport=$('viewport'),sourceInput=$('source-editor'),pathInput=$('path');
 let file='',baseline='',draft='',mode='rich',loading=false,saving=false,version=0,ready=false;
 let preferences={appearance:'light',fontSize:17,wide:false};
 let external=null,sourceChanged=false,settingContent=false,richSource='';
 const positions={rich:0,source:0},documents=new Map();
 const imageViews=new Map();let imageId=0;
-let saveId=0,diagramId=0,preferencesTimer,saveTimer;
+let saveId=0,diagramId=0,pathPasteId=0,pendingPathPaste,preferencesTimer,saveTimer;
 const send=message=>window.ipc?.postMessage(JSON.stringify(message));
 const controlCharacter=/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/;
 
@@ -63,38 +63,81 @@ const RawInline=Node.create({
 
 const DiagramCode=CodeBlock.extend({
   addNodeView(){return ({node})=>{
+    const dom=document.createElement('div');
+    if(node.attrs.language!=='mermaid'){
+      const pre=document.createElement('pre'),code=document.createElement('code');
+      pre.append(code);dom.append(pre);
+      return {dom,contentDOM:code,update(next){return next.type===node.type&&next.attrs.language!=='mermaid';}};
+    }
+
     let current=node,request=0,timer;
-    const dom=document.createElement('div'),preview=document.createElement('div');
-    const pre=document.createElement('pre'),code=document.createElement('code');
-    preview.className='mermaid-preview';preview.contentEditable='false';
-    pre.append(code);dom.append(preview,pre);
+    const preview=document.createElement('div');
+    const frame=document.createElement('div'),fit=document.createElement('button');
+    frame.contentEditable='false';
+    fit.type='button';fit.className='mermaid-fit';fit.hidden=true;fit.textContent='Fit diagram';
+    preview.className='mermaid-preview';
+    preview.setAttribute('role','region');preview.setAttribute('aria-label','Mermaid diagram');
+    frame.append(fit,preview);dom.append(frame);
+    const updateOverflow=()=>{
+      const wide=preview.scrollWidth>preview.clientWidth+1;
+      fit.hidden=!wide&&!preview.classList.contains('mermaid-fitted');
+      preview.tabIndex=wide?0:-1;
+    };
+    const resize=new ResizeObserver(updateOverflow);
+    fit.onclick=()=>{
+      const fitted=preview.classList.toggle('mermaid-fitted');
+      fit.textContent=fitted?'Actual size':'Fit diagram';
+      preview.scrollLeft=0;
+      updateOverflow();
+    };
     const render=()=>{
       clearTimeout(timer);const token=++request;
-      preview.hidden=current.attrs.language!=='mermaid';
-      if(preview.hidden)return;
       timer=setTimeout(async()=>{
         try{
-          const dark=preferences.appearance==='dark';
+          const dark=preferences.appearance==='dark',source=current.textContent;
+          const fontSize=Math.max(16,preferences.fontSize)+'px';
+          const fontFamily='DM Sans Variable, Noto Sans KR Variable, sans-serif';
+          await document.fonts.load(fontSize+' '+fontFamily,source).catch(()=>{});
+          if(request!==token||!dom.isConnected)return;
           mermaid.initialize({startOnLoad:false,securityLevel:'strict',suppressErrorRendering:true,
-            maxTextSize:100000,maxEdges:1000,theme:'base',themeVariables:{darkMode:dark,
-              fontFamily:'DM Sans Variable, Noto Sans KR Variable, sans-serif',
+            maxTextSize:100000,maxEdges:1000,theme:'base',fontFamily,htmlLabels:false,
+            flowchart:{wrappingWidth:260},themeVariables:{darkMode:dark,fontFamily,fontSize,useGradient:false,
               primaryColor:dark?'#262626':'#ededed',primaryTextColor:dark?'#ebebeb':'#171717',
               primaryBorderColor:dark?'#777777':'#888888',lineColor:dark?'#ebebeb':'#171717',
               background:dark?'#181818':'#fafafa'},
             secure:['secure','securityLevel','startOnLoad','maxTextSize','maxEdges']});
-          const {svg}=await mermaid.render('diagram-'+(++diagramId),current.textContent);
+          const {svg}=await mermaid.render('diagram-'+(++diagramId),source);
           if(request!==token||!dom.isConnected)return;
           preview.innerHTML=svg;
+          preview.classList.remove('mermaid-error');
+          const diagram=preview.firstElementChild;
+          const width=diagram.viewBox?.baseVal.width;
+          if(width>0){
+            diagram.style.removeProperty('max-width');
+            diagram.setAttribute('width',String(width));
+          }
+          resize.observe(preview);
+          updateOverflow();
         }catch{
-          if(request===token){preview.textContent='Diagram unavailable. Edit the Mermaid code below.';preview.classList.add('mermaid-error');}
+          if(request!==token||!dom.isConnected)return;
+          preview.textContent='Diagram unavailable. Check the Mermaid code in Source.';
+          preview.classList.add('mermaid-error');
+          preview.classList.remove('mermaid-fitted');
+          fit.textContent='Fit diagram';
+          updateOverflow();
         }
       },180);
     };
     const themeChanged=()=>render();document.addEventListener('themechange',themeChanged);
     render();
-    return {dom,contentDOM:code,update(next){if(next.type!==current.type)return false;current=next;render();return true;},
-      destroy(){request++;clearTimeout(timer);document.removeEventListener('themechange',themeChanged);},
-      ignoreMutation(m){return preview.contains(m.target);}};
+    return {dom,update(next){
+        if(next.type!==current.type||next.attrs.language!=='mermaid')return false;
+        if(next.textContent!==current.textContent){current=next;render();}
+        return true;
+      },
+      destroy(){request++;clearTimeout(timer);resize.disconnect();document.removeEventListener('themechange',themeChanged);},
+      stopEvent(event){return frame.contains(event.target);},
+      ignoreMutation(m){return frame.contains(m.target);}};
   };},
 });
 
@@ -122,15 +165,25 @@ const editor=new Editor({
       if(!controlCharacter.test(text))return false;
       notice('A control key was ignored. Existing control characters can be inspected in Source.');return true;
     },
-    handleDOMEvents:{click:(_view,event)=>{
-      const link=event.target.closest?.('a');
-      if(link&&(event.metaKey||event.ctrlKey)){
-        event.preventDefault();positions[mode]=viewport.scrollTop;
-        if(file){documents.set(file,snapshot());send({type:'draft',snapshot:snapshot()});}
-        send({type:'follow',href:link.getAttribute('href')});return true;
-      }
-      return false;
-    }}},
+    handleDOMEvents:{
+      keydown:(view,event)=>{
+        if(!window.__HERDR_DOCUMENT_HOST__||!event.isTrusted||event.isComposing||!event.metaKey||event.ctrlKey||
+          event.altKey||event.shiftKey||event.key.toLowerCase()!=='c'||view.state.selection.empty)return false;
+        // Herdr's WKWebView delivers Cmd+C without dispatching the platform copy action.
+        if(!document.execCommand('copy'))return false;
+        event.preventDefault();
+        return true;
+      },
+      click:(_view,event)=>{
+        const link=event.target.closest?.('a');
+        if(link&&(event.metaKey||event.ctrlKey)){
+          event.preventDefault();positions[mode]=viewport.scrollTop;
+          if(file){documents.set(file,snapshot());send({type:'draft',snapshot:snapshot()});}
+          send({type:'follow',href:link.getAttribute('href')});return true;
+        }
+        return false;
+      },
+    }},
   onUpdate(){if(settingContent)return;draft=editor.getMarkdown();richSource=draft;version++;sourceChanged=true;changed();},
 });
 
@@ -143,7 +196,7 @@ function update(){
   const dirty=draft!==baseline;
   $('save').disabled=!file||!dirty||saving||loading;
   $('reload').disabled=!file||loading||saving;
-  $('path').value=file||$('path').value;
+  pathInput.value=file||pathInput.value;
   $('document-name').textContent=file?.split('/').pop()||'Markdown';
   $('status').textContent=loading?'Loading…':saving?'Saving…':dirty?'Unsaved changes':'Saved';
   $('empty').hidden=Boolean(file);
@@ -245,6 +298,13 @@ function receive(message){
   }else if(data.type==='error'){
     clearTimeout(saveTimer);
     loading=false;saving=false;update();notice(data.message||'The operation failed. Try again.',true);
+  }else if(data.type==='path-paste'){
+    if(!pendingPathPaste||data.id!==pendingPathPaste.id)return;
+    const {value,start,end}=pendingPathPaste;pendingPathPaste=null;
+    if(typeof data.text==='string'&&data.text&&document.activeElement===pathInput&&
+      pathInput.value===value&&pathInput.selectionStart===start&&pathInput.selectionEnd===end){
+      document.execCommand('insertText',false,data.text.replace(/[\r\n]/g,''));
+    }
   }else if(data.type==='preferences')applyPreferences(data.preferences,false);
   else if(data.type==='image'){
     const view=imageViews.get(data.id);if(data.path)view?.resolve(data.path);else view?.fail();
@@ -268,6 +328,22 @@ window.addEventListener('keydown',event=>{
   if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='s'){event.preventDefault();save();}
   if(event.key==='Escape')closeMenu();
 });
+pathInput.addEventListener('keydown',event=>{
+  if(!window.__HERDR_DOCUMENT_HOST__||!event.isTrusted||event.isComposing||!event.metaKey||
+    event.ctrlKey||event.altKey)return;
+  const key=event.key.toLowerCase();
+  if(event.shiftKey&&key!=='z')return;
+  if(key==='a')pathInput.select();
+  else if(key==='v'){
+    const id=++pathPasteId;
+    pendingPathPaste={id,value:pathInput.value,start:pathInput.selectionStart,end:pathInput.selectionEnd};
+    send({type:'paste-path',id});
+  }else if(key==='c'||key==='x'){
+    if(pathInput.selectionStart!==pathInput.selectionEnd)document.execCommand(key==='c'?'copy':'cut');
+  }else if(key==='z')document.execCommand(event.shiftKey?'redo':'undo');
+  else return;
+  event.preventDefault();
+});
 sourceInput.addEventListener('input',()=>{draft=sourceInput.value;version++;sourceChanged=true;resizeSource();changed();});
 sourceInput.addEventListener('beforeinput',event=>{
   if(event.inputType==='insertText'&&event.data&&controlCharacter.test(event.data)){
@@ -288,7 +364,7 @@ $('source-button').onclick=()=>switchMode('source');$('rich-button').onclick=()=
 $('light-button').onclick=()=>applyPreferences({appearance:'light'});$('dark-button').onclick=()=>applyPreferences({appearance:'dark'});
 $('width-button').onclick=()=>applyPreferences({wide:!preferences.wide});
 $('smaller').onclick=()=>applyPreferences({fontSize:preferences.fontSize-1});$('larger').onclick=()=>applyPreferences({fontSize:preferences.fontSize+1});
-$('save').onclick=save;$('open-form').onsubmit=event=>{event.preventDefault();openFile($('path').value);};
+$('save').onclick=save;$('open-form').onsubmit=event=>{event.preventDefault();openFile(pathInput.value);};
 $('back').onclick=()=>{
   if(saving)return;
   const back=()=>{

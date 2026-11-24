@@ -21,7 +21,7 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
   try{
     const page=await browser.newPage();const errors=[];
     page.on('pageerror',error=>{errors.push(error.message);process.stderr.write('Browser error: '+error.stack+'\n');});
-    await page.evaluateOnNewDocument(()=>{window.testMessages=[];window.ipc={postMessage:value=>window.testMessages.push(JSON.parse(value))};});
+    await page.evaluateOnNewDocument(()=>{Object.defineProperty(window,'__HERDR_DOCUMENT_HOST__',{value:true});window.testMessages=[];window.ipc={postMessage:value=>window.testMessages.push(JSON.parse(value))};});
     await page.goto('http://127.0.0.1:'+server.address().port);
     await page.waitForFunction(()=>window.testMessages.some(m=>m.type==='ready'),{timeout:5000});
     const load=async source=>page.evaluate(source=>window.herdrMarkdown.receive({type:'document',file:'/example/notes.md',source}),source);
@@ -186,6 +186,126 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.equal(result.handled,true);
       assert.equal((result.draft.match(/\u001c/g)||[]).length,1,'existing source byte is preserved, invalid key did not add another');
       assert.ok(result.draft.includes('Valid.'));
+    });
+    await t.test('Cmd+C dispatches native copy for selected Rich text',async()=>{
+      const selection=await page.evaluate(()=>{
+          window.herdrMarkdown.receive({type:'reloaded',file:'/example/copy.md',source:'**복사할 텍스트** 뒤쪽'});
+        const {view}=window.herdrMarkdown.editor;
+        view.dom.focus();
+        window.herdrMarkdown.editor.commands.setTextSelection({from:1,to:8});
+        window.richCopy=[];
+        const run=document.execCommand.bind(document);
+        document.execCommand=(command,...args)=>{
+          if(command==='copy')window.richCopy.push({selected:getSelection().toString()});
+          return run(command,...args);
+        };
+        document.addEventListener('copy',event=>{
+          window.richCopy.push({text:event.clipboardData.getData('text/plain'),html:event.clipboardData.getData('text/html')});
+        });
+        return getSelection().toString();
+      });
+      assert.equal(selection,'복사할 텍스트');
+      await page.keyboard.down('Meta');
+      await page.keyboard.press('c');
+      await page.keyboard.up('Meta');
+      const [request,data]=await page.evaluate(()=>window.richCopy);
+      assert.equal(request?.selected,'복사할 텍스트');
+      assert.equal(data?.text,'복사할 텍스트');
+      assert.match(data?.html,/<strong>복사할 텍스트<\/strong>/);
+    });
+    await t.test('path shortcuts select, paste, and undo in the native host',async()=>{
+      const path='/example/notes.md';
+      await page.evaluate(path=>window.herdrMarkdown.receive({type:'reloaded',file:path,source:'# Path shortcuts'}),path);
+      await page.$eval('#path',input=>{
+        input.focus();
+        input.setSelectionRange(1,1);
+        // Match WKWebView behavior when no menu dispatches the editing action.
+        input.addEventListener('keydown',event=>{if(event.metaKey)event.preventDefault();});
+      });
+      await page.keyboard.down('Meta');await page.keyboard.press('a');await page.keyboard.up('Meta');
+      assert.deepEqual(await page.$eval('#path',input=>[input.selectionStart,input.selectionEnd]),[0,path.length]);
+      await page.keyboard.down('Meta');await page.keyboard.press('v');await page.keyboard.up('Meta');
+      const request=await page.evaluate(()=>window.testMessages.findLast(m=>m.type==='paste-path'));
+      assert.ok(request);
+      await page.evaluate(id=>window.herdrMarkdown.receive({type:'path-paste',id,text:'/example/한글.md'}),request.id);
+      assert.equal(await page.$eval('#path',input=>input.value),'/example/한글.md');
+      await page.keyboard.down('Meta');await page.keyboard.press('z');await page.keyboard.up('Meta');
+      assert.equal(await page.$eval('#path',input=>input.value),path);
+      await page.keyboard.down('Meta');await page.keyboard.down('Shift');await page.keyboard.press('z');
+      await page.keyboard.up('Shift');await page.keyboard.up('Meta');
+      assert.equal(await page.$eval('#path',input=>input.value),'/example/한글.md');
+
+      await page.keyboard.down('Meta');await page.keyboard.press('v');await page.keyboard.up('Meta');
+      const stale=await page.evaluate(()=>window.testMessages.findLast(m=>m.type==='paste-path'));
+      await page.$eval('#path',input=>input.setSelectionRange(0,0));
+      await page.evaluate(id=>window.herdrMarkdown.receive({type:'path-paste',id,text:'stale'}),stale.id);
+      assert.equal(await page.$eval('#path',input=>input.value),'/example/한글.md');
+    });
+    await t.test('wide Mermaid diagrams keep long labels readable in a narrow pane',async()=>{
+      const chart=[
+        'flowchart LR',
+        'subgraph Library["라이브러리 (Library.m)"]',
+        'A["getVerificationTokenWithOptions"] -->|"NormalLoop 상태이고 session 갱신 필요"| B["restartSession"]',
+        'end',
+        'subgraph Module["모듈 (Module.m)"]',
+        'C["restartDiagnose"] -->|"dispatch_after"| D[["backgroundSessionTask<br/>3.9.29부터 CONCURRENT"]]',
+        'D --> E["diagnose"]',
+        'E -->|"decodeFromStringBuffer"| F[("모듈 recursiveLock")]',
+        'end',
+        'B -->|"objc_msgSend"| C',
+      ].join('\n');
+      const source='```mermaid\n'+chart+'\n```\n';
+      await page.setViewport({width:320,height:640});
+      await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/diagram.md',source}),source);
+      await page.waitForSelector('.mermaid-preview > svg',{timeout:5000});
+      assert.equal(await page.$('.tiptap pre'),null);
+      await page.click('#source-button');
+      assert.equal(await page.$eval('#source-editor',textarea=>textarea.value),source);
+      await page.click('#rich-button');
+      await page.waitForSelector('.mermaid-preview[tabindex="0"]',{timeout:5000,visible:true});
+      const geometry=async()=>page.$eval('.mermaid-preview > svg',svg=>({
+        scale:svg.getBoundingClientRect().width/svg.viewBox.baseVal.width,
+        labels:[...svg.querySelectorAll('g.label text, g.cluster-label text')].map(text=>{
+          const box=text.getBoundingClientRect(),diagram=svg.getBoundingClientRect();
+          return {text:text.textContent,fontSize:getComputedStyle(text).fontSize,
+            insideSvg:box.width>0&&box.left>=diagram.left-1&&box.right<=diagram.right+1};
+        }),
+        scrollable:svg.parentElement.scrollWidth>svg.parentElement.clientWidth,
+        keyboardReachable:svg.parentElement.tabIndex===0,
+      }));
+      const actual=await geometry();
+      const borderStrokes=await page.$$eval('.mermaid-preview .node rect, .mermaid-preview .cluster rect',
+        shapes=>shapes.map(shape=>getComputedStyle(shape).stroke).filter(stroke=>stroke!=='none'));
+      assert.ok(borderStrokes.length>1&&borderStrokes.every(stroke=>stroke==='rgb(136, 136, 136)'),JSON.stringify(borderStrokes));
+      assert.ok(actual.scale>=0.99,JSON.stringify(actual));
+      assert.ok(actual.scrollable&&actual.keyboardReachable);
+      assert.ok(actual.labels.length>=10,JSON.stringify(actual.labels));
+      assert.ok(actual.labels.every(label=>label.insideSvg&&parseFloat(label.fontSize)>=16),JSON.stringify(actual.labels));
+      assert.ok(actual.labels.some(label=>label.text.includes('getVerificationTokenWithOptions')));
+      assert.ok(actual.labels.some(label=>label.text.includes('session 갱신 필요')));
+      assert.ok(actual.labels.some(label=>label.text.includes('3.9.29부터 CONCURRENT')));
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+      await page.$eval('.mermaid-preview',node=>{node.focus();node.scrollLeft=node.scrollWidth;});
+      assert.ok(await page.$eval('.mermaid-preview',node=>node.scrollLeft>0));
+      await page.click('.mermaid-fit');
+      const fitted=await geometry();
+      assert.ok(fitted.scale<1&&!fitted.scrollable&&!fitted.keyboardReachable);
+      assert.equal(await page.$eval('.mermaid-fit',button=>button.textContent),'Actual size');
+      await page.keyboard.press('Enter');
+      assert.ok((await geometry()).scale>=0.99);
+
+      const diagramId=await page.$eval('.mermaid-preview > svg',svg=>svg.id);
+      await page.click('#larger');
+      await page.waitForFunction(previous=>document.querySelector('.mermaid-preview > svg')?.id!==previous,{timeout:5000},diagramId);
+      assert.ok((await geometry()).labels.every((label,i)=>parseFloat(label.fontSize)>parseFloat(actual.labels[i].fontSize)));
+      assert.equal(await page.evaluate(()=>window.herdrMarkdown.snapshot().draft),source);
+      await page.setViewport({width:900,height:640});
+      await page.click('#dark-button');
+      await page.evaluate(()=>window.herdrMarkdown.receive({
+        type:'reloaded',file:'/example/compact-diagram.md',source:'```mermaid\nsequenceDiagram\nA->>B: 연결\n```\n',
+      }));
+      await page.waitForFunction(()=>document.querySelector('.mermaid-preview > svg')?.textContent.includes('연결'),{timeout:5000});
+      assert.equal(await page.$eval('.mermaid-fit',button=>button.hidden),true);
     });
     assert.deepEqual(errors,[]);
   }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}

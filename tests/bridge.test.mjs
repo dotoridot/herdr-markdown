@@ -8,7 +8,7 @@ import {parseMarkdown,resolveDocumentLink,relativeDocumentPath,isDocumentChange}
 async function host(){
   const disk=new Map([['/docs/one.md','# One'],['/docs/two.md','# Two']]);
   const messages=[],writes=[],stored=new Map();let handler;
-  const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){}};
+  const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){},read_from_clipboard:()=>'/docs/한글.md'};
   const moduleExports={
     'gpui-kit':{View:class {},div(){}},
     'gpui-base':{WebViewState:{new(){return {on(_event,fn){handler=fn;},post_message(value){messages.push(JSON.parse(value));},release(){}};}},WebView:{}},
@@ -57,4 +57,13 @@ test('null bytes cannot turn an editable text file into an unreadable binary fil
   assert.equal(h.disk.get('/docs/one.md'),'# One');
   assert.equal(h.messages.at(-1).type,'error');
   assert.equal(h.writes.length,0);
+});
+
+test('a path paste returns the clipboard text to the requesting editor',async()=>{
+  const h=await host();
+  await h.send({type:'paste-path',id:7});
+  assert.equal(JSON.stringify(h.messages.at(-1)),JSON.stringify({type:'path-paste',id:7,text:'/docs/한글.md'}));
+  const count=h.messages.length;
+  await h.send({type:'paste-path',id:'invalid'});
+  assert.equal(h.messages.length,count);
 });

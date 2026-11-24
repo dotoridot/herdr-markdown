@@ -20,7 +20,7 @@ Save writes only when the file still matches the original snapshot. A conflict p
 
 The host keeps the same WebView DOM when changing Herdr tabs. Scroll and selection stay in that page. Document-link history also keeps per-file draft, scroll, and selection snapshots. Local draft recovery is separate from file saving.
 
-File offers Reveal in Finder, Copy path, and Copy relative path. Cmd/Ctrl-click a document hyperlink to follow it without interrupting normal text editing. Mermaid renders a local preview above its editable code. Local images use a cache while retaining their original Markdown link when saved. Other programs' local file changes are watched and never overwrite a dirty draft automatically.
+File offers Reveal in Finder, Copy path, and Copy relative path. Cmd/Ctrl-click a document hyperlink to follow it without interrupting normal text editing. Rich renders Mermaid diagrams. Edit their code in Source. Local images use a cache while retaining their original Markdown link when saved. Other programs' local file changes are watched and never overwrite a dirty draft automatically.
 
 ## Built from
 

@@ -37,6 +37,10 @@ export default class Markdown extends View {
       const p=message.preferences;
       if(p&&['light','dark'].includes(p.appearance)&&Number.isFinite(p.fontSize))setShared(PREFERENCE,{appearance:p.appearance,fontSize:Math.max(11,Math.min(24,p.fontSize)),wide:p.wide===true});
     }else if(message.type==='open'&&typeof message.file==='string')this.open(message.file,cx,true);
+    else if(message.type==='paste-path'&&Number.isSafeInteger(message.id)&&this.ready&&!this.closed){
+      const text=cx.read_from_clipboard();
+      this.post({type:'path-paste',id:message.id,text:typeof text==='string'&&byteLength(text)<=MAX_LENGTH?text:undefined});
+    }
     else if(message.type==='reload'&&this.file)this.reload(cx,true);
     else if(message.type==='back'){
       const file=this.history.at(-1);if(file)this.reload(cx,false,file,false,true);
