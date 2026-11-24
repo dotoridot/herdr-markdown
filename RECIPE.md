@@ -20,11 +20,11 @@ Save writes only when the file still matches the original snapshot. A conflict p
 
 The host keeps the same WebView DOM when changing Herdr tabs. Scroll and selection stay in that page. Document-link history also keeps per-file draft, scroll, and selection snapshots. Local draft recovery is separate from file saving.
 
-File offers Reveal in Finder, Copy path, and Copy relative path. Cmd/Ctrl-click a document hyperlink to follow it without interrupting normal text editing. Rich renders Mermaid diagrams. Edit their code in Source. Local images use a cache while retaining their original Markdown link when saved. Other programs' local file changes are watched and never overwrite a dirty draft automatically.
+File offers Reveal in Finder, Copy path, and Copy relative path. Cmd/Ctrl-click a document hyperlink to follow it without interrupting normal text editing. Rich renders Mermaid diagrams. Edit their code in Source. Other code blocks use GitHub-style highlighting for labeled languages, color `diff` rows, and offer Wrap and Copy. Local images use a cache while retaining their original Markdown link when saved. Other programs' local file changes are watched and never overwrite a dirty draft automatically.
 
 ## Built from
 
-Install `mods/rich-document` as a pane mod with props `{file, root?, on?}`. `main.js` owns the bridge, file I/O, watchers, preferences, draft recovery, and local image staging. Its local WebView page is `editor/index.html`; `src/editor.js` builds the bundled `editor/editor.js`. Tiptap and Mermaid are bundled, and CSS references local font assets.
+Install `mods/rich-document` as a pane mod with props `{file, root?, on?}`. `main.js` owns the bridge, file I/O, watchers, preferences, draft recovery, and local image staging. Its local WebView page is `editor/index.html`; `src/editor.js` builds the bundled `editor/editor.js`. Tiptap, Mermaid, lowlight, and highlight.js are bundled, and CSS references local font assets.
 
 The matching native host patch exposes `WebViewState.new({asset_root, entry})`, `on("message", ...)`, `post_message(string)`, `release()`, and `WebView.new(state)`. The page sends JSON through `window.ipc.postMessage` and receives JSON strings through the browser `message` event. It sends `ready` before the mod sends document data. The native asset protocol is confined to the assigned asset root. The app routes existing local terminal Markdown links to `tab.new` with this mod.
 

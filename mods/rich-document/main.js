@@ -41,6 +41,7 @@ export default class Markdown extends View {
       const text=cx.read_from_clipboard();
       this.post({type:'path-paste',id:message.id,text:typeof text==='string'&&byteLength(text)<=MAX_LENGTH?text:undefined});
     }
+    else if(message.type==='copy-code'&&typeof message.text==='string'&&byteLength(message.text)<=MAX_LENGTH)cx.write_to_clipboard(message.text);
     else if(message.type==='reload'&&this.file)this.reload(cx,true);
     else if(message.type==='back'){
       const file=this.history.at(-1);if(file)this.reload(cx,false,file,false,true);

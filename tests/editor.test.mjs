@@ -307,6 +307,53 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       await page.waitForFunction(()=>document.querySelector('.mermaid-preview > svg')?.textContent.includes('연결'),{timeout:5000});
       assert.equal(await page.$eval('.mermaid-fit',button=>button.hidden),true);
     });
+    await t.test('code blocks use GitHub highlighting, diff rows, copy, and wrap controls',async()=>{
+      const diff='-    flavorDimensions "env", "region"\n+    flavorDimensions "client"\n+                    "fakefinder-${customer}_embedded-kr-${environment}${variant.buildType.name.capitalize()}-${defaultConfig.versionName}-with-a-very-long-suffix.aar"\n     unchanged line';
+      const source='```kotlin\nval answer = 42 // note\n```\n\n```diff\n'+diff+'\n```\n\n```\nplain text\n```\n';
+      await page.setViewport({width:480,height:640});
+      await page.click('#light-button');
+      await page.evaluate(source=>window.herdrMarkdown.receive({type:'reloaded',file:'/example/code.md',source}),source);
+      const blocks=()=>page.$$eval('.code-block',nodes=>nodes.map(node=>({
+        label:node.querySelector('.code-language')?.textContent,
+        keywords:[...node.querySelectorAll('code .hljs-keyword')].map(span=>span.textContent),
+        spans:node.querySelectorAll('code [class^="hljs-"]').length,
+      })));
+      await page.waitForFunction(()=>document.querySelector('.code-block code .hljs-keyword'),{timeout:5000});
+      const rendered=await blocks();
+      assert.deepEqual(rendered.map(block=>block.label),['kotlin','diff','']);
+      assert.deepEqual(rendered[0].keywords,['val']);
+      assert.equal(rendered[2].spans,0);
+
+      const rows=await page.$$eval('.code-block:nth-of-type(2) code .hljs-addition, .code-block:nth-of-type(2) code .hljs-deletion',spans=>spans.map(span=>{
+        const pre=span.closest('pre'),box=span.getBoundingClientRect(),frame=pre.getBoundingClientRect();
+        const lineHeight=parseFloat(getComputedStyle(pre).lineHeight)||parseFloat(getComputedStyle(pre).fontSize)*1.7;
+        return {kind:span.className,background:getComputedStyle(span).backgroundColor,coversRow:box.left<=frame.left+20&&box.width>=pre.scrollWidth-40,
+          singleLine:box.height<lineHeight*1.5};
+      }));
+      assert.equal(rows.length,3);
+      assert.ok(rows.every(row=>row.coversRow&&row.singleLine),JSON.stringify(rows));
+      assert.equal(rows.find(row=>row.kind.includes('addition')).background,'rgb(230, 255, 236)');
+      assert.equal(rows.find(row=>row.kind.includes('deletion')).background,'rgb(255, 235, 233)');
+
+      const diffPre='.code-block:nth-of-type(2) pre';
+      assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth>pre.clientWidth));
+      await page.click('.code-block:nth-of-type(2) .code-wrap');
+      assert.equal(await page.$eval('.code-block:nth-of-type(2) .code-wrap',button=>button.getAttribute('aria-pressed')),'true');
+      assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth<=pre.clientWidth+1));
+
+      await page.evaluate(()=>{window.testMessages.length=0;});
+      await page.click('.code-block:nth-of-type(2) .code-copy');
+      assert.deepEqual(await page.evaluate(()=>window.testMessages.filter(m=>m.type==='copy-code')),[{type:'copy-code',text:diff}]);
+      assert.equal(await page.$eval('.code-block:nth-of-type(2) .code-copy',button=>button.textContent),'Copied');
+
+      await page.click('#dark-button');
+      assert.equal(await page.$eval('.code-block code .hljs-keyword',span=>getComputedStyle(span).color),'rgb(255, 123, 114)');
+      await page.click('#source-button');
+      assert.equal(await page.$eval('#source-editor',textarea=>textarea.value),source);
+      await page.click('#rich-button');
+      assert.equal(await page.evaluate(()=>window.herdrMarkdown.snapshot().draft),source);
+      assert.equal(await page.$eval('#save',node=>node.disabled),true);
+    });
     assert.deepEqual(errors,[]);
   }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 });

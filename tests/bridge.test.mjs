@@ -7,8 +7,8 @@ import {parseMarkdown,resolveDocumentLink,relativeDocumentPath,isDocumentChange}
 
 async function host(){
   const disk=new Map([['/docs/one.md','# One'],['/docs/two.md','# Two']]);
-  const messages=[],writes=[],stored=new Map();let handler;
-  const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){},read_from_clipboard:()=>'/docs/한글.md'};
+  const messages=[],writes=[],clipboard=[],stored=new Map();let handler;
+  const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){},read_from_clipboard:()=>'/docs/한글.md',write_to_clipboard:text=>clipboard.push(text)};
   const moduleExports={
     'gpui-kit':{View:class {},div(){}},
     'gpui-base':{WebViewState:{new(){return {on(_event,fn){handler=fn;},post_message(value){messages.push(JSON.parse(value));},release(){}};}},WebView:{}},
@@ -27,7 +27,7 @@ async function host(){
   const flush=async()=>{for(let i=0;i<5;i++)await new Promise(resolve=>setImmediate(resolve));};
   const send=async message=>{handler(JSON.stringify(message),cx);await flush();};
   await send({type:'ready'});
-  return {view,messages,writes,disk,send,flush};
+  return {view,messages,writes,clipboard,disk,send,flush};
 }
 
 test('a failed open keeps the original document writable',async()=>{
@@ -66,4 +66,11 @@ test('a path paste returns the clipboard text to the requesting editor',async()=
   const count=h.messages.length;
   await h.send({type:'paste-path',id:'invalid'});
   assert.equal(h.messages.length,count);
+});
+
+test('a code block copy writes its text to the clipboard',async()=>{
+  const h=await host();
+  await h.send({type:'copy-code',text:'val answer = 42'});
+  await h.send({type:'copy-code',text:42});
+  assert.deepEqual(h.clipboard,['val answer = 42']);
 });

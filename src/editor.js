@@ -1,6 +1,8 @@
 import {Editor, Node} from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import CodeBlock from '@tiptap/extension-code-block';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import {createLowlight,common} from 'lowlight';
+import groovy from 'highlight.js/lib/languages/groovy';
 import {Markdown} from '@tiptap/markdown';
 import {TableKit} from '@tiptap/extension-table';
 import Image from '@tiptap/extension-image';
@@ -61,13 +63,37 @@ const RawInline=Node.create({
   }},
 });
 
-const DiagramCode=CodeBlock.extend({
+// Unlabeled code stays plain like GitHub instead of guessing a language.
+const lowlight=createLowlight(common);lowlight.register({groovy});lowlight.registerAlias({groovy:['gradle']});
+const highlighter={...lowlight,highlightAuto:()=>({type:'root',children:[]})};
+
+const DiagramCode=CodeBlockLowlight.extend({
   addNodeView(){return ({node})=>{
     const dom=document.createElement('div');
     if(node.attrs.language!=='mermaid'){
+      let current=node,copied;
+      const bar=document.createElement('div'),label=document.createElement('span');
+      const wrap=document.createElement('button'),copy=document.createElement('button');
       const pre=document.createElement('pre'),code=document.createElement('code');
-      pre.append(code);dom.append(pre);
-      return {dom,contentDOM:code,update(next){return next.type===node.type&&next.attrs.language!=='mermaid';}};
+      dom.className='code-block';bar.className='code-toolbar';bar.contentEditable='false';
+      const language=value=>{label.textContent=value||'';code.className=value?'language-'+value:'';};
+      label.className='code-language';language(node.attrs.language);
+      wrap.type='button';wrap.className='code-wrap';wrap.textContent='Wrap';wrap.setAttribute('aria-pressed','false');
+      copy.type='button';copy.className='code-copy';copy.textContent='Copy';
+      wrap.onclick=()=>wrap.setAttribute('aria-pressed',String(pre.classList.toggle('code-wrapped')));
+      copy.onclick=()=>{
+        send({type:'copy-code',text:current.textContent});
+        copy.textContent='Copied';clearTimeout(copied);copied=setTimeout(()=>{copy.textContent='Copy';},1500);
+      };
+      bar.append(label,wrap,copy);pre.append(code);dom.append(bar,pre);
+      return {dom,contentDOM:code,update(next){
+          if(next.type!==current.type||next.attrs.language==='mermaid')return false;
+          current=next;language(next.attrs.language);return true;
+        },
+        destroy(){clearTimeout(copied);},
+        stopEvent(event){return bar.contains(event.target);},
+        // The Wrap class on pre is view state, not document content.
+        ignoreMutation(m){return bar.contains(m.target)||m.type==='attributes'&&m.target===pre;}};
     }
 
     let current=node,request=0,timer;
@@ -157,7 +183,7 @@ const LocalImage=Image.extend({
 const editor=new Editor({
   element:$('rich-editor'),extensions:[
     StarterKit.configure({codeBlock:false,link:{openOnClick:false,autolink:false,protocols:['http','https','mailto']}}),
-    DiagramCode,Markdown,TableKit.configure({table:{resizable:false}}),
+    DiagramCode.configure({lowlight:highlighter}),Markdown,TableKit.configure({table:{resizable:false}}),
     LocalImage.configure({allowBase64:true}),TaskList,TaskItem.configure({nested:true,HTMLAttributes:{'data-type':'taskItem'}}),RawBlock,Frontmatter,RawInline,
   ],content:'',contentType:'markdown',editable:false,
   editorProps:{attributes:{'aria-label':'Rich Markdown editor',spellcheck:'false'},

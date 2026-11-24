@@ -31,7 +31,7 @@ https://github.com/user-attachments/assets/d87c9840-f7d7-4341-a2c4-211cf2625111
 | Workflow | In Herdr Markdown |
 | --- | --- |
 | Open and edit | Cmd-click a local Markdown path in a terminal to open a tab named after the file. Edit text directly in Rich or switch to Source. |
-| Format | Use the Rich toolbar for headings, emphasis, lists, quotes, code and tables. Tick task checkboxes inline and preview Mermaid code and local images. |
+| Format | Use the Rich toolbar for headings, emphasis, lists, quotes, code and tables. Tick task checkboxes inline and preview Mermaid code and local images. Code blocks get GitHub-style highlighting, colored `diff` rows, Wrap, and Copy. |
 | Read | Choose Light or Dark, adjust the text size, and switch between a reading column and a wide layout. Links are blue and underlined. Hold Cmd over a link to see a hand pointer, then click to follow it. |
 | Switch and return | Keep the scroll position and draft when leaving a Herdr tab. Use Back to return after following a link to another local Markdown file. |
 | Save | Click Save or press Cmd+S. If the file changed on disk, the editor keeps your draft and reports the conflict. Reload asks before discarding unsaved edits. |
