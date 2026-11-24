@@ -79,9 +79,11 @@ const DiagramCode=CodeBlockLowlight.extend({
       const language=value=>{label.textContent=value||'';code.className=value?'language-'+value:'';};
       label.className='code-language';language(node.attrs.language);
       wrap.type='button';wrap.className='code-wrap';wrap.textContent='Wrap';wrap.setAttribute('aria-pressed','false');
-      copy.type='button';copy.className='code-copy';copy.textContent='Copy';
+      copy.type='button';copy.className='code-copy';copy.textContent='Copy';copy.setAttribute('aria-live','polite');
       wrap.onclick=()=>wrap.setAttribute('aria-pressed',String(pre.classList.toggle('code-wrapped')));
       copy.onclick=()=>{
+        // An empty block would only clear the clipboard.
+        if(!current.textContent)return;
         send({type:'copy-code',text:current.textContent});
         copy.textContent='Copied';clearTimeout(copied);copied=setTimeout(()=>{copy.textContent='Copy';},1500);
       };

@@ -308,7 +308,7 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.equal(await page.$eval('.mermaid-fit',button=>button.hidden),true);
     });
     await t.test('code blocks use GitHub highlighting, diff rows, copy, and wrap controls',async()=>{
-      const diff='-    flavorDimensions "env", "region"\n+    flavorDimensions "client"\n+                    "fakefinder-${customer}_embedded-kr-${environment}${variant.buildType.name.capitalize()}-${defaultConfig.versionName}-with-a-very-long-suffix.aar"\n     unchanged line';
+      const diff='@@ -1,2 +1,3 @@\n-    flavorDimensions "env", "region"\n+    flavorDimensions "client"\n+                    "fakefinder-${customer}_embedded-kr-${environment}${variant.buildType.name.capitalize()}-${defaultConfig.versionName}-with-a-very-long-suffix.aar"\n     unchanged line';
       const source='```kotlin\nval answer = 42 // note\n```\n\n```diff\n'+diff+'\n```\n\n```\nplain text\n```\n';
       await page.setViewport({width:480,height:640});
       await page.click('#light-button');
@@ -334,6 +334,9 @@ test('Source and Rich editor behavior in a headless browser',async t=>{
       assert.ok(rows.every(row=>row.coversRow&&row.singleLine),JSON.stringify(rows));
       assert.equal(rows.find(row=>row.kind.includes('addition')).background,'rgb(230, 255, 236)');
       assert.equal(rows.find(row=>row.kind.includes('deletion')).background,'rgb(255, 235, 233)');
+      const hunk=await page.$eval('.code-block:nth-of-type(2) code .hljs-meta',span=>({background:getComputedStyle(span).backgroundColor,
+        coversRow:span.getBoundingClientRect().width>=span.closest('pre').scrollWidth-40}));
+      assert.deepEqual(hunk,{background:'rgb(221, 244, 255)',coversRow:true});
 
       const diffPre='.code-block:nth-of-type(2) pre';
       assert.ok(await page.$eval(diffPre,pre=>pre.scrollWidth>pre.clientWidth));

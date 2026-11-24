@@ -72,5 +72,6 @@ test('a code block copy writes its text to the clipboard',async()=>{
   const h=await host();
   await h.send({type:'copy-code',text:'val answer = 42'});
   await h.send({type:'copy-code',text:42});
+  await h.send({type:'copy-code',text:'x'.repeat(1024*1024+1)});
   assert.deepEqual(h.clipboard,['val answer = 42']);
 });
