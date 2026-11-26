@@ -20,3 +20,7 @@ Editor `ab45a03` adds a clean-document link/Back selection regression that fails
 Manual use of the corrected main runtime exposed page visibility and keyboard recovery defects after mod reload/close. Native host `b394efe6` addresses them: three lifecycle regressions fail on the prior host and pass after the fix; ten WebView tests, the app compile check, and the arm64 release build pass. The corrected build still needs manual OS confirmation.
 
 Context-aware app close/reload retirement is covered by the lifecycle regressions. Cleanup without an app context remains best-effort; these tests do not establish immediate native destruction on that path or actual OS first-responder recovery.
+
+## Herdr App 0.1.18 compatibility
+
+The arm64 macOS host passed `cargo check --offline --locked`, a locked release build, and the installed Markdown mod check in a separate app home. The 0.1.18 terminal paste handlers are identical to upstream. Finder-to-terminal and Finder-to-editor drag gestures on the rebuilt host need separate OS verification.

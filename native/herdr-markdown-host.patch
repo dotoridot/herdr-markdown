@@ -1,5 +1,5 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 74c3a99..04a0cf5 100644
+index 39102fc16873b0907c1b72fba2c772082f02517d..8aa60ff27ea173622b7109eaf0ebbe6c3a6042e8 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
 @@ -1050,6 +1050,12 @@ dependencies = [
@@ -328,7 +328,7 @@ index 74c3a99..04a0cf5 100644
   "quickjs-jit",
   "quickjs-jit-runtime",
   "quickjs-jit-stdlib",
-@@ -3727,6 +3884,7 @@ dependencies = [
+@@ -3731,6 +3888,7 @@ dependencies = [
   "tracing-subscriber",
   "ttf-parser",
   "uds_windows",
@@ -336,7 +336,7 @@ index 74c3a99..04a0cf5 100644
   "windows-sys 0.61.2",
   "winresource",
  ]
-@@ -3803,12 +3961,24 @@ checksum = "c13771afe0e6e846f1e67d038d4cb29998a6779f93c809212e4e9c32efd244d4"
+@@ -3807,12 +3965,24 @@ checksum = "c13771afe0e6e846f1e67d038d4cb29998a6779f93c809212e4e9c32efd244d4"
  dependencies = [
   "log",
   "mac",
@@ -362,7 +362,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "http"
  version = "1.5.0"
-@@ -4268,6 +4438,22 @@ version = "1.0.18"
+@@ -4272,6 +4442,22 @@ version = "1.0.18"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
  
@@ -385,7 +385,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "jni-sys"
  version = "0.3.1"
-@@ -4355,6 +4541,18 @@ dependencies = [
+@@ -4359,6 +4545,18 @@ dependencies = [
   "libc",
  ]
  
@@ -404,7 +404,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "kurbo"
  version = "0.13.1"
-@@ -4373,6 +4571,43 @@ version = "1.5.0"
+@@ -4377,6 +4575,43 @@ version = "1.5.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
  
@@ -448,7 +448,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "leak"
  version = "0.1.2"
-@@ -4864,7 +5099,21 @@ checksum = "16ce3abbeba692c8b8441d036ef91aea6df8da2c6b6e21c7e14d3c18e526be45"
+@@ -4868,7 +5103,21 @@ checksum = "16ce3abbeba692c8b8441d036ef91aea6df8da2c6b6e21c7e14d3c18e526be45"
  dependencies = [
   "log",
   "phf 0.11.3",
@@ -471,7 +471,7 @@ index 74c3a99..04a0cf5 100644
   "string_cache",
   "string_cache_codegen",
   "tendril",
-@@ -4876,12 +5125,23 @@ version = "0.3.0"
+@@ -4880,12 +5129,23 @@ version = "0.3.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "edaa21ab3701bfee5099ade5f7e1f84553fd19228cf332f13cd6e964bf59be18"
  dependencies = [
@@ -497,7 +497,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "matchers"
  version = "0.2.0"
-@@ -4891,6 +5151,12 @@ dependencies = [
+@@ -4895,6 +5155,12 @@ dependencies = [
   "regex-automata",
  ]
  
@@ -510,7 +510,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "maybe-owned"
  version = "0.3.4"
-@@ -5016,7 +5282,7 @@ checksum = "4b18443e9c262bfe8fa82f51666e2642c53393f7e5c27b3e1aeab922cff5b9d8"
+@@ -5020,7 +5286,7 @@ checksum = "4b18443e9c262bfe8fa82f51666e2642c53393f7e5c27b3e1aeab922cff5b9d8"
  dependencies = [
   "libc",
   "log",
@@ -519,7 +519,7 @@ index 74c3a99..04a0cf5 100644
   "windows-sys 0.61.2",
  ]
  
-@@ -5056,6 +5322,30 @@ dependencies = [
+@@ -5060,6 +5326,30 @@ dependencies = [
   "unicode-ident",
  ]
  
@@ -550,7 +550,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "ndk-sys"
  version = "0.6.0+11769913"
-@@ -5092,6 +5382,12 @@ dependencies = [
+@@ -5096,6 +5386,12 @@ dependencies = [
   "memchr",
  ]
  
@@ -563,7 +563,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "nom"
  version = "7.1.3"
-@@ -5295,6 +5591,28 @@ dependencies = [
+@@ -5299,6 +5595,28 @@ dependencies = [
   "libc",
  ]
  
@@ -592,7 +592,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "objc"
  version = "0.2.7"
-@@ -5339,6 +5657,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -5343,6 +5661,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "3a12a8ed07aefc768292f076dc3ac8c48f3781c8f2d5851dd3d98950e8c5a89f"
  dependencies = [
   "objc2-encode",
@@ -600,7 +600,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -5536,6 +5855,15 @@ version = "4.1.0"
+@@ -5540,6 +5859,15 @@ version = "4.1.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "ef25abbcd74fb2609453eb695bd2f860d389e457f67dc17cafc8b8cbc89d0c33"
  
@@ -616,7 +616,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "objc2-foundation"
  version = "0.2.2"
-@@ -5646,6 +5974,18 @@ dependencies = [
+@@ -5650,6 +5978,18 @@ dependencies = [
   "objc2-foundation 0.3.2",
  ]
  
@@ -635,7 +635,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "objc2-user-notifications"
  version = "0.3.2"
-@@ -5659,6 +5999,20 @@ dependencies = [
+@@ -5663,6 +6003,20 @@ dependencies = [
   "objc2-foundation 0.3.2",
  ]
  
@@ -656,7 +656,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "objc_exception"
  version = "0.1.2"
-@@ -5927,6 +6281,26 @@ version = "2.3.2"
+@@ -5931,6 +6285,26 @@ version = "2.3.2"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
  
@@ -683,7 +683,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "phf"
  version = "0.11.3"
-@@ -5957,6 +6331,16 @@ dependencies = [
+@@ -5961,6 +6335,16 @@ dependencies = [
   "phf_shared 0.14.0",
  ]
  
@@ -700,7 +700,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "phf_codegen"
  version = "0.11.3"
-@@ -5967,6 +6351,26 @@ dependencies = [
+@@ -5971,6 +6355,26 @@ dependencies = [
   "phf_shared 0.11.3",
  ]
  
@@ -727,7 +727,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "phf_generator"
  version = "0.11.3"
-@@ -5997,6 +6401,20 @@ dependencies = [
+@@ -6001,6 +6405,20 @@ dependencies = [
   "phf_shared 0.14.0",
  ]
  
@@ -748,7 +748,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "phf_macros"
  version = "0.13.1"
-@@ -6023,13 +6441,31 @@ dependencies = [
+@@ -6027,13 +6445,31 @@ dependencies = [
   "syn 2.0.119",
  ]
  
@@ -781,7 +781,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -6038,7 +6474,7 @@ version = "0.13.1"
+@@ -6042,7 +6478,7 @@ version = "0.13.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "e57fef6bc5981e38c2ce2d63bfa546861309f875b8a75f092d1d54ae2d64f266"
  dependencies = [
@@ -790,7 +790,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -6047,7 +6483,7 @@ version = "0.14.0"
+@@ -6051,7 +6487,7 @@ version = "0.14.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "c6fd9027e2d9319be6349febd1db4e8d02aa544921200c9b777720ac34a3aa89"
  dependencies = [
@@ -799,7 +799,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -6315,6 +6751,12 @@ dependencies = [
+@@ -6319,6 +6755,12 @@ dependencies = [
   "toml_edit 0.25.13+spec-1.1.0",
  ]
  
@@ -812,7 +812,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "proc-macro2"
  version = "1.0.107"
-@@ -6545,7 +6987,7 @@ dependencies = [
+@@ -6549,7 +6991,7 @@ dependencies = [
   "getrandom 0.4.3",
   "lru-slab",
   "rand 0.10.2",
@@ -821,7 +821,7 @@ index 74c3a99..04a0cf5 100644
   "ring",
   "rustc-hash 2.1.3",
   "rustls",
-@@ -6592,6 +7034,20 @@ version = "6.0.0"
+@@ -6596,6 +7038,20 @@ version = "6.0.0"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
  
@@ -842,7 +842,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "rand"
  version = "0.8.8"
-@@ -6624,6 +7080,16 @@ dependencies = [
+@@ -6628,6 +7084,16 @@ dependencies = [
   "rand_core 0.10.1",
  ]
  
@@ -859,7 +859,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "rand_chacha"
  version = "0.3.1"
-@@ -6644,6 +7110,15 @@ dependencies = [
+@@ -6648,6 +7114,15 @@ dependencies = [
   "rand_core 0.9.5",
  ]
  
@@ -875,7 +875,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "rand_core"
  version = "0.6.4"
-@@ -6668,6 +7143,24 @@ version = "0.10.1"
+@@ -6672,6 +7147,24 @@ version = "0.10.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "63b8176103e19a2643978565ca18b50549f6101881c443590420e4dc998a3c69"
  
@@ -900,7 +900,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "rand_pcg"
  version = "0.10.2"
-@@ -6843,6 +7336,16 @@ dependencies = [
+@@ -6847,6 +7340,16 @@ dependencies = [
   "thiserror 1.0.69",
  ]
  
@@ -917,7 +917,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "ref-cast"
  version = "1.0.27"
-@@ -7292,6 +7795,24 @@ dependencies = [
+@@ -7296,6 +7799,24 @@ dependencies = [
   "libc",
  ]
  
@@ -942,7 +942,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "self_cell"
  version = "1.3.0"
-@@ -7446,6 +7967,16 @@ dependencies = [
+@@ -7450,6 +7971,16 @@ dependencies = [
   "serde",
  ]
  
@@ -959,7 +959,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "sha1"
  version = "0.10.7"
-@@ -7579,6 +8110,12 @@ dependencies = [
+@@ -7583,6 +8114,12 @@ dependencies = [
   "log",
  ]
  
@@ -972,7 +972,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "siphasher"
  version = "1.0.3"
-@@ -7879,7 +8416,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -7883,7 +8420,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "695b5790b3131dafa99b3bbfd25a216edb3d216dad9ca208d4657bfb8f2abc3d"
  dependencies = [
   "kurbo",
@@ -981,7 +981,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -7893,6 +8430,17 @@ dependencies = [
+@@ -7897,6 +8434,17 @@ dependencies = [
   "zeno",
  ]
  
@@ -999,7 +999,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "syn"
  version = "2.0.119"
-@@ -8033,6 +8581,17 @@ dependencies = [
+@@ -8037,6 +8585,17 @@ dependencies = [
   "objc",
  ]
  
@@ -1017,7 +1017,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "target-lexicon"
  version = "0.13.5"
-@@ -8157,6 +8716,7 @@ dependencies = [
+@@ -8161,6 +8720,7 @@ dependencies = [
   "powerfmt",
   "serde_core",
   "time-core",
@@ -1025,7 +1025,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -8165,6 +8725,16 @@ version = "0.1.9"
+@@ -8169,6 +8729,16 @@ version = "0.1.9"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "9e1c906769ad99c88eaa54e728060edef082f8e358ff32030cb7c7d315e81109"
  
@@ -1042,7 +1042,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "tiny-keccak"
  version = "2.0.2"
-@@ -8661,7 +9231,7 @@ dependencies = [
+@@ -8665,7 +9235,7 @@ dependencies = [
   "roxmltree 0.21.1",
   "rustybuzz",
   "simplecss",
@@ -1051,7 +1051,7 @@ index 74c3a99..04a0cf5 100644
   "strict-num",
   "svgtypes",
   "tiny-skia-path",
-@@ -8833,6 +9403,12 @@ dependencies = [
+@@ -8837,6 +9407,12 @@ dependencies = [
   "try-lock",
  ]
  
@@ -1064,7 +1064,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "wasi"
  version = "0.11.1+wasi-snapshot-preview1"
-@@ -9065,6 +9641,42 @@ dependencies = [
+@@ -9069,6 +9645,42 @@ dependencies = [
   "rustls-pki-types",
  ]
  
@@ -1107,7 +1107,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "weezl"
  version = "0.1.12"
-@@ -9608,6 +10220,15 @@ dependencies = [
+@@ -9612,6 +10224,15 @@ dependencies = [
   "windows-link 0.2.1",
  ]
  
@@ -1123,7 +1123,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows-sys"
  version = "0.48.0"
-@@ -9653,6 +10274,21 @@ dependencies = [
+@@ -9657,6 +10278,21 @@ dependencies = [
   "windows-link 0.2.1",
  ]
  
@@ -1145,7 +1145,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows-targets"
  version = "0.48.5"
-@@ -9728,6 +10364,12 @@ dependencies = [
+@@ -9732,6 +10368,12 @@ dependencies = [
   "windows-link 0.2.1",
  ]
  
@@ -1158,7 +1158,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_aarch64_gnullvm"
  version = "0.48.5"
-@@ -9746,6 +10388,12 @@ version = "0.53.1"
+@@ -9750,6 +10392,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
  
@@ -1171,7 +1171,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_aarch64_msvc"
  version = "0.48.5"
-@@ -9764,6 +10412,12 @@ version = "0.53.1"
+@@ -9768,6 +10416,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
  
@@ -1184,7 +1184,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_i686_gnu"
  version = "0.48.5"
-@@ -9794,6 +10448,12 @@ version = "0.53.1"
+@@ -9798,6 +10452,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
  
@@ -1197,7 +1197,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_i686_msvc"
  version = "0.48.5"
-@@ -9812,6 +10472,12 @@ version = "0.53.1"
+@@ -9816,6 +10476,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
  
@@ -1210,7 +1210,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_x86_64_gnu"
  version = "0.48.5"
-@@ -9830,6 +10496,12 @@ version = "0.53.1"
+@@ -9834,6 +10500,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
  
@@ -1223,7 +1223,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_x86_64_gnullvm"
  version = "0.48.5"
-@@ -9848,6 +10520,12 @@ version = "0.53.1"
+@@ -9852,6 +10524,12 @@ version = "0.53.1"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
  
@@ -1236,7 +1236,7 @@ index 74c3a99..04a0cf5 100644
  [[package]]
  name = "windows_x86_64_msvc"
  version = "0.48.5"
-@@ -10053,7 +10731,7 @@ checksum = "9bbb26405d8e919bc1547a5aa9abc95cbfa438f04844f5fdd9dc7596b748bf69"
+@@ -10056,7 +10734,7 @@ checksum = "9bbb26405d8e919bc1547a5aa9abc95cbfa438f04844f5fdd9dc7596b748bf69"
  dependencies = [
   "log",
   "mac",
@@ -1245,7 +1245,7 @@ index 74c3a99..04a0cf5 100644
  ]
  
  [[package]]
-@@ -10225,7 +10903,7 @@ dependencies = [
+@@ -10228,7 +10906,7 @@ dependencies = [
   "core-foundation 0.10.1",
   "core-graphics 0.24.0",
   "core-text",
@@ -1255,7 +1255,7 @@ index 74c3a99..04a0cf5 100644
   "float-ord",
   "freetype-sys",
 diff --git a/Cargo.toml b/Cargo.toml
-index 5ffed0e..9a6afa7 100644
+index f935250ea0f4f63224a0a9b2ffd82e18b4499a20..61c94e8f8adda810c207e5f9abdb928e5eb7bb0e 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
 @@ -1,6 +1,6 @@
@@ -1266,15 +1266,15 @@ index 5ffed0e..9a6afa7 100644
  resolver = "2"
  
  [workspace.package]
-@@ -33,6 +33,7 @@ serde_json = "1"
- tracing = "0.1"
+@@ -34,6 +34,7 @@ tracing = "0.1"
  tracing-subscriber = { version = "0.3", features = ["env-filter"] }
  fancy-regex = "0.19"
+ regex = "1"
 +url = "2"
  notify = "7"
  sha2 = "0.10"
  
-@@ -70,6 +71,8 @@ winresource = "0.1"
+@@ -76,6 +77,8 @@ winresource = "0.1"
  
  # gpui-shell's LLRT modules must share its quickjs-jit VM; gpui-kit's own workspace does the same.
  [patch.crates-io]
@@ -1284,17 +1284,19 @@ index 5ffed0e..9a6afa7 100644
  gpui-pre = { path = "vendor/gpui-pre" }
  gpui-pre-wgpu = { path = "vendor/gpui-pre-wgpu" }
 diff --git a/defaults/AGENTS.md b/defaults/AGENTS.md
-index 3bcad8d..866447f 100644
+index 75ab98abbeb3e419a255e88a1f38500ef6369435..069cf5e92d72dd43f89f6afa6c46041e9ac8e851 100644
 --- a/defaults/AGENTS.md
 +++ b/defaults/AGENTS.md
-@@ -158,6 +158,27 @@ the highlighted line shows where it will land.
+@@ -171,6 +171,29 @@ the highlighted line shows where it will land.
    Ctrl-click (Cmd-click on macOS) a live terminal address in terminal text to
    peek at it. Bare addresses refer to the machine of the terminal showing them;
    use `machine/address` for another machine. Names and non-live addresses aren't links.
 +- **Personal Markdown editor**: with `mods/rich-document` installed, Cmd-click
 +  (Ctrl-click off macOS) on a local terminal's existing `.md`, `.markdown`,
 +  `.mdown` or `.mkd` file opens a document mod tab in that pane's space.
-+  Local `file://` URLs work too. Other links and remote-terminal links keep
++  Local `file://` URLs work too. Dropping a local Markdown file on the editor
++  opens it there. Dropping files on a terminal keeps the terminal paste behavior.
++  Other links and remote-terminal links keep
 +  the system opener. This is a personal build customization.
 +  The personal macOS host also provides `WebViewState.new({asset_root, entry?})`
 +  and `WebView.new(state)` for bundled document editors. Assets stay inside
@@ -1313,11 +1315,11 @@ index 3bcad8d..866447f 100644
 +  Cmd-click keeps its usual behavior. This shortcut does not handle web links,
 +  terminal addresses or paths displayed by a remote terminal.
  - **Agent navigation order** belongs to the mods. A mod displaying agents calls
-   `setAgentOrder(list.map(a => a.address))` on render so `agent.next` /
-   `agent.prev` follow its list.
-@@ -894,6 +915,11 @@ keyword: theme().ansi5, ... } })` + `Editor.new(state)` is a code view (readonly
- or editor with syntax highlighting, line numbers and folding. A viewer opens
- beside the shell as a pane: `pane.split {direction, mod, props: { file }}`.
+   `setAgentOrder(list.map(a => a.address))` on render so `agent.next`,
+   `agent.prev` and `agent.select {index}` (1 = first) use that order. Herdr
+@@ -1187,6 +1210,11 @@ literal tabs. The text renderer chooses the displayed width of tab characters.
+ Once a file's style is known, call `state.set_tab_size(4, false)`.
+ A viewer opens beside the shell as a pane: `pane.split {direction, mod, props: { file }}`.
  The full surface is in `gpui-kit.d.ts` next to this file.
 +For a document palette independent of the window, use
 +`TextView.markdown(id, text).text_colors({foreground, muted_foreground, link, selection, code_background, border, dark})`
@@ -1328,10 +1330,10 @@ index 3bcad8d..866447f 100644
  ### The `herdr` module
  
 diff --git a/src/SKILL.md b/src/SKILL.md
-index b5518bd..f5809a8 100644
+index bc52d7cb27a95a55025b9154914eef3c3d3435a3..15b8389a86393b872fd55f5bab687dfefe2fb3ba 100644
 --- a/src/SKILL.md
 +++ b/src/SKILL.md
-@@ -106,6 +106,14 @@ those files or the generated guide. The app rewrites them on start.
+@@ -182,6 +182,14 @@ those files or the generated guide. The app rewrites them on start.
    not in an earlier task. The installed guide explains its 250 ms quit budget
    and which cleanup commands go out before shutdown.
  
@@ -1347,13 +1349,14 @@ index b5518bd..f5809a8 100644
  
  ```sh
 diff --git a/src/links.rs b/src/links.rs
-index 9307857..d32f302 100644
+index 31b60683022a2f9b92001356ded8ab42265ba59a..568d6d3ca348bb9f0d9a125c6858cf5ed7a3b373 100644
 --- a/src/links.rs
 +++ b/src/links.rs
-@@ -111,6 +111,48 @@ pub fn resolve(link: &str, cwd: Option<&Path>) -> Option<Target> {
-     Path::new(bare).exists().then(|| Target::File(PathBuf::from(bare)))
+@@ -406,7 +406,49 @@ where
+     Ok(false)
  }
  
+-/// Hands the target to the system's default handler.
 +/// An existing local path, including percent-encoded file URLs.
 +pub fn local_path(target: &Target) -> Option<PathBuf> {
 +    let path = match target {
@@ -1396,12 +1399,13 @@ index 9307857..d32f302 100644
 +    }
 +}
 +
- /// Hands the target to the system (xdg-open, open on macOS, explorer on Windows).
++/// Hands the target to the system (xdg-open, open on macOS, explorer on Windows).
  pub fn open(target: &Target) {
      let arg = match target {
-@@ -141,10 +183,54 @@ pub fn open(target: &Target) {
- mod tests {
-     use super::*;
+         Target::Url(u) => std::ffi::OsStr::new(u),
+@@ -768,10 +810,54 @@ mod tests {
+         resolve(link, cwd, false).native
+     }
  
 +    #[test]
 +    fn finder_paths_keep_files_folders_and_encoded_urls_local() {
@@ -1455,165 +1459,68 @@ index 9307857..d32f302 100644
      #[test]
      fn matches_like_ghostty() {
 diff --git a/src/terminal.rs b/src/terminal.rs
-index d34ae80..2fb30df 100644
+index 31446ec4bac84308a3e59a2a9616ff7e554085c8..8dda163f4aacc4c1bc5790ae93f55a2bd188d343 100644
 --- a/src/terminal.rs
 +++ b/src/terminal.rs
-@@ -39,8 +39,16 @@ enum LinkTarget {
-     Terminal(String),
- }
- 
-+#[derive(Debug, PartialEq)]
-+enum LinkAction {
-+    Open,
-+    Reveal(PathBuf),
-+}
-+
- pub enum TerminalEvent {
-     Peek(String),
-+    OpenLink(links::Target),
-+    RevealFile(PathBuf),
-     TitleChanged,
-     /// The program ended.
-     Ended,
-@@ -800,7 +808,23 @@ fn paste_image_bytes(format: ImageFormat, bytes: &[u8]) -> Option<(ImageFormat,
- 
- fn link_mods(m: &Modifiers) -> bool {
-     let key = if cfg!(target_os = "macos") { m.platform && !m.control } else { m.control && !m.platform };
--    key && !m.alt && !m.shift
-+    key && !m.shift && (!m.alt || cfg!(target_os = "macos"))
-+}
-+
-+fn link_action(m: &Modifiers, source: &str, target: &LinkTarget) -> Option<LinkAction> {
-+    if !link_mods(m) {
-+        return None;
-+    }
-+    if cfg!(target_os = "macos") && m.alt {
-+        if source.contains('/') {
-+            return None;
-+        }
-+        return match target {
-+            LinkTarget::External(target) => links::local_path(target).map(LinkAction::Reveal),
-+            LinkTarget::Terminal(_) => None,
-+        };
-+    }
-+    Some(LinkAction::Open)
- }
- 
- fn local(g: &Grid, p: Point<Pixels>) -> (f32, f32) {
-@@ -1451,7 +1475,9 @@ impl Render for TerminalView {
-         }
-         let cell = cell_size(window);
-         let hover = self.grid.borrow().hover;
--        let found = hover.filter(|_| link_mods(&window.modifiers())).and_then(|pos| self.link_at(pos));
-+        let modifiers = window.modifiers();
-+        let found = hover.filter(|_| link_mods(&modifiers)).and_then(|pos| self.link_at(pos))
-+            .filter(|(target, _)| link_action(&modifiers, &self.address, target).is_some());
-         let (link, spans) = found.unzip();
-         self.link = link;
-         self.grid.borrow_mut().link_spans = spans.unwrap_or_default();
-@@ -1492,10 +1518,14 @@ impl Render for TerminalView {
-                 this.focus.focus(window, cx);
-                 if link_mods(&ev.modifiers)
+@@ -2549,17 +2549,23 @@ impl Render for TerminalView {
+                     g.core.resize(ch, g.vt.cols, g.vt.rows);
+                 }
+                 drop(g);
+-                if link_mods(&ev.modifiers)
++                let reveal = cfg!(target_os = "macos") && ev.modifiers.alt;
++                let mut link_modifiers = ev.modifiers;
++                if reveal {
++                    link_modifiers.alt = false;
++                }
++                if link_mods(&link_modifiers)
                      && let Some((target, _)) = this.link_at(ev.position)
-+                    && let Some(action) = link_action(&ev.modifiers, &this.address, &target)
                  {
--                    match target {
--                        LinkTarget::External(target) => links::open(&target),
+                     match target {
+-                        LinkTarget::External(click) if !click.handlers.is_empty() => cx.emit(TerminalEvent::Link(click)),
+-                        LinkTarget::External(click) => {
+-                            if let Some(target) = click.native {
+-                                links::open(&target);
++                        LinkTarget::External(click) if reveal && !this.address.contains('/') => {
++                            if let Some(path) = click.native.as_ref().and_then(links::local_path) {
++                                links::reveal(&path);
+                             }
+                         }
 -                        LinkTarget::Terminal(address) => cx.emit(TerminalEvent::Peek(address)),
-+                    match action {
-+                        LinkAction::Reveal(path) => cx.emit(TerminalEvent::RevealFile(path)),
-+                        LinkAction::Open => match target {
-+                            LinkTarget::External(target) => cx.emit(TerminalEvent::OpenLink(target)),
-+                            LinkTarget::Terminal(address) => cx.emit(TerminalEvent::Peek(address)),
-+                        },
++                        LinkTarget::External(click) if !reveal => cx.emit(TerminalEvent::Link(click)),
++                        LinkTarget::Terminal(address) if !reveal => cx.emit(TerminalEvent::Peek(address)),
++                        _ => {}
                      }
                      return;
                  }
-@@ -1619,6 +1649,56 @@ impl Focusable for TerminalView {
- 
- #[cfg(test)]
- mod tests {
-+    use super::{LinkAction, LinkTarget, link_action, link_mods};
-+    use crate::links;
-+
-+    #[test]
-+    fn link_click_modifiers_preserve_existing_shortcuts() {
-+        let ordinary = Modifiers {
-+            platform: cfg!(target_os = "macos"),
-+            control: !cfg!(target_os = "macos"),
-+            ..Modifiers::default()
-+        };
-+        let web = LinkTarget::External(links::Target::Url("https://example.com/readme.md".into()));
-+        assert_eq!(link_action(&ordinary, "t1", &web), Some(LinkAction::Open));
-+        assert_eq!(link_action(&ordinary, "remote/t1", &web), Some(LinkAction::Open));
-+        assert_eq!(link_action(&Modifiers::default(), "t1", &web), None);
-+        assert_eq!(link_action(&Modifiers { shift: true, ..ordinary }, "t1", &web), None);
-+        if !cfg!(target_os = "macos") {
-+            assert_eq!(link_action(&Modifiers { alt: true, ..ordinary }, "t1", &web), None);
-+        }
-+    }
-+
-+    #[cfg(target_os = "macos")]
-+    #[test]
-+    fn cmd_option_reveals_only_existing_local_paths() {
-+        let root = std::env::temp_dir().join(format!("herdr-finder-click-{}", std::process::id()));
-+        std::fs::create_dir_all(&root).unwrap();
-+        let file = root.join("한글 문서.txt");
-+        std::fs::write(&file, "fixture").unwrap();
-+        let modifiers = Modifiers { platform: true, alt: true, ..Modifiers::default() };
-+        assert!(link_mods(&modifiers));
-+        for target in [links::Target::File(file.clone()), links::Target::File(root.clone()),
-+            links::Target::Url(url::Url::from_file_path(&file).unwrap().to_string())]
-+        {
-+            let expected = links::local_path(&target).unwrap();
-+            let target = LinkTarget::External(target);
-+            assert_eq!(link_action(&modifiers, "t1", &target), Some(LinkAction::Reveal(expected)));
-+            assert_eq!(link_action(&modifiers, "remote/t1", &target), None);
-+            assert_eq!(link_action(&Modifiers { alt: false, ..modifiers }, "t1", &target), Some(LinkAction::Open));
-+            assert_eq!(link_action(&Modifiers { shift: true, ..modifiers }, "t1", &target), None);
-+            assert_eq!(link_action(&Modifiers { control: true, ..modifiers }, "t1", &target), None);
-+        }
-+        for target in [links::Target::File(root.join("missing.md")),
-+            links::Target::Url("https://example.com/readme.md".into()),
-+            links::Target::Url("file://other-host/tmp/readme.md".into())]
-+        {
-+            assert_eq!(link_action(&modifiers, "t1", &LinkTarget::External(target)), None);
-+        }
-+        assert_eq!(link_action(&modifiers, "t1", &LinkTarget::Terminal("t2".into())), None);
-+        std::fs::remove_dir_all(root).unwrap();
-+    }
-+
-     #[gpui::test]
-     fn terminal_release_ends_window_text_selection(cx: &mut gpui::TestAppContext) {
-         use gpui::*;
 diff --git a/src/window.rs b/src/window.rs
-index 30b2e4f..f9083b2 100644
+index 6372535271924fa7daba87feff9bb68afd7d1d23..bc3030cf9efcd68f2d22a40b9f10002dfc018311 100644
 --- a/src/window.rs
 +++ b/src/window.rs
-@@ -1400,6 +1400,22 @@ impl AppWindow {
-             let (block, addr) = (id.clone(), address.clone());
-             let sub = cx.subscribe_in(&view, window, move |this, _, ev: &TerminalEvent, window, cx| match ev {
-                 TerminalEvent::Peek(address) => this.peek_terminal(address, window, cx),
-+                TerminalEvent::RevealFile(path) => {
-+                    if !addr.contains('/') {
-+                        crate::links::reveal(path);
-+                    }
-+                }
-+                TerminalEvent::OpenLink(target) => {
-+                    if !addr.contains('/') && this.folders.contains_key("rich-document")
-+                        && let Some(path) = crate::links::document_file(target)
-+                    {
-+                        let name = path.file_name().unwrap_or_default().to_string_lossy().into_owned();
-+                        let space = this.model.space_of(block.trim_end_matches(SWAP)).map(|space| space.id.clone());
-+                        this.run("tab.new", json!({"space": space, "name": name, "mod": "rich-document", "props": {"file": path}}), window, cx);
-+                    } else {
-+                        crate::links::open(target);
-+                    }
-+                }
-                 TerminalEvent::TitleChanged => this.publish(cx),
-                 TerminalEvent::Ended => this.terminal_ended(&block, window, cx),
-                 TerminalEvent::ContextMenu(at) => {
-@@ -4693,13 +4709,22 @@ impl Render for AppWindow {
+@@ -2250,6 +2250,7 @@ impl AppWindow {
+             (id.clone(), (self.folders.get(id).map(|f| f.dir.clone()), link.clone()))
+         }).collect();
+         let native = click.native.clone();
++        let is_remote = address.contains('/');
+         let id = mods::new_overlay_id();
+         let task_id = id.clone();
+         let task = cx.spawn_in(window, async move |this, cx| {
+@@ -2272,7 +2273,14 @@ impl AppWindow {
+                 match result {
+                     Ok(false) => {
+                         if let Some(target) = native {
+-                            crate::links::open(&target);
++                            if !is_remote && this.folders.contains_key("rich-document")
++                                && let Some(path) = crate::links::document_file(&target)
++                            {
++                                let name = path.file_name().unwrap_or_default().to_string_lossy().into_owned();
++                                this.run("tab.new", json!({"space": source["space"], "name": name, "mod": "rich-document", "props": {"file": path}}), window, cx);
++                            } else {
++                                crate::links::open(&target);
++                            }
+                         }
+                     }
+                     Ok(true) => {}
+@@ -5642,13 +5650,22 @@ impl Render for AppWindow {
          let _timed = crate::bench::timed(&crate::bench::WINDOW_US);
          crate::bench::frame_start();
          crate::terminal::next_frame();
@@ -1643,7 +1550,7 @@ index 30b2e4f..f9083b2 100644
              self.publish(cx);
          }
 diff --git a/vendor/gpui-kit/crates/shell/Cargo.toml b/vendor/gpui-kit/crates/shell/Cargo.toml
-index 060d1eb..94a9a1b 100644
+index 247b1648790c355feaf4a314e5743a6bcd121cff..564855734f254d863123b3a819d84f417fce2d6a 100644
 --- a/vendor/gpui-kit/crates/shell/Cargo.toml
 +++ b/vendor/gpui-kit/crates/shell/Cargo.toml
 @@ -56,8 +56,10 @@ chrono = "0.4.38"
@@ -1657,18 +1564,18 @@ index 060d1eb..94a9a1b 100644
  reqwest = { workspace = true, features = ["blocking"], optional = true }
  tungstenite = { version = "0.29", features = ["rustls-tls-webpki-roots", "url"], optional = true }
  
-@@ -97,3 +99,6 @@ windows = { workspace = true, features = [
+@@ -98,3 +100,6 @@ windows = { workspace = true, features = [
  
  [lints]
  workspace = true
 +
 +[target.'cfg(target_os = "macos")'.dependencies]
-+wry = { package = "lb-wry", version = "=0.53.3", default-features = false, features = ["protocol"] }
++wry = { package = "lb-wry", version = "=0.53.3", default-features = false, features = ["protocol", "drag-drop"] }
 diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
-index f88bf69..433c8ad 100644
+index 35cdf0c8f0a5f705e572dc1b3fd63a47567021b8..79bd7f335acea4ecb7e1c68df58091f7cbdaf750 100644
 --- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
 +++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/entity_api.rs
-@@ -455,10 +455,30 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
+@@ -485,10 +485,30 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
                          .map_err(|error| Exception::throw_type(&ctx, &error.to_string()))?;
                      colors.insert(name.clone(), color);
                  }
@@ -1700,7 +1607,7 @@ index f88bf69..433c8ad 100644
                  let store = alive(&ctx, &create_editor)?;
                  scope::with_current(|window, cx| {
                      store
-@@ -538,6 +558,62 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
+@@ -656,6 +676,62 @@ pub fn install(ctx: &Ctx<'_>, module: &Object<'_>, runtime: Weak<ShellRuntime>)
          ),
      )?;
  
@@ -1764,7 +1671,7 @@ index f88bf69..433c8ad 100644
      // text is, and for one more: a drag writes it from a GPUI listener with no
      // script in the loop, so there is nowhere else it could live.
 diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
-index fdf12f3..43cf52a 100644
+index fdf12f317ae7fc1da4d307a2a233933777854289..43cf52aa8edd537ba668e23e880d72e54de2cfa8 100644
 --- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
 +++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/lifecycle.rs
 @@ -45,6 +45,7 @@ impl ShellRuntime {
@@ -1776,10 +1683,10 @@ index fdf12f3..43cf52a 100644
          let object = view.read(cx).object().clone();
          let policy = view.read(cx).policy();
 diff --git a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs b/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
-index 6061806..e4f8d53 100644
+index 8f92b521653ed7f7873fb375a46ac7f0aa4f8143..6500a166015ef82621bd40f0cf5caab5ac366aae 100644
 --- a/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
 +++ b/vendor/gpui-kit/crates/shell/src/engine/quickjs/mod.rs
-@@ -1188,6 +1188,8 @@ pub(crate) mod exports {
+@@ -1190,6 +1190,8 @@ pub(crate) mod exports {
          // HERDR: source editor exports in gpui-base.
          "Editor",
          "EditorState",
@@ -1788,7 +1695,7 @@ index 6061806..e4f8d53 100644
          "Textarea",
          "TextView",
          "TextareaState",
-@@ -3600,6 +3602,22 @@ impl ShellRuntime {
+@@ -3774,6 +3776,22 @@ impl ShellRuntime {
          }
      }
  
@@ -1811,7 +1718,7 @@ index 6061806..e4f8d53 100644
      /// Tells a script that the layout it is watching changed.
      ///
      /// The event carries nothing: what changed is the whole layout, and
-@@ -5575,6 +5593,11 @@ globalThis.__gpui = (() => {
+@@ -5831,6 +5849,11 @@ globalThis.__gpui = (() => {
      };
    };
  
@@ -1823,7 +1730,7 @@ index 6061806..e4f8d53 100644
    // Styles do not go through `__apply`, and the reason is arithmetic. They are
    // most of what a description records, and the generic form above pays three
    // times over for information the prelude already has: it allocates a rest
-@@ -7040,6 +7063,17 @@ globalThis.__gpui = (() => {
+@@ -7350,6 +7373,17 @@ globalThis.__gpui = (() => {
        },
      },
      Editor: { new: (state) => element(__editor_element(state.__handle)) },
@@ -1841,7 +1748,7 @@ index 6061806..e4f8d53 100644
      TextareaState: {
        new: (options) =>
          textareaState(
-@@ -7943,6 +7977,28 @@ impl ShellRuntime {
+@@ -8256,6 +8290,28 @@ impl ShellRuntime {
      }
  
      fn apply(&self, ctx: &Ctx<'_>, id: SpecId, method: &str, args: Arguments) -> JsResult<()> {
@@ -1871,7 +1778,7 @@ index 6061806..e4f8d53 100644
          // a template rather than into a description, and the position it landed
          // in is a slot. Checked before the dispatch below because the ordinary
 diff --git a/vendor/gpui-kit/crates/shell/src/entities.rs b/vendor/gpui-kit/crates/shell/src/entities.rs
-index 790ab6c..78fe1d0 100644
+index fc3fcfd4e66c1783c8033c0f5be59ddffebccc1a..34a4e8ea1b33d723219d8681ecd53498e3c3e972 100644
 --- a/vendor/gpui-kit/crates/shell/src/entities.rs
 +++ b/vendor/gpui-kit/crates/shell/src/entities.rs
 @@ -95,6 +95,12 @@ enum Record {
@@ -1887,23 +1794,23 @@ index 790ab6c..78fe1d0 100644
      /// A calendar's month, view and selected date.
      ///
      /// Retained because the month a script is looking at outlives the frame
-@@ -182,6 +188,7 @@ pub(crate) struct EditorOptions {
-     pub readonly: bool,
-     pub soft_wrap: bool,
+@@ -198,6 +204,7 @@ pub(crate) struct EditorOptions {
+     pub tab_size: f64,
+     pub hard_tabs: bool,
      pub syntax: HashMap<String, String>,
 +    pub colors: HashMap<String, String>,
      pub font_family: Option<String>,
      pub font_size: Option<f32>,
  }
-@@ -196,6 +203,7 @@ impl Default for EditorOptions {
-             readonly: false,
-             soft_wrap: false,
+@@ -214,6 +221,7 @@ impl Default for EditorOptions {
+             tab_size: TabSize::default().tab_size as f64,
+             hard_tabs: TabSize::default().hard_tabs,
              syntax: HashMap::new(),
 +            colors: HashMap::new(),
              font_family: None,
              font_size: None,
          }
-@@ -248,6 +256,7 @@ pub(crate) struct EntityRelease {
+@@ -266,6 +274,7 @@ pub(crate) struct EntityRelease {
      handles: HashSet<EntityHandle>,
      _records: Vec<StoredRecord>,
      views: Vec<(Entity<ScriptView>, Weak<ShellRuntime>)>,
@@ -1911,7 +1818,7 @@ index 790ab6c..78fe1d0 100644
  }
  
  impl EntityRelease {
-@@ -256,6 +265,7 @@ impl EntityRelease {
+@@ -274,6 +283,7 @@ impl EntityRelease {
              handles: HashSet::new(),
              _records: Vec::new(),
              views: Vec::new(),
@@ -1919,7 +1826,7 @@ index 790ab6c..78fe1d0 100644
          }
      }
  
-@@ -278,6 +288,9 @@ impl EntityRelease {
+@@ -296,6 +306,9 @@ impl EntityRelease {
          for (view, _) in &self.views {
              view.update(cx, |view, _| view.retire());
          }
@@ -1929,7 +1836,7 @@ index 790ab6c..78fe1d0 100644
          // `records` and the extra entity clones drop only after every snapshot
          // has been cleared. Script values therefore remain inside VM lifetime.
      }
-@@ -303,6 +316,7 @@ impl EntityStore {
+@@ -321,6 +334,7 @@ impl EntityStore {
              Record::Textarea { .. } => Some("TextareaState"),
              // HERDR: expose the distinct code-editor handle type.
              Record::Editor { .. } => Some("EditorState"),
@@ -1937,7 +1844,7 @@ index 790ab6c..78fe1d0 100644
              Record::Calendar { .. } => Some("CalendarState"),
              Record::Slider { .. } => Some("SliderState"),
              Record::Otp { .. } => Some("OtpState"),
-@@ -483,6 +497,42 @@ impl EntityStore {
+@@ -504,6 +518,42 @@ impl EntityStore {
          })
      }
  
@@ -1980,7 +1887,7 @@ index 790ab6c..78fe1d0 100644
      // HERDR: never resolve an editor as an input or textarea.
      pub fn editor(&self, handle: EntityHandle) -> Option<Entity<EditorState>> {
          match self.record(handle) {
-@@ -937,12 +987,21 @@ impl EntityStore {
+@@ -996,12 +1046,21 @@ impl EntityStore {
          let Some(record) = self.records.get(&id) else {
              return false;
          };
@@ -2003,7 +1910,7 @@ index 790ab6c..78fe1d0 100644
      /// Releases a retained view and everything created under its ownership.
      ///
      /// This is deliberately typed: retiring a view must synchronously clear
-@@ -1018,6 +1077,7 @@ impl EntityStore {
+@@ -1077,6 +1136,7 @@ impl EntityStore {
                  }
                  // HERDR: unload editors and their subscriptions with the owning mod.
                  | Record::Editor { application: owner, .. }
@@ -2011,7 +1918,7 @@ index 790ab6c..78fe1d0 100644
                  | Record::Slider {
                      application: owner, ..
                  }
-@@ -1067,11 +1127,15 @@ impl EntityStore {
+@@ -1129,11 +1189,15 @@ impl EntityStore {
              .collect();
          let mut records = Vec::with_capacity(ids.len());
          let mut views = Vec::new();
@@ -2027,7 +1934,7 @@ index 790ab6c..78fe1d0 100644
                  records.push(stored);
              }
          }
-@@ -1079,6 +1143,7 @@ impl EntityStore {
+@@ -1141,6 +1205,7 @@ impl EntityStore {
              handles,
              _records: records,
              views,
@@ -2036,33 +1943,33 @@ index 790ab6c..78fe1d0 100644
      }
  
 diff --git a/vendor/gpui-kit/crates/shell/src/lib.rs b/vendor/gpui-kit/crates/shell/src/lib.rs
-index 1951249..ffee536 100644
+index 6f12594f29d325e5d4a0f7c1fd1d208f52116853..1f3281419251877f0733a7f790c18ba2a61ad359 100644
 --- a/vendor/gpui-kit/crates/shell/src/lib.rs
 +++ b/vendor/gpui-kit/crates/shell/src/lib.rs
-@@ -99,6 +99,7 @@ mod typings;
- pub(crate) mod value;
+@@ -102,6 +102,7 @@ pub(crate) mod value;
  pub mod view;
  pub(crate) mod watch;
+ pub use watch::application_file_counts;
 +mod webview;
  
  pub use anyhow;
  pub use value::set_pixel_scale;
 diff --git a/vendor/gpui-kit/crates/shell/src/materialize.rs b/vendor/gpui-kit/crates/shell/src/materialize.rs
-index 5b6693b..f572162 100644
+index 5970e18b0ef3cc5bcced6f6002cd4e228d0bad61..387d799e5acf8d89c1da4b4368b3de6e862e6791 100644
 --- a/vendor/gpui-kit/crates/shell/src/materialize.rs
 +++ b/vendor/gpui-kit/crates/shell/src/materialize.rs
-@@ -316,6 +316,7 @@ struct Behavior {
-     disabled: bool,
-     selectable: Option<bool>,
+@@ -318,6 +318,7 @@ struct Behavior {
      text_scrollable: Option<bool>,
+     /// HERDR: `raw_html(false)` keeps a TextView's Markdown HTML as text.
+     raw_html: Option<bool>,
 +    text_colors: Option<crate::spec::TextViewColors>,
      on_link_click: Option<CallbackId>,
- 
-     /// Whether a `NumberInput` stacks both step buttons to the right of the
-@@ -1101,11 +1102,16 @@ fn materialize_component(
-             )
-         }
+     /// HERDR: `on_selection_change(handler)` on a TextView.
+     on_selection_change: Option<CallbackId>,
+@@ -1120,11 +1121,16 @@ fn materialize_component(
          Component::TextView(spec) => {
+             // HERDR: a cheap clone, for the offsets below.
+             let source_text = spec.text.clone();
 +            let style = TextViewStyle::from_theme(&Theme::global(cx));
 +            let style = match &behavior.text_colors {
 +                Some(colors) => colors.apply(style),
@@ -2077,7 +1984,7 @@ index 5b6693b..f572162 100644
              if let Some(selectable) = behavior.selectable {
                  view = view.selectable(selectable);
              }
-@@ -1603,6 +1609,12 @@ fn materialize_component(
+@@ -1644,6 +1650,12 @@ fn materialize_component(
          Component::Editor(handle) => {
              components::editor::editor(runtime, handle, refinement, behavior, states, children, cx)
          }
@@ -2090,7 +1997,7 @@ index 5b6693b..f572162 100644
          Component::NumberInput(handle) => components::number_input::number_input(
              runtime, snapshot, arena, handle, inherited, refinement, behavior, states, slot_specs,
              children, window, cx,
-@@ -2531,6 +2543,9 @@ fn motion_element_id(
+@@ -2644,6 +2656,9 @@ fn motion_element_id(
          Component::Editor(handle) => {
              gpui::ElementId::NamedInteger("gpui-shell-editor".into(), *handle)
          }
@@ -2100,10 +2007,10 @@ index 5b6693b..f572162 100644
          Component::NumberInput(handle) => {
              gpui::ElementId::NamedInteger("gpui-shell-number-input".into(), *handle)
          }
-@@ -3420,6 +3435,11 @@ fn apply_behavior(behavior: &mut Behavior, name: &str, args: &[Bridged]) {
-         "disabled" => behavior.disabled = flag.unwrap_or(true),
-         "selectable" => behavior.selectable = Some(flag.unwrap_or(true)),
+@@ -3574,6 +3589,11 @@ fn apply_behavior(behavior: &mut Behavior, name: &str, args: &[Bridged]) {
+         },
          "scrollable" => behavior.text_scrollable = Some(flag.unwrap_or(true)),
+         "raw_html" => behavior.raw_html = Some(flag.unwrap_or(true)),
 +        "text_colors" => {
 +            behavior.text_colors = args.first()
 +                .and_then(|value| value.as_str().ok())
@@ -2113,10 +2020,10 @@ index 5b6693b..f572162 100644
          "checked" => behavior.checked = flag.unwrap_or(true),
          "value" => behavior.value = args.first().and_then(|value| value.as_f32().ok()),
 diff --git a/vendor/gpui-kit/crates/shell/src/root.rs b/vendor/gpui-kit/crates/shell/src/root.rs
-index f247daa..69ddf9a 100644
+index cd1a85866ec4126d73459a94040d7d8613ead91f..3c1edf8e4388f8d289189139a77ca3cb0d18ea67 100644
 --- a/vendor/gpui-kit/crates/shell/src/root.rs
 +++ b/vendor/gpui-kit/crates/shell/src/root.rs
-@@ -290,6 +290,24 @@ impl ShellRoot {
+@@ -295,6 +295,24 @@ impl ShellRoot {
          Some(root.read(cx).tooltip_overlay.clone())
      }
  
@@ -2142,7 +2049,7 @@ index f247daa..69ddf9a 100644
      pub fn content(&self) -> &AnyView {
          &self.content
 diff --git a/vendor/gpui-kit/crates/shell/src/spec.rs b/vendor/gpui-kit/crates/shell/src/spec.rs
-index a22ebe7..548c4a9 100644
+index a22ebe77a4e3ba1b186575836ef7f8e772d74f41..548c4a9af1b5d6292262ded1afaf73d07e09c09d 100644
 --- a/vendor/gpui-kit/crates/shell/src/spec.rs
 +++ b/vendor/gpui-kit/crates/shell/src/spec.rs
 @@ -198,6 +198,79 @@ pub(crate) enum TextViewFormat {
@@ -2289,7 +2196,7 @@ index a22ebe7..548c4a9 100644
 +    }
 +}
 diff --git a/vendor/gpui-kit/crates/shell/src/tests/host_api.rs b/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
-index 72516eb..e646792 100644
+index 72516eba3dc77eed012ffc7095dafb86368df072..e646792d4d824965a8736d4b45136ed71bfb4921 100644
 --- a/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
 +++ b/vendor/gpui-kit/crates/shell/src/tests/host_api.rs
 @@ -318,3 +318,62 @@ impl gpui::Render for Empty {
@@ -2356,11 +2263,11 @@ index 72516eb..e646792 100644
 +    std::fs::remove_dir_all(directory).unwrap();
 +}
 diff --git a/vendor/gpui-kit/crates/shell/src/typings.rs b/vendor/gpui-kit/crates/shell/src/typings.rs
-index 813b410..862175e 100644
+index 4d74df5dd950da8479bcd5c6cf39cbb7065cdc7a..af351a89bf18cd5866b9ba5c887c41081c366643 100644
 --- a/vendor/gpui-kit/crates/shell/src/typings.rs
 +++ b/vendor/gpui-kit/crates/shell/src/typings.rs
-@@ -2413,6 +2413,9 @@ const BASE: &str = r#"  /** A row. */
-   export const Switch: ComponentType;
+@@ -2485,6 +2485,9 @@ const BASE: &str = r#"  /** A row. */
+   }
    /** Rich HTML or Markdown text. CSS in HTML is not supported. */
    export interface TextViewElement extends NativeElement {
 +    /** Per-view palette overrides; omitted fields follow the host theme. */
@@ -2368,10 +2275,10 @@ index 813b410..862175e 100644
 +      selection?: string; code_background?: string; border?: string; dark?: boolean }): this;
      /** Overrides TextView's default URL opening and reports the resolved URL. */
      on_link_click(handler: (url: string, cx: Context) => void): this;
-     selectable(value?: boolean): this;
-@@ -3168,10 +3171,25 @@ const BASE: &str = r#"  /** A row. */
-        * constant, variable, operator, punctuation, boolean, string.escape.
-        * Values are concrete hex colors; unspecified UI colors follow the theme. */
+     /**
+@@ -3341,10 +3344,25 @@ const BASE: &str = r#"  /** A row. */
+        * Values are concrete hex colors. Built-in syntax colors use a dark palette.
+        * Unspecified editor UI colors follow the theme. */
        syntax?: Record<string, string>;
 +      /** Editor UI colors, independent of syntax and the host theme. */
 +      colors?: { foreground?: string; muted_foreground?: string; background?: string;
@@ -2395,21 +2302,21 @@ index 813b410..862175e 100644
    /** One thumb, or the two ends of a range. */
    export type SliderValue = number | [number, number];
  
-@@ -4678,6 +4696,8 @@ mod tests {
-         assert!(!element.contains("on_link_click("));
-         assert!(!element.contains("selectable("));
-         assert!(!element.contains("scrollable("));
+@@ -4864,6 +4882,8 @@ mod tests {
+             .expect("end of TextViewElement declaration")
+             .0;
+         assert!(text_view.contains("raw_html(value?: boolean): this;"));
 +        assert!(!element.contains("text_colors("));
-+        assert!(declarations.contains("text_colors(colors:"));
-         assert!(declarations.contains("export interface TextViewElement extends NativeElement"));
++        assert!(text_view.contains("text_colors(colors:"));
          assert!(declarations.contains("html(id: string, html: string): TextViewElement;"));
      }
+ 
 diff --git a/vendor/gpui-kit/crates/shell/src/webview.rs b/vendor/gpui-kit/crates/shell/src/webview.rs
 new file mode 100644
-index 0000000..be24cfb
+index 0000000000000000000000000000000000000000..c9d6c1c434fe148fbcc8304965084270f896f728
 --- /dev/null
 +++ b/vendor/gpui-kit/crates/shell/src/webview.rs
-@@ -0,0 +1,714 @@
+@@ -0,0 +1,736 @@
 +//! HERDR: a retained, local-only WebView for document editor mods.
 +//!
 +//! This host does not grant the page file or network access. The owning mod
@@ -2584,6 +2491,7 @@ index 0000000..be24cfb
 +        self.focus_handle = Some(cx.focus_handle());
 +        let assets = self.assets.clone();
 +        let (send, receive) = message_channel();
++        let file_drop = send.clone();
 +        let url = format!("{ORIGIN}/{}", self.entry);
 +        let native = wry::WebViewBuilder::new()
 +            .with_url(&url)
@@ -2603,6 +2511,27 @@ index 0000000..be24cfb
 +                        .is_some_and(|tail| tail.starts_with('#'))
 +            })
 +            .with_new_window_req_handler(|_, _| wry::NewWindowResponse::Deny)
++            .with_drag_drop_handler(move |event| {
++                use wry::DragDropEvent;
++                let (paths, dropped) = match event {
++                    DragDropEvent::Enter { paths, .. } => (paths, false),
++                    DragDropEvent::Drop { paths, .. } => (paths, true),
++                    _ => return false,
++                };
++                let [path] = paths.as_slice() else {
++                    return false;
++                };
++                let Some(file) = path.to_str() else {
++                    return false;
++                };
++                let markdown = path.extension().and_then(|ext| ext.to_str()).is_some_and(|ext| {
++                    ["md", "markdown", "mdown", "mkd"].iter().any(|item| ext.eq_ignore_ascii_case(item))
++                });
++                if !path.is_absolute() || !markdown || !path.is_file() {
++                    return false;
++                }
++                !dropped || file_drop.try_send(serde_json::json!({"type": "open", "file": file}).to_string()).is_ok()
++            })
 +            .with_ipc_handler(move |request| {
 +                if request.uri().scheme_str() == Some("herdr-mod")
 +                    && request.uri().host() == Some("localhost")
@@ -3125,7 +3054,7 @@ index 0000000..be24cfb
 +    }
 +}
 diff --git a/vendor/gpui-pre-macos/src/window.rs b/vendor/gpui-pre-macos/src/window.rs
-index add7a27..9fa93e3 100644
+index 7ffc673f269f039a45f4cfedd4f1a04a98071de1..3065cdd1005d831f895838b8da5adc86c3d305fd 100644
 --- a/vendor/gpui-pre-macos/src/window.rs
 +++ b/vendor/gpui-pre-macos/src/window.rs
 @@ -415,6 +415,12 @@ pub(crate) unsafe fn set_active_window_cursor_style(style: CursorStyle) {
@@ -3141,7 +3070,7 @@ index add7a27..9fa93e3 100644
          if window_state.cursor_style != style {
              window_state.cursor_style = style;
              let _: () = msg_send![
-@@ -2531,6 +2537,31 @@ fn add_mouse_tracking_area(native_view: &Objc2NSView) {
+@@ -2543,6 +2549,31 @@ fn add_mouse_tracking_area(native_view: &Objc2NSView) {
      native_view.addTrackingArea(&tracking_area);
  }
  
@@ -3173,7 +3102,7 @@ index add7a27..9fa93e3 100644
  extern "C" fn reset_cursor_rects(this: &Object, _: Sel) {
      // SAFETY: AppKit invokes cursor-rect updates on the main thread for GPUIView instances,
      // whose WINDOW_STATE_IVAR is initialized when the view is created. The cursor registered
-@@ -2578,11 +2609,23 @@ extern "C" fn reset_cursor_rects(this: &Object, _: Sel) {
+@@ -2590,11 +2621,23 @@ extern "C" fn reset_cursor_rects(this: &Object, _: Sel) {
          };
  
          let bounds = NSView::bounds(this as *const Object as id);
@@ -3198,7 +3127,7 @@ index add7a27..9fa93e3 100644
      handle_key_event(this, native_event, true)
  }
  
-@@ -3972,6 +4015,20 @@ extern "C" fn toggle_tab_bar(this: &Object, _sel: Sel, _id: id) {
+@@ -3994,6 +4037,20 @@ extern "C" fn toggle_tab_bar(this: &Object, _sel: Sel, _id: id) {
  mod tests {
      use super::*;
  
@@ -3221,7 +3150,7 @@ index add7a27..9fa93e3 100644
          assert_eq!(display_id_for_screen(nil), None);
 diff --git a/vendor/lb-wry/.cargo/config.toml b/vendor/lb-wry/.cargo/config.toml
 new file mode 100644
-index 0000000..3f6a4c7
+index 0000000000000000000000000000000000000000..3f6a4c76b197bd20f7130bc3828bf1546fe6474e
 --- /dev/null
 +++ b/vendor/lb-wry/.cargo/config.toml
 @@ -0,0 +1,4 @@
@@ -3231,7 +3160,7 @@ index 0000000..3f6a4c7
 +rustflags = ["-C", "link-arg=-mmacosx-version-min=10.12"]
 diff --git a/vendor/lb-wry/.cargo_vcs_info.json b/vendor/lb-wry/.cargo_vcs_info.json
 new file mode 100644
-index 0000000..962a4b5
+index 0000000000000000000000000000000000000000..962a4b5e7300096f34b002f07aba7991a5817469
 --- /dev/null
 +++ b/vendor/lb-wry/.cargo_vcs_info.json
 @@ -0,0 +1,6 @@
@@ -3244,7 +3173,7 @@ index 0000000..962a4b5
 \ No newline at end of file
 diff --git a/vendor/lb-wry/.gitignore b/vendor/lb-wry/.gitignore
 new file mode 100644
-index 0000000..0a01592
+index 0000000000000000000000000000000000000000..0a0159271026acda75710837180199771c1ede61
 --- /dev/null
 +++ b/vendor/lb-wry/.gitignore
 @@ -0,0 +1,9 @@
@@ -3259,7 +3188,7 @@ index 0000000..0a01592
 +.vscode/
 diff --git a/vendor/lb-wry/.license_template b/vendor/lb-wry/.license_template
 new file mode 100644
-index 0000000..9601f8a
+index 0000000000000000000000000000000000000000..9601f8a1b49fe2a84c593860682c741aa3d6ec88
 --- /dev/null
 +++ b/vendor/lb-wry/.license_template
 @@ -0,0 +1,3 @@
@@ -3269,7 +3198,7 @@ index 0000000..9601f8a
 \ No newline at end of file
 diff --git a/vendor/lb-wry/CHANGELOG.md b/vendor/lb-wry/CHANGELOG.md
 new file mode 100644
-index 0000000..d36485e
+index 0000000000000000000000000000000000000000..d36485e9e748aa3321e18cf907addca11cdbc087
 --- /dev/null
 +++ b/vendor/lb-wry/CHANGELOG.md
 @@ -0,0 +1,1202 @@
@@ -4477,7 +4406,7 @@ index 0000000..d36485e
 +  - [fed0ee7](https://github.com/tauri-apps/wry/commit/fed0ee772100ad19a344a85266618c7bcf7cb649) File drop handlers ([#96](https://github.com/tauri-apps/wry/pull/96)) on 2021-03-09
 diff --git a/vendor/lb-wry/Cargo.toml b/vendor/lb-wry/Cargo.toml
 new file mode 100644
-index 0000000..ee62f99
+index 0000000000000000000000000000000000000000..ee62f99f44b5955fd3561aeb004fd5c37aff9ad8
 --- /dev/null
 +++ b/vendor/lb-wry/Cargo.toml
 @@ -0,0 +1,422 @@
@@ -4905,7 +4834,7 @@ index 0000000..ee62f99
 +]
 diff --git a/vendor/lb-wry/Cargo.toml.orig b/vendor/lb-wry/Cargo.toml.orig
 new file mode 100644
-index 0000000..3747152
+index 0000000000000000000000000000000000000000..3747152467f5cba43309884267e024cc94fb27ba
 --- /dev/null
 +++ b/vendor/lb-wry/Cargo.toml.orig
 @@ -0,0 +1,221 @@
@@ -5132,7 +5061,7 @@ index 0000000..3747152
 +check-cfg = ["cfg(linux)", "cfg(gtk)"]
 diff --git a/vendor/lb-wry/LICENSE-APACHE b/vendor/lb-wry/LICENSE-APACHE
 new file mode 100644
-index 0000000..16fe87b
+index 0000000000000000000000000000000000000000..16fe87b06e802f094b3fbb0894b137bca2b16ef1
 --- /dev/null
 +++ b/vendor/lb-wry/LICENSE-APACHE
 @@ -0,0 +1,201 @@
@@ -5339,7 +5268,7 @@ index 0000000..16fe87b
 +limitations under the License.
 diff --git a/vendor/lb-wry/LICENSE-MIT b/vendor/lb-wry/LICENSE-MIT
 new file mode 100644
-index 0000000..94ef8bf
+index 0000000000000000000000000000000000000000..94ef8bf7650067d48d5b765fe9762ca4cb0e62c6
 --- /dev/null
 +++ b/vendor/lb-wry/LICENSE-MIT
 @@ -0,0 +1,21 @@
@@ -5366,7 +5295,7 @@ index 0000000..94ef8bf
 +SOFTWARE.
 diff --git a/vendor/lb-wry/LICENSE.spdx b/vendor/lb-wry/LICENSE.spdx
 new file mode 100644
-index 0000000..7e0eb72
+index 0000000000000000000000000000000000000000..7e0eb72a98460b0e16aeaa01e8e5c12e88b5c273
 --- /dev/null
 +++ b/vendor/lb-wry/LICENSE.spdx
 @@ -0,0 +1,20 @@
@@ -5393,7 +5322,7 @@ index 0000000..7e0eb72
 \ No newline at end of file
 diff --git a/vendor/lb-wry/MOBILE.md b/vendor/lb-wry/MOBILE.md
 new file mode 100644
-index 0000000..e164405
+index 0000000000000000000000000000000000000000..e1644057909340a96295c91d5ffb99895536ed72
 --- /dev/null
 +++ b/vendor/lb-wry/MOBILE.md
 @@ -0,0 +1,332 @@
@@ -5731,7 +5660,7 @@ index 0000000..e164405
 +Open Safari > Develop > [Your Device Name] > [Your WebView].
 diff --git a/vendor/lb-wry/README.md b/vendor/lb-wry/README.md
 new file mode 100644
-index 0000000..4b80c2b
+index 0000000000000000000000000000000000000000..4b80c2be6910bf9fe47aff6d255c53c98f6bc5ee
 --- /dev/null
 +++ b/vendor/lb-wry/README.md
 @@ -0,0 +1,317 @@
@@ -6054,7 +5983,7 @@ index 0000000..4b80c2b
 +[`tracing`]: https://docs.rs/tracing
 diff --git a/vendor/lb-wry/SECURITY.md b/vendor/lb-wry/SECURITY.md
 new file mode 100644
-index 0000000..cbd06de
+index 0000000000000000000000000000000000000000..cbd06ded3472b1951d57bf5174a25d2516a6f1e7
 --- /dev/null
 +++ b/vendor/lb-wry/SECURITY.md
 @@ -0,0 +1,19 @@
@@ -6079,7 +6008,7 @@ index 0000000..cbd06de
 +but in extreme cases will at our discretion consider a reward.
 diff --git a/vendor/lb-wry/build.rs b/vendor/lb-wry/build.rs
 new file mode 100644
-index 0000000..13ff4cf
+index 0000000000000000000000000000000000000000..13ff4cff40e8cb8656b08fc39d5b2c01dde880c1
 --- /dev/null
 +++ b/vendor/lb-wry/build.rs
 @@ -0,0 +1,118 @@
@@ -6203,7 +6132,7 @@ index 0000000..13ff4cf
 +}
 diff --git a/vendor/lb-wry/examples/async_custom_protocol.rs b/vendor/lb-wry/examples/async_custom_protocol.rs
 new file mode 100644
-index 0000000..91dbefa
+index 0000000000000000000000000000000000000000..91dbefafd0e85f6402a6ce311ef56a69dfb14d28
 --- /dev/null
 +++ b/vendor/lb-wry/examples/async_custom_protocol.rs
 @@ -0,0 +1,117 @@
@@ -6326,7 +6255,7 @@ index 0000000..91dbefa
 +}
 diff --git a/vendor/lb-wry/examples/cookies.rs b/vendor/lb-wry/examples/cookies.rs
 new file mode 100644
-index 0000000..5b856df
+index 0000000000000000000000000000000000000000..5b856df59f7a40dee13f63accc6b315d4d4b89a7
 --- /dev/null
 +++ b/vendor/lb-wry/examples/cookies.rs
 @@ -0,0 +1,73 @@
@@ -6405,7 +6334,7 @@ index 0000000..5b856df
 +}
 diff --git a/vendor/lb-wry/examples/custom_protocol.rs b/vendor/lb-wry/examples/custom_protocol.rs
 new file mode 100644
-index 0000000..ccf1ae6
+index 0000000000000000000000000000000000000000..ccf1ae6f3484d4015fed091cb002152c3615e8e5
 --- /dev/null
 +++ b/vendor/lb-wry/examples/custom_protocol.rs
 @@ -0,0 +1,117 @@
@@ -6528,7 +6457,7 @@ index 0000000..ccf1ae6
 +}
 diff --git a/vendor/lb-wry/examples/custom_protocol/index.html b/vendor/lb-wry/examples/custom_protocol/index.html
 new file mode 100644
-index 0000000..0a92c75
+index 0000000000000000000000000000000000000000..0a92c758fb88e8d69e2e91bba7e8ed7a69a23c2b
 --- /dev/null
 +++ b/vendor/lb-wry/examples/custom_protocol/index.html
 @@ -0,0 +1,26 @@
@@ -6560,7 +6489,7 @@ index 0000000..0a92c75
 +</html>
 diff --git a/vendor/lb-wry/examples/custom_protocol/script.js b/vendor/lb-wry/examples/custom_protocol/script.js
 new file mode 100644
-index 0000000..f6f257d
+index 0000000000000000000000000000000000000000..f6f257dcb375d754bf99f7ceae1386a23ed2ba84
 --- /dev/null
 +++ b/vendor/lb-wry/examples/custom_protocol/script.js
 @@ -0,0 +1,22 @@
@@ -6588,7 +6517,7 @@ index 0000000..f6f257d
 +}
 diff --git a/vendor/lb-wry/examples/custom_protocol/subpage.html b/vendor/lb-wry/examples/custom_protocol/subpage.html
 new file mode 100644
-index 0000000..db373d5
+index 0000000000000000000000000000000000000000..db373d554a80c392b29bd0bd01b6bd50dd42a291
 --- /dev/null
 +++ b/vendor/lb-wry/examples/custom_protocol/subpage.html
 @@ -0,0 +1,20 @@
@@ -6626,7 +6555,7 @@ HcmV?d00001
 
 diff --git a/vendor/lb-wry/examples/custom_titlebar.rs b/vendor/lb-wry/examples/custom_titlebar.rs
 new file mode 100644
-index 0000000..226207a
+index 0000000000000000000000000000000000000000..226207ac842f63404c76cd5add927603a21fbd4e
 --- /dev/null
 +++ b/vendor/lb-wry/examples/custom_titlebar.rs
 @@ -0,0 +1,304 @@
@@ -6936,7 +6865,7 @@ index 0000000..226207a
 +}
 diff --git a/vendor/lb-wry/examples/gtk_multiwebview.rs b/vendor/lb-wry/examples/gtk_multiwebview.rs
 new file mode 100644
-index 0000000..3e47efd
+index 0000000000000000000000000000000000000000..3e47efd4ea1a71848d3054e63a7315ba3fbe451a
 --- /dev/null
 +++ b/vendor/lb-wry/examples/gtk_multiwebview.rs
 @@ -0,0 +1,133 @@
@@ -7075,7 +7004,7 @@ index 0000000..3e47efd
 +}
 diff --git a/vendor/lb-wry/examples/multiwebview.rs b/vendor/lb-wry/examples/multiwebview.rs
 new file mode 100644
-index 0000000..6540c15
+index 0000000000000000000000000000000000000000..6540c15418e004c74d29d8e6d7b21b01fd2500f3
 --- /dev/null
 +++ b/vendor/lb-wry/examples/multiwebview.rs
 @@ -0,0 +1,168 @@
@@ -7249,7 +7178,7 @@ index 0000000..6540c15
 +}
 diff --git a/vendor/lb-wry/examples/multiwindow.rs b/vendor/lb-wry/examples/multiwindow.rs
 new file mode 100644
-index 0000000..0514f99
+index 0000000000000000000000000000000000000000..0514f99e86ecc2178df8557b2f45808888322bae
 --- /dev/null
 +++ b/vendor/lb-wry/examples/multiwindow.rs
 @@ -0,0 +1,125 @@
@@ -7380,7 +7309,7 @@ index 0000000..0514f99
 +}
 diff --git a/vendor/lb-wry/examples/reparent.rs b/vendor/lb-wry/examples/reparent.rs
 new file mode 100644
-index 0000000..1b54765
+index 0000000000000000000000000000000000000000..1b5476508dff568c96bcdecb432f3fbd5b75bd4e
 --- /dev/null
 +++ b/vendor/lb-wry/examples/reparent.rs
 @@ -0,0 +1,111 @@
@@ -7497,7 +7426,7 @@ index 0000000..1b54765
 +}
 diff --git a/vendor/lb-wry/examples/simple.rs b/vendor/lb-wry/examples/simple.rs
 new file mode 100644
-index 0000000..6b36573
+index 0000000000000000000000000000000000000000..6b3657338cef5b472286a861f1e7a04f88c62f7d
 --- /dev/null
 +++ b/vendor/lb-wry/examples/simple.rs
 @@ -0,0 +1,71 @@
@@ -7574,7 +7503,7 @@ index 0000000..6b36573
 +}
 diff --git a/vendor/lb-wry/examples/streaming.rs b/vendor/lb-wry/examples/streaming.rs
 new file mode 100644
-index 0000000..f7e6e5a
+index 0000000000000000000000000000000000000000..f7e6e5abea25ee9f6edb9c97e0f82275430ca76f
 --- /dev/null
 +++ b/vendor/lb-wry/examples/streaming.rs
 @@ -0,0 +1,277 @@
@@ -7857,7 +7786,7 @@ index 0000000..f7e6e5a
 +}
 diff --git a/vendor/lb-wry/examples/streaming/index.html b/vendor/lb-wry/examples/streaming/index.html
 new file mode 100644
-index 0000000..547cef0
+index 0000000000000000000000000000000000000000..547cef0d82f9c04fbdbcb7227b5ab6ebbc9b1905
 --- /dev/null
 +++ b/vendor/lb-wry/examples/streaming/index.html
 @@ -0,0 +1,38 @@
@@ -7901,7 +7830,7 @@ index 0000000..547cef0
 +</html>
 diff --git a/vendor/lb-wry/examples/transparent.rs b/vendor/lb-wry/examples/transparent.rs
 new file mode 100644
-index 0000000..0802012
+index 0000000000000000000000000000000000000000..0802012dc7483b656987ac40c899a8e36bf7284b
 --- /dev/null
 +++ b/vendor/lb-wry/examples/transparent.rs
 @@ -0,0 +1,80 @@
@@ -7987,7 +7916,7 @@ index 0000000..0802012
 +}
 diff --git a/vendor/lb-wry/examples/wgpu.rs b/vendor/lb-wry/examples/wgpu.rs
 new file mode 100644
-index 0000000..2b9ce1e
+index 0000000000000000000000000000000000000000..2b9ce1ea3f210201814c769f16818b61eac8eb86
 --- /dev/null
 +++ b/vendor/lb-wry/examples/wgpu.rs
 @@ -0,0 +1,273 @@
@@ -8266,7 +8195,7 @@ index 0000000..2b9ce1e
 +}
 diff --git a/vendor/lb-wry/examples/window_border.rs b/vendor/lb-wry/examples/window_border.rs
 new file mode 100644
-index 0000000..2520caf
+index 0000000000000000000000000000000000000000..2520caf4e2a28a4294407d142d090eafa173ebf0
 --- /dev/null
 +++ b/vendor/lb-wry/examples/window_border.rs
 @@ -0,0 +1,122 @@
@@ -8394,7 +8323,7 @@ index 0000000..2520caf
 +}
 diff --git a/vendor/lb-wry/examples/winit.rs b/vendor/lb-wry/examples/winit.rs
 new file mode 100644
-index 0000000..7299487
+index 0000000000000000000000000000000000000000..72994870094b88cfbc92fb3e25f28fa8447a35c1
 --- /dev/null
 +++ b/vendor/lb-wry/examples/winit.rs
 @@ -0,0 +1,100 @@
@@ -8500,7 +8429,7 @@ index 0000000..7299487
 +}
 diff --git a/vendor/lb-wry/renovate.json b/vendor/lb-wry/renovate.json
 new file mode 100644
-index 0000000..e0493a2
+index 0000000000000000000000000000000000000000..e0493a29a7fd673e1f6e7f45f2ed8b1bf2e6b2f1
 --- /dev/null
 +++ b/vendor/lb-wry/renovate.json
 @@ -0,0 +1,10 @@
@@ -8516,7 +8445,7 @@ index 0000000..e0493a2
 +}
 diff --git a/vendor/lb-wry/rustfmt.toml b/vendor/lb-wry/rustfmt.toml
 new file mode 100644
-index 0000000..a90653d
+index 0000000000000000000000000000000000000000..a90653d1089d1dbf76ec08e26087af35098e583c
 --- /dev/null
 +++ b/vendor/lb-wry/rustfmt.toml
 @@ -0,0 +1,15 @@
@@ -8537,7 +8466,7 @@ index 0000000..a90653d
 +#license_template_path = ".license_template"
 diff --git a/vendor/lb-wry/src/android/binding.rs b/vendor/lb-wry/src/android/binding.rs
 new file mode 100644
-index 0000000..8e71568
+index 0000000000000000000000000000000000000000..8e71568344b5bf4dd34317255a3a5b3db2f5f21e
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/binding.rs
 @@ -0,0 +1,415 @@
@@ -8958,7 +8887,7 @@ index 0000000..8e71568
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/Ipc.kt b/vendor/lb-wry/src/android/kotlin/Ipc.kt
 new file mode 100644
-index 0000000..e8f8761
+index 0000000000000000000000000000000000000000..e8f87612f79bcca0d4cb6abf144f435294c11d4f
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/Ipc.kt
 @@ -0,0 +1,31 @@
@@ -8995,7 +8924,7 @@ index 0000000..e8f8761
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/Logger.kt b/vendor/lb-wry/src/android/kotlin/Logger.kt
 new file mode 100644
-index 0000000..3666ad2
+index 0000000000000000000000000000000000000000..3666ad2aac901285cf0dff1eedde644973348eca
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/Logger.kt
 @@ -0,0 +1,87 @@
@@ -9088,7 +9017,7 @@ index 0000000..3666ad2
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/PermissionHelper.kt b/vendor/lb-wry/src/android/kotlin/PermissionHelper.kt
 new file mode 100644
-index 0000000..b2471e5
+index 0000000000000000000000000000000000000000..b2471e515e449f4f817a970adbdf9bc5a9526dc4
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/PermissionHelper.kt
 @@ -0,0 +1,115 @@
@@ -9209,7 +9138,7 @@ index 0000000..b2471e5
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/RustWebChromeClient.kt b/vendor/lb-wry/src/android/kotlin/RustWebChromeClient.kt
 new file mode 100644
-index 0000000..b891926
+index 0000000000000000000000000000000000000000..b89192602c6911f6750f9e26d472eb46fdf6b104
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/RustWebChromeClient.kt
 @@ -0,0 +1,493 @@
@@ -9708,7 +9637,7 @@ index 0000000..b891926
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/RustWebView.kt b/vendor/lb-wry/src/android/kotlin/RustWebView.kt
 new file mode 100644
-index 0000000..8debc1c
+index 0000000000000000000000000000000000000000..8debc1c7ad5c865b40d808fe547f79ddd412cb69
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/RustWebView.kt
 @@ -0,0 +1,99 @@
@@ -9813,7 +9742,7 @@ index 0000000..8debc1c
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/RustWebViewClient.kt b/vendor/lb-wry/src/android/kotlin/RustWebViewClient.kt
 new file mode 100644
-index 0000000..343ad14
+index 0000000000000000000000000000000000000000..343ad1490c7a9f18fcbfb79a20e7b7e593bf9701
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/RustWebViewClient.kt
 @@ -0,0 +1,105 @@
@@ -9924,7 +9853,7 @@ index 0000000..343ad14
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/WryActivity.kt b/vendor/lb-wry/src/android/kotlin/WryActivity.kt
 new file mode 100644
-index 0000000..58b355d
+index 0000000000000000000000000000000000000000..58b355d8519d9f6df33f4b10787f09e5ca716e6f
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/WryActivity.kt
 @@ -0,0 +1,134 @@
@@ -10064,7 +9993,7 @@ index 0000000..58b355d
 +}
 diff --git a/vendor/lb-wry/src/android/kotlin/proguard-wry.pro b/vendor/lb-wry/src/android/kotlin/proguard-wry.pro
 new file mode 100644
-index 0000000..064ca36
+index 0000000000000000000000000000000000000000..064ca362bbfa521757a249a71cbecd56d6a8019e
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/kotlin/proguard-wry.pro
 @@ -0,0 +1,33 @@
@@ -10103,7 +10032,7 @@ index 0000000..064ca36
 +}
 diff --git a/vendor/lb-wry/src/android/main_pipe.rs b/vendor/lb-wry/src/android/main_pipe.rs
 new file mode 100644
-index 0000000..5b81048
+index 0000000000000000000000000000000000000000..5b81048ef0f27469ed8185cd90a330a4cfa7b514
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/main_pipe.rs
 @@ -0,0 +1,484 @@
@@ -10593,7 +10522,7 @@ index 0000000..5b81048
 +unsafe impl Send for SendEnteredSpan {}
 diff --git a/vendor/lb-wry/src/android/mod.rs b/vendor/lb-wry/src/android/mod.rs
 new file mode 100644
-index 0000000..61f62d1
+index 0000000000000000000000000000000000000000..61f62d104c564ea4b03dfe84bd61b3f02e57d356
 --- /dev/null
 +++ b/vendor/lb-wry/src/android/mod.rs
 @@ -0,0 +1,540 @@
@@ -11139,7 +11068,7 @@ index 0000000..61f62d1
 +}
 diff --git a/vendor/lb-wry/src/error.rs b/vendor/lb-wry/src/error.rs
 new file mode 100644
-index 0000000..aed324e
+index 0000000000000000000000000000000000000000..aed324ee4d48cb5748d867aa197445cae0f7d77e
 --- /dev/null
 +++ b/vendor/lb-wry/src/error.rs
 @@ -0,0 +1,77 @@
@@ -11222,7 +11151,7 @@ index 0000000..aed324e
 +}
 diff --git a/vendor/lb-wry/src/lib.rs b/vendor/lb-wry/src/lib.rs
 new file mode 100644
-index 0000000..1955d47
+index 0000000000000000000000000000000000000000..1955d47a5b10d45fb390628382dc14246502d086
 --- /dev/null
 +++ b/vendor/lb-wry/src/lib.rs
 @@ -0,0 +1,2510 @@
@@ -13738,7 +13667,7 @@ index 0000000..1955d47
 +}
 diff --git a/vendor/lb-wry/src/proxy.rs b/vendor/lb-wry/src/proxy.rs
 new file mode 100644
-index 0000000..c7a4260
+index 0000000000000000000000000000000000000000..c7a4260702c324c2aee87583e9f505f175c3f1cf
 --- /dev/null
 +++ b/vendor/lb-wry/src/proxy.rs
 @@ -0,0 +1,15 @@
@@ -13759,7 +13688,7 @@ index 0000000..c7a4260
 +}
 diff --git a/vendor/lb-wry/src/util.rs b/vendor/lb-wry/src/util.rs
 new file mode 100644
-index 0000000..62036d6
+index 0000000000000000000000000000000000000000..62036d6b48d641a09d89bcd0deeb9cfee8841c1b
 --- /dev/null
 +++ b/vendor/lb-wry/src/util.rs
 @@ -0,0 +1,13 @@
@@ -13778,7 +13707,7 @@ index 0000000..62036d6
 +}
 diff --git a/vendor/lb-wry/src/web_context.rs b/vendor/lb-wry/src/web_context.rs
 new file mode 100644
-index 0000000..f229d1a
+index 0000000000000000000000000000000000000000..f229d1a12802d20414383f15eceae00478570c6a
 --- /dev/null
 +++ b/vendor/lb-wry/src/web_context.rs
 @@ -0,0 +1,107 @@
@@ -13891,7 +13820,7 @@ index 0000000..f229d1a
 +}
 diff --git a/vendor/lb-wry/src/webkitgtk/drag_drop.rs b/vendor/lb-wry/src/webkitgtk/drag_drop.rs
 new file mode 100644
-index 0000000..5133713
+index 0000000000000000000000000000000000000000..51337133028138bfebb5f26ee653f5d52da3317a
 --- /dev/null
 +++ b/vendor/lb-wry/src/webkitgtk/drag_drop.rs
 @@ -0,0 +1,143 @@
@@ -14040,7 +13969,7 @@ index 0000000..5133713
 +}
 diff --git a/vendor/lb-wry/src/webkitgtk/mod.rs b/vendor/lb-wry/src/webkitgtk/mod.rs
 new file mode 100644
-index 0000000..43e06ec
+index 0000000000000000000000000000000000000000..43e06ec8ee91f273e153aac5bcc388568a6b8cd8
 --- /dev/null
 +++ b/vendor/lb-wry/src/webkitgtk/mod.rs
 @@ -0,0 +1,1259 @@
@@ -15305,7 +15234,7 @@ index 0000000..43e06ec
 +}
 diff --git a/vendor/lb-wry/src/webkitgtk/synthetic_mouse_events.rs b/vendor/lb-wry/src/webkitgtk/synthetic_mouse_events.rs
 new file mode 100644
-index 0000000..5c1d24f
+index 0000000000000000000000000000000000000000..5c1d24fcbb7d836271694008037836870b0df0ba
 --- /dev/null
 +++ b/vendor/lb-wry/src/webkitgtk/synthetic_mouse_events.rs
 @@ -0,0 +1,187 @@
@@ -15498,7 +15427,7 @@ index 0000000..5c1d24f
 +}
 diff --git a/vendor/lb-wry/src/webkitgtk/web_context.rs b/vendor/lb-wry/src/webkitgtk/web_context.rs
 new file mode 100644
-index 0000000..9bdef07
+index 0000000000000000000000000000000000000000..9bdef07509bd39e9d713005cd1c50af64e05f609
 --- /dev/null
 +++ b/vendor/lb-wry/src/webkitgtk/web_context.rs
 @@ -0,0 +1,402 @@
@@ -15906,7 +15835,7 @@ index 0000000..9bdef07
 +unsafe impl Sync for MainThreadRequest {}
 diff --git a/vendor/lb-wry/src/webview2/drag_drop.rs b/vendor/lb-wry/src/webview2/drag_drop.rs
 new file mode 100644
-index 0000000..960a07f
+index 0000000000000000000000000000000000000000..960a07f4d54112c24b15df4c9eea165ab31deb23
 --- /dev/null
 +++ b/vendor/lb-wry/src/webview2/drag_drop.rs
 @@ -0,0 +1,251 @@
@@ -16163,7 +16092,7 @@ index 0000000..960a07f
 +}
 diff --git a/vendor/lb-wry/src/webview2/mod.rs b/vendor/lb-wry/src/webview2/mod.rs
 new file mode 100644
-index 0000000..abdf4d5
+index 0000000000000000000000000000000000000000..abdf4d5b5f1918b541f766bfc81d6de94ded302d
 --- /dev/null
 +++ b/vendor/lb-wry/src/webview2/mod.rs
 @@ -0,0 +1,2130 @@
@@ -18299,7 +18228,7 @@ index 0000000..abdf4d5
 +}
 diff --git a/vendor/lb-wry/src/webview2/util.rs b/vendor/lb-wry/src/webview2/util.rs
 new file mode 100644
-index 0000000..f227e15
+index 0000000000000000000000000000000000000000..f227e15dc25955179aa63e9ffdaf3bae8108dbd3
 --- /dev/null
 +++ b/vendor/lb-wry/src/webview2/util.rs
 @@ -0,0 +1,101 @@
@@ -18406,7 +18335,7 @@ index 0000000..f227e15
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/document_title_changed_observer.rs b/vendor/lb-wry/src/wkwebview/class/document_title_changed_observer.rs
 new file mode 100644
-index 0000000..60042e3
+index 0000000000000000000000000000000000000000..60042e34d9ed4f041382582a1b129d1c67407295
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/document_title_changed_observer.rs
 @@ -0,0 +1,91 @@
@@ -18503,7 +18432,7 @@ index 0000000..60042e3
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/mod.rs b/vendor/lb-wry/src/wkwebview/class/mod.rs
 new file mode 100644
-index 0000000..22bd404
+index 0000000000000000000000000000000000000000..22bd404ef89d94348ee22cacbc6363eb6c508877
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/mod.rs
 @@ -0,0 +1,12 @@
@@ -18521,7 +18450,7 @@ index 0000000..22bd404
 +pub mod wry_web_view_ui_delegate;
 diff --git a/vendor/lb-wry/src/wkwebview/class/url_scheme_handler.rs b/vendor/lb-wry/src/wkwebview/class/url_scheme_handler.rs
 new file mode 100644
-index 0000000..c997a41
+index 0000000000000000000000000000000000000000..c997a41441d954f8292eda93b61fbe941a779f99
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/url_scheme_handler.rs
 @@ -0,0 +1,344 @@
@@ -18871,7 +18800,7 @@ index 0000000..c997a41
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_download_delegate.rs b/vendor/lb-wry/src/wkwebview/class/wry_download_delegate.rs
 new file mode 100644
-index 0000000..3339a04
+index 0000000000000000000000000000000000000000..3339a04e976c6e0b50fcdb5300e85889a93c3f28
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_download_delegate.rs
 @@ -0,0 +1,68 @@
@@ -18945,7 +18874,7 @@ index 0000000..3339a04
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_navigation_delegate.rs b/vendor/lb-wry/src/wkwebview/class/wry_navigation_delegate.rs
 new file mode 100644
-index 0000000..5919949
+index 0000000000000000000000000000000000000000..5919949b6457bc336a9b2ba64cd9cb460c20a9c2
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_navigation_delegate.rs
 @@ -0,0 +1,140 @@
@@ -19091,7 +19020,7 @@ index 0000000..5919949
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_web_view.rs b/vendor/lb-wry/src/wkwebview/class/wry_web_view.rs
 new file mode 100644
-index 0000000..a452147
+index 0000000000000000000000000000000000000000..a4521476792307356af463380d0ca8c6abdae405
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_web_view.rs
 @@ -0,0 +1,165 @@
@@ -19262,7 +19191,7 @@ index 0000000..a452147
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_web_view_delegate.rs b/vendor/lb-wry/src/wkwebview/class/wry_web_view_delegate.rs
 new file mode 100644
-index 0000000..1441cf8
+index 0000000000000000000000000000000000000000..1441cf85a9165f6c2fe5c332b49ba97721f2a744
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_web_view_delegate.rs
 @@ -0,0 +1,106 @@
@@ -19374,7 +19303,7 @@ index 0000000..1441cf8
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_web_view_parent.rs b/vendor/lb-wry/src/wkwebview/class/wry_web_view_parent.rs
 new file mode 100644
-index 0000000..21701bc
+index 0000000000000000000000000000000000000000..21701bcd1053dd9a739fb3b8751886e9d41e2c70
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_web_view_parent.rs
 @@ -0,0 +1,111 @@
@@ -19491,7 +19420,7 @@ index 0000000..21701bc
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/class/wry_web_view_ui_delegate.rs b/vendor/lb-wry/src/wkwebview/class/wry_web_view_ui_delegate.rs
 new file mode 100644
-index 0000000..223fcad
+index 0000000000000000000000000000000000000000..223fcadcc507089b5b86d0bb6563c1b22b454e9e
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/class/wry_web_view_ui_delegate.rs
 @@ -0,0 +1,288 @@
@@ -19785,7 +19714,7 @@ index 0000000..223fcad
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/download.rs b/vendor/lb-wry/src/wkwebview/download.rs
 new file mode 100644
-index 0000000..ab0952f
+index 0000000000000000000000000000000000000000..ab0952f6a86a503863dc965c8055805819132240
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/download.rs
 @@ -0,0 +1,122 @@
@@ -19913,7 +19842,7 @@ index 0000000..ab0952f
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/drag_drop.rs b/vendor/lb-wry/src/wkwebview/drag_drop.rs
 new file mode 100644
-index 0000000..e28364e
+index 0000000000000000000000000000000000000000..e28364e4a09ea04df7c18e11753e475b1d4ce6d3
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/drag_drop.rs
 @@ -0,0 +1,104 @@
@@ -20023,7 +19952,7 @@ index 0000000..e28364e
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/ios/WKWebView.rs b/vendor/lb-wry/src/wkwebview/ios/WKWebView.rs
 new file mode 100644
-index 0000000..4240914
+index 0000000000000000000000000000000000000000..4240914ed8f69a91bc4a5a106935e8eb3fa86df9
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/ios/WKWebView.rs
 @@ -0,0 +1,625 @@
@@ -20654,14 +20583,14 @@ index 0000000..4240914
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/ios/mod.rs b/vendor/lb-wry/src/wkwebview/ios/mod.rs
 new file mode 100644
-index 0000000..64ecbe7
+index 0000000000000000000000000000000000000000..64ecbe707824b1bbc127a68cf2f268e0dbb11619
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/ios/mod.rs
 @@ -0,0 +1 @@
 +pub mod WKWebView;
 diff --git a/vendor/lb-wry/src/wkwebview/mod.rs b/vendor/lb-wry/src/wkwebview/mod.rs
 new file mode 100644
-index 0000000..42d3afb
+index 0000000000000000000000000000000000000000..42d3afb7b595413fffd6ba1567bac0f4d3fb7729
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/mod.rs
 @@ -0,0 +1,1388 @@
@@ -22055,7 +21984,7 @@ index 0000000..42d3afb
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/navigation.rs b/vendor/lb-wry/src/wkwebview/navigation.rs
 new file mode 100644
-index 0000000..3583536
+index 0000000000000000000000000000000000000000..358353697bd5eb5773e7ab5a82c1169a58be1509
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/navigation.rs
 @@ -0,0 +1,104 @@
@@ -22165,7 +22094,7 @@ index 0000000..3583536
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/proxy.rs b/vendor/lb-wry/src/wkwebview/proxy.rs
 new file mode 100644
-index 0000000..b55ec64
+index 0000000000000000000000000000000000000000..b55ec647523710922b048df1234add7aba2375a9
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/proxy.rs
 @@ -0,0 +1,44 @@
@@ -22215,7 +22144,7 @@ index 0000000..b55ec64
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/synthetic_mouse_events.rs b/vendor/lb-wry/src/wkwebview/synthetic_mouse_events.rs
 new file mode 100644
-index 0000000..97c4273
+index 0000000000000000000000000000000000000000..97c42731369e7c0093ec0cea1376b03f8dbae561
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/synthetic_mouse_events.rs
 @@ -0,0 +1,123 @@
@@ -22344,7 +22273,7 @@ index 0000000..97c4273
 +}
 diff --git a/vendor/lb-wry/src/wkwebview/util.rs b/vendor/lb-wry/src/wkwebview/util.rs
 new file mode 100644
-index 0000000..ca396ae
+index 0000000000000000000000000000000000000000..ca396ae537e2daaff34fb8419e5a59fb38bda396
 --- /dev/null
 +++ b/vendor/lb-wry/src/wkwebview/util.rs
 @@ -0,0 +1,15 @@

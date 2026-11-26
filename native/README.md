@@ -2,12 +2,13 @@
 
 The complete Rich editor currently requires a macOS build of Herdr with the local WebView host extension. This directory contains the patch, including the local terminal Markdown link route and per-document text palettes used by the fallback preview.
 
-The upstream base is pinned in `base.json`. Apply the patch to that revision, rather than assuming it applies to a newer release:
+The upstream base is Herdr App 0.1.18, pinned in `base.json`. Apply the patch to that exact revision.
 
 ```sh
 git clone https://github.com/herdrdev/herdr-app.git
 cd herdr-app
-git checkout f6fe216e3078225619621174e62b8b4d8cc56513
+git checkout 9a9ae13d998e6ed74c76e8eb13bdeb2e1420f50c
+git submodule update --init --depth 1 vendor/ghostty
 git apply /absolute/path/to/herdr-markdown/native/herdr-markdown-host.patch
 cargo build --release --locked --bin herdr-app
 ```
@@ -15,6 +16,8 @@ cargo build --release --locked --bin herdr-app
 Use the upstream build prerequisites, including the pinned Rust dependencies, macOS SDK, and Zig 0.16 for the terminal library. This patch does not update or restart herdr-core.
 
 Test the resulting app in a separate `HERDR_APP_HOME` and a dedicated `HC_SESSION`. Clear inherited terminal-specific HC environment variables before launching the candidate. Copy the mod into that separate home, then run its check with the same explicit home. Keep the usual app and existing sessions intact until native UI validation succeeds.
+
+Finder drops on the document editor open one local Markdown file. Drops on a terminal retain the Herdr 0.1.18 behavior of pasting paths. Cmd-clicking a local Markdown path in a terminal opens a document tab.
 
 ## Mod API
 
