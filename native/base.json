@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/herdrdev/herdr-app",
-  "base": "f6fe216e3078225619621174e62b8b4d8cc56513",
-  "host": "be637ba774d3541684b96dd16771c58d99e87582",
+  "base": "9a9ae13d998e6ed74c76e8eb13bdeb2e1420f50c",
+  "host": "1fdfae9e2069f02c2180f5da6efc7c05e2c7d1ab",
   "platform": "macOS",
   "includes": [
     "local terminal Markdown Cmd-click route",
@@ -11,6 +11,8 @@
     "native document pane focus",
     "native child cursor ownership",
     "current-generation WebView visibility and synchronous retirement",
-    "filename-only Markdown tab titles"
+    "filename-only Markdown tab titles",
+    "Herdr 0.1.18 terminal file and folder drop behavior",
+    "local Markdown file drops on the document editor"
   ]
 }

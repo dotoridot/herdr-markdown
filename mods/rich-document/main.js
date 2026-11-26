@@ -1,6 +1,6 @@
 import {View,div} from 'gpui-kit';
 import * as base from 'gpui-base';
-import {props,appHome,readTextFile,writeTextFile,watchFolder,shared,setShared,theme,exec,notify} from 'herdr';
+import {run,spaces,props,appHome,readTextFile,writeTextFile,watchFolder,shared,setShared,theme,exec,notify} from 'herdr';
 import {resolveDocumentLink,relativeDocumentPath,isDocumentChange} from './parser.js';
 import Legacy from './legacy.js';
 
@@ -37,6 +37,15 @@ export default class Markdown extends View {
       const p=message.preferences;
       if(p&&['light','dark'].includes(p.appearance)&&Number.isFinite(p.fontSize))setShared(PREFERENCE,{appearance:p.appearance,fontSize:Math.max(11,Math.min(24,p.fontSize)),wide:p.wide===true});
     }else if(message.type==='open'&&typeof message.file==='string')this.open(message.file,cx,true);
+    else if(message.type==='open-drop'&&typeof message.file==='string'&&message.file.startsWith('/')&&/\.(?:md|markdown|mdown|mkd)$/i.test(message.file)){
+      const space=spaces().find(space=>space.active&&space.machine===null);
+      if(!space){
+        notify({title:'Local document drop',body:'Switch to a local space to open a Finder file.',level:'error'});
+        return;
+      }
+      const file=message.file;
+      run('tab.new',{space:space.id,name:file.slice(file.lastIndexOf('/')+1),mod:'rich-document',props:{file}});
+    }
     else if(message.type==='paste-path'&&Number.isSafeInteger(message.id)&&this.ready&&!this.closed){
       const text=cx.read_from_clipboard();
       this.post({type:'path-paste',id:message.id,text:typeof text==='string'&&byteLength(text)<=MAX_LENGTH?text:undefined});

@@ -2,7 +2,7 @@
 
 Open a Markdown file from a Herdr terminal and edit it in a tab. Use **Rich** to edit the formatted document directly, or switch to **Source** to edit the Markdown.
 
-> **Requires a patched macOS build of Herdr.** The bundled [native host patch](native/README.md) provides the WebView APIs used by the editor. Install the mod alongside that build to use Rich editing.
+> **Requires a patched macOS build of Herdr.** The bundled [native host patch](native/README.md) targets Herdr App 0.1.18 and provides the WebView APIs used by the editor. Install the mod alongside that build to use Rich editing.
 
 ## Edit and save in Rich
 
@@ -52,7 +52,7 @@ Open a document through the patched app's local terminal Cmd-click handler, or e
 herdr-app do tab.new '{"name":"notes.md","mod":"rich-document","props":{"file":"/absolute/path/notes.md"}}'
 ```
 
-Cmd-click handles existing local `.md`, `.markdown`, `.mdown`, and `.mkd` files. Remote terminal links retain Herdr's system opener behavior. Manually opened remote document props use the read-only native preview.
+Cmd-click handles existing local `.md`, `.markdown`, `.mdown`, and `.mkd` files. Remote terminal links retain Herdr's system opener behavior. In a local space, drop a Markdown file on the document editor to open it in a new tab. File and folder drops on a local terminal paste paths. Manually opened remote document props use the read-only native preview.
 
 The editing limit is 1 MiB of UTF-8 text per file. Local image previews are limited to 16 MiB. The legacy read-only preview targets earlier patched builds; compatibility with stock Herdr releases is not verified. Its optional Mermaid renderer needs Node, Python 3, local Chrome/Chromium, and `npm ci` in `mods/rich-document/renderer/`.
 
