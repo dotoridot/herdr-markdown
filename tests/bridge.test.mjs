@@ -5,14 +5,14 @@ import {readFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {parseMarkdown,resolveDocumentLink,relativeDocumentPath,isDocumentChange} from '../mods/rich-document/parser.js';
 
-async function host(){
+async function host(machine=null){
   const disk=new Map([['/docs/one.md','# One'],['/docs/two.md','# Two']]);
   const messages=[],writes=[],clipboard=[],commands=[],stored=new Map();let handler;
   const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){},read_from_clipboard:()=>'/docs/한글.md',write_to_clipboard:text=>clipboard.push(text)};
   const moduleExports={
     'gpui-kit':{View:class {},div(){}},
     'gpui-base':{WebViewState:{new(){return {on(_event,fn){handler=fn;},post_message(value){messages.push(JSON.parse(value));},release(){}};}},WebView:{}},
-    herdr:{run:(command,args)=>commands.push({command,args}),props:()=>({file:'/docs/one.md'}),appHome:()=>'/app',theme:()=>({background:'#fafafa'}),shared:()=>({}),setShared(){},
+    herdr:{run:(command,args)=>commands.push({command,args}),spaces:()=>[{id:'active-space',active:true,machine}],props:()=>({file:'/docs/one.md'}),appHome:()=>'/app',theme:()=>({background:'#fafafa'}),shared:()=>({}),setShared(){},
       readTextFile:async file=>disk.get(file)??null,
       writeTextFile:async(file,source,expected)=>{writes.push({file,source,expected});if(disk.get(file)!==expected)throw Error('stale snapshot');disk.set(file,source);},
       watchFolder:()=>new Promise(()=>{}),exec:async()=>({code:0,stdout:'{}'}),notify(){}},
@@ -82,7 +82,7 @@ test('a Finder Markdown drop opens a separate tab and retains the current draft'
   await h.send({type:'draft',snapshot:{file:'/docs/one.md',baseline:'# One',draft:'# Unsaved'}});
   await h.send({type:'open-drop',file:'/docs/한글.MD'});
   assert.deepEqual(h.commands.map(command=>JSON.parse(JSON.stringify(command))),[
-    {command:'tab.new',args:{name:'한글.MD',mod:'rich-document',props:{file:'/docs/한글.MD'}}}
+    {command:'tab.new',args:{space:'active-space',name:'한글.MD',mod:'rich-document',props:{file:'/docs/한글.MD'}}}
   ]);
   assert.equal(h.view.file,'/docs/one.md');
   assert.equal(h.view.drafts.get('/docs/one.md').draft,'# Unsaved');
@@ -90,4 +90,12 @@ test('a Finder Markdown drop opens a separate tab and retains the current draft'
   await h.send({type:'open-drop',file:'relative.md'});
   await h.send({type:'open-drop',file:'/docs/two.txt'});
   assert.equal(h.commands.length,1);
+});
+
+
+test('a Finder drop in a remote space does not create a tab',async()=>{
+  const h=await host('remote-machine');
+  await h.send({type:'open-drop',file:'/docs/two.md'});
+  assert.equal(h.commands.length,0);
+  assert.equal(h.view.file,'/docs/one.md');
 });
