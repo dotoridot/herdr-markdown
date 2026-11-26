@@ -7,12 +7,12 @@ import {parseMarkdown,resolveDocumentLink,relativeDocumentPath,isDocumentChange}
 
 async function host(){
   const disk=new Map([['/docs/one.md','# One'],['/docs/two.md','# Two']]);
-  const messages=[],writes=[],clipboard=[],stored=new Map();let handler;
+  const messages=[],writes=[],clipboard=[],commands=[],stored=new Map();let handler;
   const cx={spawn(fn){Promise.resolve(fn(cx)).catch(error=>{throw error;});},timer:{every(){}},notify(){},read_from_clipboard:()=>'/docs/한글.md',write_to_clipboard:text=>clipboard.push(text)};
   const moduleExports={
     'gpui-kit':{View:class {},div(){}},
     'gpui-base':{WebViewState:{new(){return {on(_event,fn){handler=fn;},post_message(value){messages.push(JSON.parse(value));},release(){}};}},WebView:{}},
-    herdr:{props:()=>({file:'/docs/one.md'}),appHome:()=>'/app',theme:()=>({background:'#fafafa'}),shared:()=>({}),setShared(){},
+    herdr:{run:(command,args)=>commands.push({command,args}),props:()=>({file:'/docs/one.md'}),appHome:()=>'/app',theme:()=>({background:'#fafafa'}),shared:()=>({}),setShared(){},
       readTextFile:async file=>disk.get(file)??null,
       writeTextFile:async(file,source,expected)=>{writes.push({file,source,expected});if(disk.get(file)!==expected)throw Error('stale snapshot');disk.set(file,source);},
       watchFolder:()=>new Promise(()=>{}),exec:async()=>({code:0,stdout:'{}'}),notify(){}},
@@ -27,7 +27,7 @@ async function host(){
   const flush=async()=>{for(let i=0;i<5;i++)await new Promise(resolve=>setImmediate(resolve));};
   const send=async message=>{handler(JSON.stringify(message),cx);await flush();};
   await send({type:'ready'});
-  return {view,messages,writes,clipboard,disk,send,flush};
+  return {view,messages,writes,clipboard,commands,disk,send,flush};
 }
 
 test('a failed open keeps the original document writable',async()=>{
@@ -74,4 +74,20 @@ test('a code block copy writes its text to the clipboard',async()=>{
   await h.send({type:'copy-code',text:42});
   await h.send({type:'copy-code',text:'x'.repeat(1024*1024+1)});
   assert.deepEqual(h.clipboard,['val answer = 42']);
+});
+
+
+test('a Finder Markdown drop opens a separate tab and retains the current draft',async()=>{
+  const h=await host();
+  await h.send({type:'draft',snapshot:{file:'/docs/one.md',baseline:'# One',draft:'# Unsaved'}});
+  await h.send({type:'open-drop',file:'/docs/한글.MD'});
+  assert.deepEqual(h.commands.map(command=>JSON.parse(JSON.stringify(command))),[
+    {command:'tab.new',args:{name:'한글.MD',mod:'rich-document',props:{file:'/docs/한글.MD'}}}
+  ]);
+  assert.equal(h.view.file,'/docs/one.md');
+  assert.equal(h.view.drafts.get('/docs/one.md').draft,'# Unsaved');
+  assert.equal(h.writes.length,0);
+  await h.send({type:'open-drop',file:'relative.md'});
+  await h.send({type:'open-drop',file:'/docs/two.txt'});
+  assert.equal(h.commands.length,1);
 });

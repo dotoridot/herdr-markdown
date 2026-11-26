@@ -23,4 +23,4 @@ Context-aware app close/reload retirement is covered by the lifecycle regression
 
 ## Herdr App 0.1.18 compatibility
 
-The arm64 macOS host passed `cargo check --offline --locked`, a locked release build, and the installed Markdown mod check in a separate app home. The 0.1.18 terminal paste handlers are identical to upstream. Finder-to-terminal and Finder-to-editor drag gestures on the rebuilt host need separate OS verification.
+The arm64 macOS host passed `cargo check --offline --locked`, a locked release build, and the installed Markdown mod check in a separate app home. The 0.1.18 terminal paste handlers are identical to upstream. The drop-message regression verifies that the local Markdown file opens in a separate tab and the original draft remains in place. Finder-to-terminal and Finder-to-editor drag gestures on the rebuilt host need separate OS verification.

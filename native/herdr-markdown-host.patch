@@ -1284,7 +1284,7 @@ index f935250ea0f4f63224a0a9b2ffd82e18b4499a20..61c94e8f8adda810c207e5f9abdb928e
  gpui-pre = { path = "vendor/gpui-pre" }
  gpui-pre-wgpu = { path = "vendor/gpui-pre-wgpu" }
 diff --git a/defaults/AGENTS.md b/defaults/AGENTS.md
-index 75ab98abbeb3e419a255e88a1f38500ef6369435..069cf5e92d72dd43f89f6afa6c46041e9ac8e851 100644
+index 75ab98abbeb3e419a255e88a1f38500ef6369435..ff7e2e141add3ee3296f76bc7400df65fd0d3ccd 100644
 --- a/defaults/AGENTS.md
 +++ b/defaults/AGENTS.md
 @@ -171,6 +171,29 @@ the highlighted line shows where it will land.
@@ -1295,7 +1295,7 @@ index 75ab98abbeb3e419a255e88a1f38500ef6369435..069cf5e92d72dd43f89f6afa6c46041e
 +  (Ctrl-click off macOS) on a local terminal's existing `.md`, `.markdown`,
 +  `.mdown` or `.mkd` file opens a document mod tab in that pane's space.
 +  Local `file://` URLs work too. Dropping a local Markdown file on the editor
-+  opens it there. Dropping files on a terminal keeps the terminal paste behavior.
++  opens it in a new document tab. Local terminal drops keep the terminal paste behavior.
 +  Other links and remote-terminal links keep
 +  the system opener. This is a personal build customization.
 +  The personal macOS host also provides `WebViewState.new({asset_root, entry?})`
@@ -1459,10 +1459,10 @@ index 31b60683022a2f9b92001356ded8ab42265ba59a..568d6d3ca348bb9f0d9a125c6858cf5e
      #[test]
      fn matches_like_ghostty() {
 diff --git a/src/terminal.rs b/src/terminal.rs
-index 31446ec4bac84308a3e59a2a9616ff7e554085c8..8dda163f4aacc4c1bc5790ae93f55a2bd188d343 100644
+index 31446ec4bac84308a3e59a2a9616ff7e554085c8..1f6e9222b1306c99d44119278ca0063d655cc5bd 100644
 --- a/src/terminal.rs
 +++ b/src/terminal.rs
-@@ -2549,17 +2549,23 @@ impl Render for TerminalView {
+@@ -2549,19 +2549,33 @@ impl Render for TerminalView {
                      g.core.resize(ch, g.vt.cols, g.vt.rows);
                  }
                  drop(g);
@@ -1480,18 +1480,29 @@ index 31446ec4bac84308a3e59a2a9616ff7e554085c8..8dda163f4aacc4c1bc5790ae93f55a2b
 -                        LinkTarget::External(click) => {
 -                            if let Some(target) = click.native {
 -                                links::open(&target);
-+                        LinkTarget::External(click) if reveal && !this.address.contains('/') => {
-+                            if let Some(path) = click.native.as_ref().and_then(links::local_path) {
++                        LinkTarget::External(click) if reveal => {
++                            if !this.address.contains('/')
++                                && let Some(path) = click.native.as_ref().and_then(links::local_path)
++                            {
 +                                links::reveal(&path);
++                                return;
                              }
                          }
 -                        LinkTarget::Terminal(address) => cx.emit(TerminalEvent::Peek(address)),
-+                        LinkTarget::External(click) if !reveal => cx.emit(TerminalEvent::Link(click)),
-+                        LinkTarget::Terminal(address) if !reveal => cx.emit(TerminalEvent::Peek(address)),
++                        LinkTarget::External(click) => {
++                            cx.emit(TerminalEvent::Link(click));
++                            return;
++                        }
++                        LinkTarget::Terminal(address) if !reveal => {
++                            cx.emit(TerminalEvent::Peek(address));
++                            return;
++                        }
 +                        _ => {}
                      }
-                     return;
+-                    return;
                  }
+                 let mut g = this.grid.borrow_mut();
+                 if let (Some(track), Some(thumb)) = (g.track, g.thumb)
 diff --git a/src/window.rs b/src/window.rs
 index 6372535271924fa7daba87feff9bb68afd7d1d23..bc3030cf9efcd68f2d22a40b9f10002dfc018311 100644
 --- a/src/window.rs
@@ -2313,7 +2324,7 @@ index 4d74df5dd950da8479bcd5c6cf39cbb7065cdc7a..af351a89bf18cd5866b9ba5c887c4108
  
 diff --git a/vendor/gpui-kit/crates/shell/src/webview.rs b/vendor/gpui-kit/crates/shell/src/webview.rs
 new file mode 100644
-index 0000000000000000000000000000000000000000..c9d6c1c434fe148fbcc8304965084270f896f728
+index 0000000000000000000000000000000000000000..c8d2e705b971e687dd13b04e4bfb1f943953883b
 --- /dev/null
 +++ b/vendor/gpui-kit/crates/shell/src/webview.rs
 @@ -0,0 +1,736 @@
@@ -2530,7 +2541,7 @@ index 0000000000000000000000000000000000000000..c9d6c1c434fe148fbcc8304965084270
 +                if !path.is_absolute() || !markdown || !path.is_file() {
 +                    return false;
 +                }
-+                !dropped || file_drop.try_send(serde_json::json!({"type": "open", "file": file}).to_string()).is_ok()
++                !dropped || file_drop.try_send(serde_json::json!({"type": "open-drop", "file": file}).to_string()).is_ok()
 +            })
 +            .with_ipc_handler(move |request| {
 +                if request.uri().scheme_str() == Some("herdr-mod")

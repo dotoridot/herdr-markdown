@@ -17,7 +17,7 @@ Use the upstream build prerequisites, including the pinned Rust dependencies, ma
 
 Test the resulting app in a separate `HERDR_APP_HOME` and a dedicated `HC_SESSION`. Clear inherited terminal-specific HC environment variables before launching the candidate. Copy the mod into that separate home, then run its check with the same explicit home. Keep the usual app and existing sessions intact until native UI validation succeeds.
 
-Finder drops on the document editor open one local Markdown file. Drops on a terminal retain the Herdr 0.1.18 behavior of pasting paths. Cmd-clicking a local Markdown path in a terminal opens a document tab.
+Dropping one local Markdown file on the document editor opens it in a new tab and keeps any draft in the current tab. Drops on a local terminal retain the Herdr 0.1.18 behavior of pasting paths. Cmd-clicking a local Markdown path in a terminal opens a document tab.
 
 ## Mod API
 
